@@ -1,0 +1,324 @@
+
+.bg-color {
+    background-color: #efe7ce!important;
+}
+
+.sheet-color {
+    background-color: #efe7ce!important;
+}
+
+/*==================User Image==================*/
+* {
+    box-sizing: border-box;
+}
+.containeruser {
+  position: relative;
+  width: 50%;
+  max-width: 300px;
+}
+.container img {
+  float: left;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+.imageuser {
+  display: block;
+  vertical-align: middle;
+  height: 100px;
+  border-radius: 50%;
+}
+.overlay {
+  position: absolute; 
+  bottom: 0; 
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1; 
+  width: 200%;
+  transition: .5s ease;
+  opacity:0;
+  color: white;
+  font-size: 20px;
+  padding-top: 0px;
+  padding-right: 7%;
+  padding-bottom: 15px;
+  padding-left: 7%;
+  text-align: center;
+}
+.containeruser:hover .overlay {
+  opacity: 1;
+}
+.avatar {
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+/*----------------------------Header-------------*/
+
+.header {
+  overflow: hidden;
+  background-color: #f1f1f1;
+  padding: 0px 0px;
+}
+
+.header a {
+  float: left;
+  color: black;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px; 
+  line-height: 25px;
+  border-radius: 4px;
+}
+.header a.logo {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.header a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.header a.active {
+  background-color: dodgerblue;
+  color: white;
+}
+
+.header-right {
+  float: right;
+}
+
+@media screen and (max-width: 500px) {
+  .header a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  
+  .header-right {
+    float: none;
+  }
+}
+
+.size-roll {
+    width: 55%!important;
+}
+.milk{
+    color: #ffffff;
+}
+.milk:hover {
+    color: #ffc107;
+}
+
+/*------------modal-------------------*/
+
+/* Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+.modal-header {
+    padding: 2px 16px;
+    background-color: #007bff73;
+    color: white;
+}
+.modal-body {
+    overflow-y: auto;
+    padding: 2px 16px;
+}
+.fade {
+    transition: opacity 0.15s linear;
+}
+@media (prefers-reduced-motion: reduce) {
+    .fade {
+        transition: none;
+    }
+}
+.fade:not(.show) {
+    opacity: 0;
+}
+
+/* Dropdown Button */
+.dropbtnhdr {
+  background-color: #ffc107;
+  color: white;
+  padding: 0px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #ffffff;
+  min-width: 160px;
+  box-shadow: 6px 6px 3px 0px rgba(0,0,0,0.5);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+ .dropdown-content a:hover {background-color: #ffc107;}
+.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropbtnhdr {background-color: #ffc107;}
+.dropdown-content a:hover {background-color: #ddd}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+/*.show {display:block;}*/
+
+.right{
+    float: right;
+    display: block;
+  }
+  
+  .padding-manual{
+    padding-top: 20px;
+    padding-right: 0px;
+    padding-bottom: 20px;
+    padding-left: 0px;
+  }
+  .padding-card{
+    padding: 20px;
+  }
+  
+  .scroll {
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+
+
+/* Create three unequal columns that floats next to each other */
+.column {
+  float: left;
+  padding: 10px; /* Should be removed. Only for demonstration */
+}
+
+.left {
+  width: 20%;
+} 
+
+.right {
+  width: 20%;
+}
+
+.middle {
+  width: 60%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 50px;
+  }
+}
+.card-header-answer {
+    padding: .75rem 1.25rem;
+    padding-top: 0.75rem;
+    padding-right: 1.25rem;
+    padding-bottom: 0.75rem;
+    padding-left: 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(0,0,0,.03);
+    border-bottom: 0px solid rgba(0,0,0,.125);
+}
+
+.link-icon {
+    color: #808488;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.content {
+  max-width: 92%;
+  margin: auto;
+  background: white;
+}
+
+.hr-fit{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.a-shet {
+    color: #c1910b;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+
+
+
+
+
+}
+.nav-tabs {
+    text-align:center;
+}
