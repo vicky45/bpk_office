@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\EventModel;
 use App\Join_EventModel;
+use App\SpeakerModel;
 use App\QuestionModel;
 use Illuminate\Support\Str;
 
@@ -20,7 +21,13 @@ class C_Event extends Controller {
     }
 
     public function create() {//create some page create
-        // Not Use
+        //Not Use
+    }
+     public function destroy($id) {//hapusSpeaker
+        //Not Use    
+    }
+    public function edit($id) {//update data berdasar
+        //Not Use
     }
 
     public function store(Request $request) {//insert data
@@ -78,11 +85,26 @@ class C_Event extends Controller {
             return redirect()->back()->with(['warning' => 'Code Tidak Terdaftar!']);
         endif;
     }
-    
-    public function destroy($id) {//hapus
-        $request->session()->forget('event');
-        return redirect('/home');
+    //    =====================Speaker Function==========================
+    public function speaker_add(Request $request){
+    $event = EventModel :: where('code_event', '=', $request->session()->get('event'))->get();
+        foreach ($event as $ev) {
+            $idEvent = $ev->idEvent;
+        }
+    SpeakerModel::create([
+        'idEvent' => $idEvent,
+        'name_speaker' => $request->speaker,
+    ]);
+    return redirect()->back()->with(['success' => 'Speaker Succes Added!']);
     }
+    
+    public function speaker_delete($id){
+    $speak = SpeakerModel::find($id);
+    $speak->delete();
+    return redirect()->back()->with(['success' => 'Speaker Succes Deleted!']);
+    }
+    
+   
 
     public function user_event(request $request) {// /homeuser
         $nip = null;
@@ -139,7 +161,7 @@ class C_Event extends Controller {
                     }
                     if ($nip === $domainA && $idEvent === $idEv):
                         return view('homeadmin', ['event' => $event]);
-                        else:
+                    else:
                         Join_EventModel::create([
                             'idEvent' => $idEvent,
                             'NIP' => Auth::user()->NIP
@@ -164,56 +186,15 @@ class C_Event extends Controller {
         if ($EventModel->exists) {
             $request->session()->forget('event');
             $request->session()->put('event', $request->code);
-            return redirect('/homeadmin');
+            return redirect('/homeadmin')->with(['success' => 'Update Event Completed!']);
         }
-        return redirect('/homeadmin');
+        return redirect('/homeadmin')->with(['error' => 'Update Event Failed!Try Again!']);
     }
-
-    /*     * ===============================================================================================**\
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-
-    public function show(Request $request, $codeevent) {
-        
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id) {//update data berdasar
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     
-
-    
-
-//    ===test case===  \\
-    public function tampilkanSession(Request $request) {
-        if ($request->session()->has('event')) {
-            echo $request->session()->get('event');
-        } else {
-            echo 'Tidak ada data dalam session.';
-        }
+    public function show(Request $request, $codeevent) {  //summary  
     }
 
-    // menghapus session
-    public function hapusSession(Request $request) {
-        $request->session()->forget('event');
-        echo "Data telah dihapus dari session.";
-    }
+    /** ===============================================================================================**/
+     
 
 }

@@ -91,7 +91,7 @@
                         <h2> Speaker</h2>
                         <hr>
                         <br>
-                        <form class="form-horizontal" method="post" action="/add_speaker">
+                        <form class="form-horizontal" method="POST" action="/speaker">
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <input type="text" class="form-control form-speaker" id="speaker" name="speaker" placeholder="Categories" required="required">
@@ -108,7 +108,7 @@
                             </div>
                             <div class="containeruser col-sm-5">
                                 <button class="btn">
-                                    <a class="link-icon" href="/delete_speaker/{{$speak->idSpeaker}}" style="text-decoration:none">
+                                    <a class="link-icon" href="/delete_speaker/{{$speak->idSpeaker}}">
                                         <i class="fa fa-trash float-right fa-2x"></i> 
                                     </a>
                                 </button>
@@ -118,10 +118,25 @@
                     </div>
                 </div>
                 <div class="row col-md-12">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <span class=" btn btn-primary" onclick="openNav()"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>  Create Speaker's</span>
                     </div>
-                    <div class="col-md-6">
+
+                    <div class="col-sm-4">
+                        @if ($message = Session::get('success'))
+                        <div class="alert alert-success alert-block">
+                            <button type="button" class="close" data-dismiss="alert">×</button> 
+                            <strong>{{ $message }}</strong>
+                        </div>
+                        @endif
+                        @if ($message = Session::get('error'))
+                        <div class="alert alert-danger alert-block">
+                            <button type="button" class="close" data-dismiss="alert">×</button> 
+                            <strong>{{ $message }}</strong>
+                        </div>
+                        @endif
+                    </div>
+                    <div class="col-md-4">
                         <a href="">
                             <button class="btn btn-outline-danger float-sm-right">
                                 End Event
@@ -202,7 +217,7 @@
                 </div>
             </div>
             <div id="poll" class=" tab-pane fade"><br>
-                <h3>Menu 1</h3>
+                <h3>Menu 1</h3
                 <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             </div>
             <div id="sum" class="tab-pane fade"><br>
@@ -224,6 +239,7 @@
                         <div class="modal-body">
                             @foreach ($event as $ev)
                             <form id="form-modal" class="form-horizontal" method="POST" action="{{route('tanja.update',$ev->idEvent)}}">
+                                {{ method_field('PATCH') }}
                                 {{ csrf_field() }}
                                 <!--form name event-->
                                 <div class="form-group">

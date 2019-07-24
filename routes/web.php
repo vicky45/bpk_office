@@ -4,6 +4,7 @@
 | Web Routes TANJA | Badan Pemeriksa Keuangan
 |--------------------------------------------------------------------------
 */
+//=====================Route Admin====================\\
 Route::get('/', function () { //Localhost master default link
     return view('satubpkhome');
 });
@@ -16,6 +17,11 @@ Route::get('/homeuser', 'C_Event@user_event');
 Route::resource('tanja','C_Event',[
     'only' => ['store','update']
     ]);
-//==test case==//
-Route::get('/session/tampil','C_Event@tampilkanSession');
-Route::get('/session/hapus','C_Event@hapusSession');
+//route speaker in Event
+Route::post('/speaker','C_Event@speaker_Add');
+Route::get('/delete_speaker/{id}','C_Event@speaker_delete');
+
+//=====================Route User=======================\\
+Route::resource('tanja','C_Question',[
+    'only'=> ['store','destroy','update']
+    ]);
