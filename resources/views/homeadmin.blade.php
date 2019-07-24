@@ -20,7 +20,7 @@
         <script src="{{ asset('asset/js/popper.min.js') }}"></script>
         <script src="{{ asset('asset/js/bootstrap.min.js') }}"></script>
     </head>
-    <body class="bg-color"> 
+    <body class="bg-color">
         <nav class="navbar navbar-dark navbar-expand-md bg-warning justify-content-between">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-nav">
@@ -73,20 +73,21 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#quest">Question</a>
+                <a class="nav-link active"  data-toggle="tab" href="#quest">Question</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#poll">Polling</a>
+                <a class="nav-link"  data-toggle="tab" href="#poll">Polling</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#sum">Summary</a>
+                <a class="nav-link"  data-toggle="tab" href="#sum">Summary</a>
             </li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
             <div id="quest" class=" tab-pane active"><br>
-                <div class="card-deck">
-                    <div class="card padding-card col-sm-3 speaker" style="background-color:#ddd;">
+                <div id="mySidenav" class="sidenav">
+                    <div class="card card-bg1 padding-card">
+                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                         <h2> Speaker</h2>
                         <hr>
                         <br>
@@ -95,18 +96,17 @@
                             <div class="form-group">
                                 <input type="text" class="form-control form-speaker" id="speaker" name="speaker" placeholder="Categories" required="required">
                             </div>
-                            <button type="submit" class="btn btn-primary float-sm-right save-data">Save</button>
+                            <button type="submit" class="btn btn-primary float-sm-right">Save</button>
                         </form>
                         <hr>
                         @foreach ($ev->SpeakerModel as $speak)
-
                         <div class= "row">
-                            <div class="containeruser col-sm-9 font-weight-bold">
+                            <div class="containeruser font-weight-bold">
                                 <button type="button" class="btn btn-block" >
                                     <p class="text-left">{{$speak->name_speaker}}</p>
                                 </button>
                             </div>
-                            <div class="containeruser col-sm-3">
+                            <div class="containeruser col-sm-5">
                                 <button class="btn">
                                     <a class="link-icon" href="/delete_speaker/{{$speak->idSpeaker}}" style="text-decoration:none">
                                         <i class="fa fa-trash float-right fa-2x"></i> 
@@ -116,50 +116,88 @@
                         </div>
                         @endforeach
                     </div>
-                    <div class="card padding-card col-sm-5" style="background-color:#ddd;" >
-                        <h2>Question List</h2>
-                        <hr>
-                        <div class="card padding-manual scroll">
-                            <div class="card" id="question">
-                                <div class="card-header-answer" style="background-color:#fff;">
-                                    <img src="asset/img/Logo/user.jpg" alt="Avatar" class="avatar">
-                                    <b>{{ Auth::user()->name }}</b>
-                                </div>
-                                <div class="text-center" >
-                                    <hr class="hr-fit" style="width: 40%;">
-                                </div>
-                                <div class="card-body">
-                                    <p><b> Apa yang dimaksud dengan sistem pertanyaan dalam seminar BPK? </b></p>
-                                </div>
-                                <div class="card-footer ">
-                                    <small class="text-muted"><b>Kategori </b></small>
-                                    <a class="float-sm-right" href="#" style="text-decoration:none"><i class="fa fa-thumbs-o-up"></i><span> <b>15&emsp;</b> </span></a>
-                                    <a class="float-sm-right" href="#" style="text-decoration:none"><i class="fa fa-thumbs-o-down"></i><span> <b>10&emsp;</b> </span></a>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="card" id="question">
-                                <div class="card-header-answer" style="background-color:#fff;">
-                                    <img src="asset/img/Logo/user.jpg" alt="Avatar" class="avatar">
-                                    <b>{{ Auth::user()->name }}</b>
-                                </div>
-                                <div class="text-center" >
-                                    <hr class="hr-fit" style="width: 40%;">
-                                </div>
-                                <div class="card-body">
-                                    <p><b> Apa yang dimaksud dengan sistem pertanyaan dalam seminar BPK? </b></p>
-                                </div>
-                                <div class="card-footer ">
-                                    <small class="text-muted"><b>Kategori </b></small>
-                                    <a class="float-sm-right" href="#" style="text-decoration:none"><i class="fa fa-thumbs-o-up"></i><span> <b>15&emsp;</b> </span></a>
-                                    <a class="float-sm-right" href="#" style="text-decoration:none"><i class="fa fa-thumbs-o-down"></i><span> <b>10&emsp;</b> </span></a>
-                                </div>
-                            </div>
-                            <br>
-
-                        </div>
+                </div>
+                <div class="row col-md-12">
+                    <div class="col-md-6">
+                        <span class=" btn btn-primary" onclick="openNav()"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>  Create Speaker's</span>
                     </div>
-                    <div class="card padding-card col-sm-5" style="background-color:#ddd;">
+                    <div class="col-md-6">
+                        <a href="">
+                            <button class="btn btn-outline-danger float-sm-right">
+                                End Event
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <div id="main">
+                    <div class="card-deck">
+                        <div class="card card-bg2 padding-card col-sm-6" >
+                            <h2>Question List</h2>
+                            <hr>
+                            <div class="card padding-manual scroll">
+                                <div class="card" id="question">
+                                    <div class="card-header-answer">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <img src="asset/img/Logo/user.jpg" alt="Avatar" class="avatar">
+                                                <b>{{ Auth::user()->name }}</b>
+                                            </div>
+                                            <!--aprove-->
+                                            <div class="col-md-3">
+                                                <a href="">
+                                                    <button class="btn btn-success float-sm-right">
+                                                        <i class="fa fa-check"></i> Approve
+                                                    </button>
+                                                </a>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="">
+                                                    <button class="btn btn-danger">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center" >
+                                        <hr class="hr-fit">
+                                    </div>
+                                    <div class="card-body">
+                                        <p><b> Apa yang dimaksud dengan sistem pertanyaan dalam seminar BPK? </b></p>
+                                    </div>
+                                    <div class="card-footer ">
+                                        <small class="text-muted"><b>Kategori </b></small>
+                                        <a class="float-sm-right" href="#" style="color:red;"><i class="fa fa-thumbs-o-down"></i><span> <b>10&emsp;</b> </span></a>
+                                        <a class="float-sm-right" href="#" style="color:green;" ><i class="fa fa-thumbs-o-up"></i><span> <b>15&emsp;</b> </span></a>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="card card-bg3 padding-card col-sm-6">
+                            <h2>Question Approve</h2>
+                            <hr>
+                            <div class="card padding-manual scroll">
+                                <div class="card" id="question">
+                                    <div class="card-header-answer">
+                                        <img src="asset/img/Logo/user.jpg" alt="Avatar" class="avatar">
+                                        <b>{{ Auth::user()->name }}</b>
+                                    </div>
+                                    <div class="text-center" >
+                                        <hr class="hr-fit">
+                                    </div>
+                                    <div class="card-body">
+                                        <p><b> Apa yang dimaksud dengan sistem pertanyaan dalam seminar BPK? </b></p>
+                                    </div>
+                                    <div class="card-footer ">
+                                        <small class="text-muted"><b>Kategori </b></small>
+                                        <a class="float-sm-right" href="#" style="color:red;"><i class="fa fa-thumbs-o-down"></i><span> <b>10&emsp;</b> </span></a>
+                                        <a class="float-sm-right" href="#" style="color:green;" ><i class="fa fa-thumbs-o-up"></i><span> <b>15&emsp;</b> </span></a>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -171,30 +209,22 @@
                 <h3>Menu 2</h3>
                 <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
             </div>
-
         </div>       
-
-
-
-
         <!-- Tab panes -->
         <div clas="container">
             <div class="modal" id="myModal" style="padding-top: 0px;" >
                 <div class="modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">
-
                         <!-- Modal Header -->
                         <div class="modal-header">
                             <h4 class="modal-title">Edit Event</h4>
                             <button type="button" class="btn close-modal" data-dismiss="modal">&times;</button>
                         </div>
-
                         <!-- Modal body -->
                         <div class="modal-body">
                             @foreach ($event as $ev)
-                            <form id="form-modal"class="form-horizontal" method="post" action="/update">
+                            <form id="form-modal" class="form-horizontal" method="POST" action="{{route('tanja.update',$ev->idEvent)}}">
                                 {{ csrf_field() }}
-
                                 <!--form name event-->
                                 <div class="form-group">
                                     <label><strong> Event Name </strong></label>
@@ -237,7 +267,6 @@
                                     </div>
                                     @endif
                                 </div>
-
                                 <div class="form-group">
                                     <input type="hidden" name="id" value="{{ $ev->idEvent }}">
                                     <!--form code event-->
@@ -271,18 +300,13 @@
                 </div>
             </div>
         </div>
-
-
-
     </body>
     <script>
-
         /* When the user clicks on the button, 
          toggle between hiding and showing the dropdown content */
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }
-
 // Close the dropdown menu if the user clicks outside of it
         window.onclick = function (event) {
             if (!event.target.matches('.dropbtn')) {
@@ -296,33 +320,35 @@
                 }
             }
         }
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "350px";
+            document.getElementById("main").style.marginLeft = "350px";
+        }
 
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+        }
 // Get the modal
         var modal = document.getElementById("myModal");
-
 // Get the button that opens the modal
         var btn = document.getElementById("myBtn");
-
 // Get the <span> element that closes the modal
         var span = document.getElementsByClassName("close-modal")[0];
-
 // When the user clicks the button, open the modal 
         btn.onclick = function () {
             modal.style.display = "block";
         }
-
 // When the user clicks on <span> (x), close the modal
         span.onclick = function () {
             modal.style.display = "none";
         }
-
 // When the user clicks anywhere outside of the modal, close it
         window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
         }
-
 // Click on a close button to hide the current list item
         var close = document.getElementsByClassName("close");
         var i;
@@ -332,9 +358,6 @@
                 div.style.display = "none";
             }
         }
-
-
-
 // Create a new list item when clicking on the "Add" button
         function newElement() {
             var li = document.createElement("li");

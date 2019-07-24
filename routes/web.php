@@ -14,7 +14,7 @@ Route::get('/homeadmin', 'C_Event@admin_event');
 //route user
 Route::get('/homeuser', 'C_Event@user_event');
 Route::resource('tanja','C_Event',[
-    'only' => ['store','show']
+    'only' => ['store','update']
     ]);
 //==test case==//
 Route::get('/session/tampil','C_Event@tampilkanSession');

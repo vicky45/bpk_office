@@ -287,12 +287,12 @@
     padding-bottom: 0.75rem;
     padding-left: 1.25rem;
     margin-bottom: 0;
-    background-color: rgba(0,0,0,.03);
+    background-color: rgba(255,255,255,0);
     border-bottom: 0px solid rgba(0,0,0,.125);
 }
 
 .link-icon {
-    color: #808488;
+    color: #ffffff;
     text-decoration: none;
     background-color: transparent;
 }
@@ -304,6 +304,7 @@
 }
 
 .hr-fit{
+    width: 40%;
     margin-top: 0px;
     margin-bottom: 0px;
 }
@@ -312,13 +313,62 @@
     text-decoration: none;
     background-color: transparent;
 }
-
-
-
-
-
-
-}
 .nav-tabs {
     text-align:center;
+}
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: absolute;
+  z-index: 1;
+  top: inherit;
+  left: 0;
+  background-color: #efe7ce;
+  overflow-y: hidden;
+  transition: 0.5s;
+  padding-top: 54px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+.nav-link{
+    color: #652929;
+}
+.card-bg1{
+    background-color:#ddd!important;
+}
+.card-bg2{
+    background-color:#ddd!important;
+}
+.card-bg3{
+    background-color:#ddd!important;
 }

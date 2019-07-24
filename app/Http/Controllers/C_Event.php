@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
 use App\EventModel;
@@ -80,13 +80,14 @@ class C_Event extends Controller {
     }
     
     public function destroy($id) {//hapus
-        //`
+        $request->session()->forget('event');
+        return redirect('/home');
     }
 
     public function user_event(request $request) {// /homeuser
         $nip = null;
         $idEv = null;
-        if ($request->session()->has('event')) {
+        if ($request->session()->has('event')):
             //cek idEevent di table Event
             $event = EventModel :: where('code_event', '=', $request->session()->get('event'))->get();
             foreach ($event as $ev) {
@@ -95,24 +96,24 @@ class C_Event extends Controller {
             //get nip
             $cek = Join_EventModel:: where('NIP', '=', Auth::user()->NIP)->get();
             //seleksi
-            if ($cek != null) {
+            if ($cek != null) :
                 //cek nip
                 foreach ($cek as $ev) {
                     $idEv = $ev->idEvent;
                     $nip = $ev->NIP;
                 }
                 $question = QuestionModel::where('NIP', '=', $nip)->get();
-                if ($nip === Auth::user()->NIP && $idEvent === $idEv) {
+                if ($nip === Auth::user()->NIP && $idEvent === $idEv) :
                     return view('homeuser', ['event' => $event], ['question' => $question]);
-                } else {
+                else:
                     Join_EventModel::create([
                         'idEvent' => $idEvent,
                         'NIP' => Auth::user()->NIP
                     ]);
                     return view('homeuser', ['event' => $event], ['question' => $question]);
-                }
-            }
-        }
+                endif;
+            endif;
+        endif;
         return redirect('/home')->with(['warning' => 'Input code and Join Required!']);
     }
 
@@ -121,34 +122,51 @@ class C_Event extends Controller {
         $domainB = Auth::user()->name;
         $nip = null;
         $idEv = null;
-        if ($request->session()->has('event')) {
+        if ($request->session()->has('event')) :
             //cek idEevent di table Event
             $event = EventModel :: where('code_event', '=', $request->session()->get('event'))->get();
             foreach ($event as $ev) {
                 $idEvent = $ev->idEvent;
                 $user = $ev->user_created;
             }
-            if ($domainB === $user) {
+            if ($domainB === $user) :
                 $cek = Join_EventModel :: where('NIP', '=', $domainA)->get();
-                if ($cek != null) {
+                if ($cek != null) :
                     //cek nip
                     foreach ($cek as $ev) {
                         $idEv = $ev->idEvent;
                         $nip = $ev->NIP;
                     }
-                    if ($nip === $domainA && $idEvent === $idEv) {
+                    if ($nip === $domainA && $idEvent === $idEv):
                         return view('homeadmin', ['event' => $event]);
-                    } else {
+                        else:
                         Join_EventModel::create([
                             'idEvent' => $idEvent,
                             'NIP' => Auth::user()->NIP
                         ]);
                         return view('homeadmin', ['event' => $event]);
-                    }
-                }
-            }
-        }
+                    endif;
+                endif;
+            endif;
+        endif;
         return redirect('/home')->with(['warning' => 'Join from Code admin Required!']);
+    }
+    
+    public function update(Request $request, $id) {//update berdasar
+        // update data pegawai
+        $EventModel = EventModel::find($id);
+        $EventModel->code_event = $request->code;
+        $EventModel->name_event = $request->event;
+        $EventModel->location = $request->location;
+        $EventModel->date_event = $request->date;
+        $EventModel->time_event = $request->time;
+        $EventModel->save();
+        if ($EventModel->exists) {
+            $request->session()->forget('event');
+            $request->session()->put('event', $request->code);
+            return redirect('/homeadmin');
+        }
+        return redirect('/homeadmin');
     }
 
     /*     * ===============================================================================================**\
@@ -158,7 +176,7 @@ class C_Event extends Controller {
      * @return \Illuminate\Http\Response
      */
 
-    public function show(Request $request, $codeevent) {//tampil admin atau user berdasarkan code (Joint_E
+    public function show(Request $request, $codeevent) {
         
     }
 
@@ -179,9 +197,7 @@ class C_Event extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) {//update berdasar
-        //
-    }
+    
 
     
 
