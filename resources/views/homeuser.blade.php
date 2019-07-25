@@ -19,6 +19,13 @@
         <script src="{{ asset('asset/js/jquery-3.4.1.min.js') }}"></script>
         <script src="{{ asset('asset/js/popper.min.js') }}"></script>
         <script src="{{ asset('asset/js/bootstrap.min.js') }}"></script>
+<!--        <script type="text/javascript">
+            var auto_refresh = setInterval(
+            function () {
+               $('#quest').load('/question').fadeIn("slow");
+            }, 10000); // refresh setiap 10000 milliseconds
+    
+        </script>-->
     </head>
     <body class="bg-color"> 
         <nav class="navbar navbar-dark navbar-expand-md bg-warning justify-content-between">
@@ -58,7 +65,7 @@
                                 </button>
 
                                 <div id="myDropdown" class="dropdown-content dual-nav">
-                                    <span class="dropdown-item-text"><b>NAMA</b></span>
+                                    <span class="dropdown-item-text"><b>{{ Auth::user()->name }}</b></span>
 
                                     <div class="dropdown-divider"></div>
                                     <a class="text-decoration-none" href="/switch_event">Switch Event</a>
@@ -68,7 +75,7 @@
                     </ul>
                 </div>
                 <div class="navbar collapse  dual-nav col-sm-12">
-                    <button type="button" class="btn btn-secondary btn-block" href="/switch_event" >
+                    <button type="button" class="btn btn-secondary btn-block" href="#" >
                         <i class="fa fa-toggle-off"></i>&nbsp;Switch Event
                     </button>
                 </div>
@@ -98,15 +105,15 @@
                             </div>
                             <br>
                         </div>
-
+                        
                         <div class="card col-sm-12 scroll">
                             <div class="col-sm-12 text-center">
                                 <hr style="width: 50%">
                             </div>
-                            @foreach($question as $quest)
+                           @foreach($ev->QuestionModel as $quest)
                             <div class="row">
                                 <div class="col-sm-12 text-center">
-                                    <span><i>{{$quest -> question}}</i></span>
+                                    <span><i> {{$quest->question}} </i></span>
                                     <button class="btn float-right">
                                         <a class="link-icon" href="" style="text-decoration:none">
                                             <i class="fa fa-trash float-right "></i> 
@@ -126,8 +133,8 @@
                         <br>
                     </div>
 
-                    <div class="card scroll"style="background-color:#fbfbfb;">
-                        <div class="col-sm-12 text-center padding-card scroll">
+                    <div class="card "style="background-color:#fbfbfb;">
+                        <div id="quest" class="col-sm-12 text-center padding-card scroll">
                             @foreach($ev->QuestionModel as $quest)
                             <div class="card padding-card   ">
                                 <div class="row">
@@ -143,11 +150,10 @@
                                     </div>
                                 </div>
                                 <hr>
-                                <p>{{$quest -> question}}</p>
+                                <p>{{$quest->question}}</p>
                             </div>
                             <br>
                             @endforeach
-
                         </div>
                     </div>
                 </div>
@@ -170,7 +176,7 @@
                         </div>
                         <!-- Modal body -->
                         <div class="modal-body">
-                            <form class="form-group" method="post" action="/ask">
+                            <form class="form-group" method="POST" action="{{ route('question.store')}}">
                             {{ csrf_field() }}
                                 <input type="text" class="form-control" name="ask" placeholder="What would you ask?"></input>
                                 <label></label>
@@ -229,5 +235,9 @@
                 div.style.display = "none";
             }
         }
+        
+        
+
+      
     </script>
 </html>

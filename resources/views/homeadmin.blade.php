@@ -238,7 +238,7 @@
                         <!-- Modal body -->
                         <div class="modal-body">
                             @foreach ($event as $ev)
-                            <form id="form-modal" class="form-horizontal" method="POST" action="{{route('tanja.update',$ev->idEvent)}}">
+                            <form id="form-modal" class="form-horizontal" method="POST" action="{{route('event.update',$ev->idEvent)}}">
                                 {{ method_field('PATCH') }}
                                 {{ csrf_field() }}
                                 <!--form name event-->

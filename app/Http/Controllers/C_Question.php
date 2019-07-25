@@ -1,7 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Auth;
+use App\EventModel;
+use App\Join_EventModel;
+use App\SpeakerModel;
+use App\QuestionModel;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class C_Question extends Controller
@@ -13,7 +18,12 @@ class C_Question extends Controller
      */
     public function index()
     {
-        //
+        $event = EventModel :: where('code_event', '=', $request->session()->get('event'))->get();
+        foreach ($event as $ev) {
+            $idEvent = $ev->idEvent;
+        }
+        $question = QuestionModel::where('idEvent','=',$idEvent)->get();
+        return ['question'=>$question];
     }
 
     /**
@@ -59,8 +69,6 @@ class C_Question extends Controller
             ]);
             return redirect()->back();
         }
-        
-        
     }
 
     /**
@@ -69,9 +77,9 @@ class C_Question extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        
     }
 
     /**
@@ -82,7 +90,7 @@ class C_Question extends Controller
      */
     public function edit($id)
     {
-        //
+        //Not Use
     }
 
     /**

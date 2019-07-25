@@ -46,7 +46,7 @@
                 <h1 style="font-size:450%;">TANJA</h1>
                 <p style="font-size:120%;">Sistem Informasi Penyampaian Pertanyaan dan Jawaban<br>Badan Pemeriksa Keuangan Republik Indonesia</p>
                 <div class="row">
-                    <form class="form-inline" method="post" action="{{ route('tanja.store')}}">
+                    <form class="form-inline" method="post" action="{{ route('event.store')}}">
                         {{ csrf_field() }}
                         <div class="input-container col-sm-12 col-md-12 col-lg-12 col-xl-12">
                             <i class="fa fa-hashtag iconform"></i>
@@ -92,7 +92,7 @@
                     </div>
                     <!-- Modal body -->
                     <div class="modal-body">
-                        <form class="form-horizontal" method="POST" action="{{ route('tanja.store') }}">
+                        <form class="form-horizontal" method="POST" action="{{ route('event.store') }}">
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <!--form name event-->
