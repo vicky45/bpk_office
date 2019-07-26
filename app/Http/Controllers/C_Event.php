@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\EventModel;
 use App\AdminModel;
@@ -44,7 +43,7 @@ class C_Event extends Controller {
         $code = $request->join;
         $status = 0;
         //log in with create event
-        if (False) {
+        if ($code === null) {
             $codeevent = Str::random(6);
             $this->validate($request, [
                 'event' => 'required',
@@ -61,7 +60,7 @@ class C_Event extends Controller {
                         'location' => $request->location
             ]);
             $Admin = AdminModel::create([
-                        'Name_Admin' => $user
+                    'Name_Admin' => $user
             ]);
             if ($EventModel->exists) {
                 $request->session()->forget('event');
@@ -106,24 +105,7 @@ class C_Event extends Controller {
         }
     }
 
-    //    =====================Speaker Function==========================
-    public function speaker_add(Request $request) {
-        $event = EventModel :: where('code_event', '=', $request->session()->get('event'))->get();
-        foreach ($event as $ev) {
-            $idEvent = $ev->idEvent;
-        }
-        SpeakerModel::create([
-            'idEvent' => $idEvent,
-            'name_speaker' => $request->speaker,
-        ]);
-        return redirect()->back()->with(['success' => 'Speaker Succes Added!']);
-    }
-    public function speaker_delete($id) {
-        $speak = SpeakerModel::find($id);
-        $speak->delete();
-        return redirect()->back()->with(['success' => 'Speaker Succes Deleted!']);
-    }
-
+ 
     public function user_event(request $request) {// /homeuser
         $idev = null;
         $nip = null;
@@ -148,33 +130,6 @@ class C_Event extends Controller {
         } else {
             return redirect('/home')->with(['warning' => 'Input code and Join Required!']);
         }
-        $idEv = null;
-        if ($request->session()->has('event')):
-            //cek idEevent di table Event
-            $event = EventModel :: where('code_event', '=', $request->session()->get('event'))->get();
-            foreach ($event as $ev) {
-                $idEvent = $ev->idEvent;
-            }
-            //get nip
-            $cek = Join_EventModel:: where('NIP', '=', Auth::user()->NIP)->get();
-            $question = QuestionModel::where('status', '=', '1');
-            //seleksi
-            //cek nip
-            foreach ($cek as $ev) {
-                $idEv = $ev->idEvent;
-                $nip = $ev->NIP;
-            }
-            if ($nip === Auth::user()->NIP && $idEvent === $idEv) :
-                return view('homeuser', ['event' => $event], ['question' => $question]);
-            else:
-                Join_EventModel::create([
-                    'idEvent' => $idEvent,
-                    'NIP' => Auth::user()->NIP
-                ]);
-                return view('homeuser', ['event' => $event]);
-            endif;
-        endif;
-        return redirect('/home')->with(['warning' => 'Input code and Join Required!']);
     }
 
     public function admin_event(request $request) {// /homeadmin
@@ -208,7 +163,6 @@ class C_Event extends Controller {
         } else {
             return redirect('/home')->with(['warning' => 'Input code and Join Required!']);
         }
-        return redirect('/home')->with(['warning' => 'Join from Code admin Required!']);
     }
 
     public function update(Request $request, $id) {//update berdasar
@@ -230,6 +184,43 @@ class C_Event extends Controller {
 
     public function show(Request $request, $codeevent) {  //summary  
     }
+   //    =====================Speaker Function==========================
+    public function speaker_add(Request $request) {
+        $event = EventModel :: where('code_event', '=', $request->session()->get('event'))->get();
+        foreach ($event as $ev) {
+            $idEvent = $ev->idEvent;
+        }
+        SpeakerModel::create([
+            'idEvent' => $idEvent,
+            'name_speaker' => $request->speaker,
+        ]);
+        return redirect()->back()->with(['success' => 'Speaker Succes Added!']);
+    }
+    public function speaker_delete($id) {
+        $speak = SpeakerModel::find($id);
+        $speak->delete();
+        return redirect()->back()->with(['success' => 'Speaker Succes Deleted!']);
+    }
+    /** ==================================Test Case=============================================================* */
 
-    /** ===============================================================================================* */
-}
+     public function tampilkanSession(Request $request) {
+		if($request->session()->has('event')){
+			echo $request->session()->get('event');
+		}else{
+			echo 'Tidak ada data dalam session.';
+		}
+	}
+ 
+	// membuat session
+	public function buatSession(Request $request) {
+		$request->session()->put('event','BPKRI');
+		echo "Data telah ditambahkan ke session.";
+	}
+ 
+	// menghapus session
+	public function hapusSession(Request $request) {
+		$request->session()->forget('event');
+		echo "Data telah dihapus dari session.";
+	}
+    
+    }

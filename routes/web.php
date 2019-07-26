@@ -10,7 +10,6 @@ Route::get('/', function () { //Localhost master default link
 });
 Auth::routes();
 Route::get('/home','C_Event@home')->name('home');
-Route::get('/home','C_Event@tanjahome')->name('tanjahome');
 //route admin
 Route::get('/homeadmin', 'C_Event@admin_event');
 //route user
