@@ -25,7 +25,7 @@ class LoginController extends Controller
      * @var string
      */
     protected function  redirectTo() {
-        return '/sitanyahome';
+        return '/home';
     }
 
     /**

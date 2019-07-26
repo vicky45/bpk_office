@@ -10,7 +10,7 @@
         <meta name="author" content="Ananda Putra Alfa Robby, Cheni Irnandha Sebayang, Apriani Ingin Marito Tampubolon, Bella Nemesias Prasetiyani">
         <!-- Icon tab sinar browser -->
         <link rel="shortcut icon" href="asset/img/Logo/logo_bpkri.png" type="image/x-icon">
-        <title>SITANYA | Badan Pemeriksa Keuangan Republik Indonesia</title>
+        <title>TANJA | Badan Pemeriksa Keuangan Republik Indonesia</title>
         <!-- Equipment -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/font.css') }}">
@@ -19,6 +19,13 @@
         <script src="{{ asset('asset/js/jquery-3.4.1.min.js') }}"></script>
         <script src="{{ asset('asset/js/popper.min.js') }}"></script>
         <script src="{{ asset('asset/js/bootstrap.min.js') }}"></script>
+<!--        <script type="text/javascript">
+            var auto_refresh = setInterval(
+            function () {
+               $('#quest').load('/question').fadeIn("slow");
+            }, 10000); // refresh setiap 10000 milliseconds
+    
+        </script>-->
     </head>
     <body class="bg-color"> 
         <nav class="navbar navbar-dark navbar-expand-md bg-warning justify-content-between">
@@ -32,7 +39,7 @@
                             <div class="navbar-header">
                                 <a class="navbar-brand" >
                                     <img src="asset/img/Logo/logo_bpkri.png" style="height: 5.0rem;">
-                                    SITANYA</a>
+                                    TANJA</a>
                             </div>
                         </li>
                     </ul>
@@ -68,7 +75,7 @@
                     </ul>
                 </div>
                 <div class="navbar collapse  dual-nav col-sm-12">
-                    <button type="button" class="btn btn-secondary btn-block" href="/switch_event" >
+                    <button type="button" class="btn btn-secondary btn-block" href="#" >
                         <i class="fa fa-toggle-off"></i>&nbsp;Switch Event
                     </button>
                 </div>
@@ -98,15 +105,15 @@
                             </div>
                             <br>
                         </div>
-
+                        
                         <div class="card col-sm-12 scroll">
                             <div class="col-sm-12 text-center">
                                 <hr style="width: 50%">
                             </div>
-                            @foreach($question as $quest)
+                           @foreach($ev->QuestionModel as $quest)
                             <div class="row">
                                 <div class="col-sm-12 text-center">
-                                    <span><i>{{$quest -> question}}</i></span>
+                                    <span><i> {{$quest->question}} </i></span>
                                     <button class="btn float-right">
                                         <a class="link-icon" href="" style="text-decoration:none">
                                             <i class="fa fa-trash float-right "></i> 
@@ -119,7 +126,6 @@
                         </div>
                     </div>
                     <br>
-                    <!--===========================================-->
                     <div class="col-sm-12 sheet-color">
                         <div class="row">
                             <h5><strong>All Question</strong></h5>
@@ -127,8 +133,8 @@
                         <br>
                     </div>
 
-                    <div class="card scroll"style="background-color:#fbfbfb;">
-                        <div class="col-sm-12 text-center padding-card scroll">
+                    <div class="card "style="background-color:#fbfbfb;">
+                        <div id="quest" class="col-sm-12 text-center padding-card scroll">
                             @foreach($ev->QuestionModel as $quest)
                             <div class="card padding-card   ">
                                 <div class="row">
@@ -144,11 +150,10 @@
                                     </div>
                                 </div>
                                 <hr>
-                                <p>{{$quest -> question}}</p>
+                                <p>{{$quest->question}}</p>
                             </div>
                             <br>
                             @endforeach
-
                         </div>
                     </div>
                 </div>
@@ -159,11 +164,7 @@
                 <p>
             </div>
         </div>       
-
-
-
-
-        <!-- Tab panes -->
+<!-- Tab panes -->
         <div clas="container">
             <div class="modal" id="myModal" style="padding-top: 0px;" >
                 <div class="modal-dialog modal-dialog-scrollable modal-lg">
@@ -175,7 +176,7 @@
                         </div>
                         <!-- Modal body -->
                         <div class="modal-body">
-                            <form class="form-group" method="post" action="/ask">
+                            <form class="form-group" method="POST" action="{{ route('question.store')}}">
                             {{ csrf_field() }}
                                 <input type="text" class="form-control" name="ask" placeholder="What would you ask?"></input>
                                 <label></label>
@@ -195,19 +196,11 @@
                 </div>
             </div>
         </div>
-
-
-
     </body>
     <script>
-
-        /* When the user clicks on the button, 
-         toggle between hiding and showing the dropdown content */
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }
-
-// Close the dropdown menu if the user clicks outside of it
         window.onclick = function (event) {
             if (!event.target.matches('.dropbtn')) {
                 var dropdowns = document.getElementsByClassName("dropdown-content");
@@ -220,34 +213,20 @@
                 }
             }
         }
-
-// Get the modal
         var modal = document.getElementById("myModal");
-
-// Get the button that opens the modal
         var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
         var span = document.getElementsByClassName("close-modal")[0];
-
-// When the user clicks the button, open the modal 
         btn.onclick = function () {
             modal.style.display = "block";
         }
-
-// When the user clicks on <span> (x), close the modal
         span.onclick = function () {
             modal.style.display = "none";
         }
-
-// When the user clicks anywhere outside of the modal, close it
         window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
         }
-
-// Click on a close button to hide the current list item
         var close = document.getElementsByClassName("close");
         var i;
         for (i = 0; i < close.length; i++) {
@@ -256,5 +235,9 @@
                 div.style.display = "none";
             }
         }
+        
+        
+
+      
     </script>
 </html>
