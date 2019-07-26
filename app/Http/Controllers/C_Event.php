@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,12 +13,12 @@ use App\QuestionModel;
 use Auth;
 use Illuminate\Support\Str;
 
+
 class C_Event extends Controller {
 
     public function __construct() {
         $this->middleware('auth');
     }
-
     public function home() {
         return view('tanjahome');
     }
@@ -112,12 +113,11 @@ class C_Event extends Controller {
             $idEvent = $ev->idEvent;
         }
         SpeakerModel::create([
-            'Event_idEvent' => $idEvent,
+            'idEvent' => $idEvent,
             'name_speaker' => $request->speaker,
         ]);
         return redirect()->back()->with(['success' => 'Speaker Succes Added!']);
     }
-
     public function speaker_delete($id) {
         $speak = SpeakerModel::find($id);
         $speak->delete();
@@ -148,6 +148,33 @@ class C_Event extends Controller {
         } else {
             return redirect('/home')->with(['warning' => 'Input code and Join Required!']);
         }
+        $idEv = null;
+        if ($request->session()->has('event')):
+            //cek idEevent di table Event
+            $event = EventModel :: where('code_event', '=', $request->session()->get('event'))->get();
+            foreach ($event as $ev) {
+                $idEvent = $ev->idEvent;
+            }
+            //get nip
+            $cek = Join_EventModel:: where('NIP', '=', Auth::user()->NIP)->get();
+            $question = QuestionModel::where('status', '=', '1');
+            //seleksi
+            //cek nip
+            foreach ($cek as $ev) {
+                $idEv = $ev->idEvent;
+                $nip = $ev->NIP;
+            }
+            if ($nip === Auth::user()->NIP && $idEvent === $idEv) :
+                return view('homeuser', ['event' => $event], ['question' => $question]);
+            else:
+                Join_EventModel::create([
+                    'idEvent' => $idEvent,
+                    'NIP' => Auth::user()->NIP
+                ]);
+                return view('homeuser', ['event' => $event]);
+            endif;
+        endif;
+        return redirect('/home')->with(['warning' => 'Input code and Join Required!']);
     }
 
     public function admin_event(request $request) {// /homeadmin
@@ -181,6 +208,7 @@ class C_Event extends Controller {
         } else {
             return redirect('/home')->with(['warning' => 'Input code and Join Required!']);
         }
+        return redirect('/home')->with(['warning' => 'Join from Code admin Required!']);
     }
 
     public function update(Request $request, $id) {//update berdasar

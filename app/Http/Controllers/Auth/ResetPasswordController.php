@@ -27,7 +27,7 @@ class ResetPasswordController extends Controller
      */
     protected function redirectTo()
     {
-        return '/sitanarhome';
+        return '/home';
     }
     /**
      * Create a new controller instance.
