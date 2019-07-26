@@ -110,7 +110,7 @@
                             <div class="col-sm-12 text-center">
                                 <hr style="width: 50%">
                             </div>
-                           @foreach($ev->QuestionModel as $quest)
+                           @foreach($User as $quest)
                             <div class="row">
                                 <div class="col-sm-12 text-center">
                                     <span><i> {{$quest->question}} </i></span>

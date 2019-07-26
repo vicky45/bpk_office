@@ -38,6 +38,7 @@ class C_Event extends Controller {
         $idEvent = null;
         $idadmin = null;
         $code_event = null;
+        $session = null;
         $username = Auth::user()->name;
         $usernip = Auth::user()->NIP;
         $code = $request->join;
@@ -60,11 +61,15 @@ class C_Event extends Controller {
                         'location' => $request->location
             ]);
             $Admin = AdminModel::create([
-                    'Name_Admin' => $user
+                    'Name_Admin' => $username
             ]);
             if ($EventModel->exists) {
                 $request->session()->forget('event');
-                $request->session()->put('event', $codeevent);
+                $Event = EventModel::where('code_event',$codeevent)->get();
+                foreach($Event as $id){
+                    $session = $id->idEvent;
+                }
+                $request->session()->put('event',$session);
                 return redirect('/homeadmin');
             } else {
                 return redirect()->back()->with(['warning' => 'Create Event Failed!']);
@@ -113,19 +118,27 @@ class C_Event extends Controller {
             $join = Join_EventModel :: where('User_NIP', Auth::user()->NIP)
                     ->where('Event_idEvent', $request->session()->get('event'))
                     ->get();
+            $User = QuestionModel :: where('User_NIP', Auth::user()->NIP)
+                                    ->where('Event_idEvent', $request->session()->get('event'))
+                                    ->get();
+            $Event = EventModel::where('idEvent',$request->session()->get('event'))
+                                ->join('question', 'status','0')
+                                ->get();
+            
+                
             foreach ($join as $jo) {
                 $idev = $jo->Event_idEvent;
                 $nip = $jo->User_NIP;
             }
             if ($idev === $request->session()->get('event') && $nip === Auth::user()->NIP) {
-                return "user Old";
+                return view('homeuser',['event' => $Event],['User' => $User ]);
             } else {
                 Join_EventModel::create([
                     'Event_idEvent' => $request->session()->get('event'),
                     'Admin_idAdmin' => 0,
                     'User_NIP' => Auth::user()->NIP
                 ]);
-                return "user New";
+                return view('homeuser',['event' => $Event],['User' => $User ]);
             }
         } else {
             return redirect('/home')->with(['warning' => 'Input code and Join Required!']);

@@ -44,16 +44,15 @@ class C_Question extends Controller
      */
     public function store(Request $request)
     {
-        $event = EventModel :: where('code_event', '=', $request->session()->get('event'))->get();
-        foreach ($event as $ev) {
-            $idEvent = $ev->idEvent;
-        }
-        
+        $Question = QuestionModel :: where('User_NIP', Auth::user()->NIP)
+                   ->where('Event_idEvent', $request->session()->get('event'))
+                   ->get();
+      
         if($request->speak === "--Select Speaker--"){
             QuestionModel::create([
-                'idEvent' => $idEvent,
-                'NIP' => Auth::user()->NIP,
-                'question' => $request->ask,
+                'User_NIP' => Auth::user()->NIP,
+                'Event_idEvent'=>$request->session()->get('event'),
+                'question' => $request->ask
                 ]);
             return redirect()->back();
         }else{
@@ -70,6 +69,7 @@ class C_Question extends Controller
             return redirect()->back();
         }
     }
+    
 
     /**
      * Display the specified resource.
