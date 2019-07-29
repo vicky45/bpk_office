@@ -19,13 +19,19 @@
         <script src="{{ asset('asset/js/jquery-3.4.1.min.js') }}"></script>
         <script src="{{ asset('asset/js/popper.min.js') }}"></script>
         <script src="{{ asset('asset/js/bootstrap.min.js') }}"></script>
+        <script type="text/javascript">
+        var auto_refresh = setInterval(
+        function () {
+            $('#event_active').load('{{route('event.create')}}').fadeIn("slow");
+        }, 3000);
+        </script>
     </head>
     <body class="bg-dark">
         <div class="hero-image">
             <!--Tab Menu-->        
             <header>
                 <nav>
-                    <div class="topnav" id="myTopnav">
+                    <div class="topnav fixed" id="myTopnav">
                         <a class="active">SatuBPK</a>
                         <a href="{{ route('logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -42,7 +48,7 @@
             <div class="containerimg">
                 <img src="asset/img/Bg_Sitanar/Bg_1.jpg" style="width:100%;">
             </div>
-            <div class="hero-text">
+            <div class="hero-text h-75">
                 <h1 style="font-size:450%;">TANJA</h1>
                 <p style="font-size:120%;">Sistem Informasi Penyampaian Pertanyaan dan Jawaban<br>Badan Pemeriksa Keuangan Republik Indonesia</p>
                 <div class="row">
@@ -80,8 +86,14 @@
                         @endif
                     </div>
                 </div>
+                <br>
+                <div id="event_active">
+                    <!--event_active-->
+                    
+                </div>
             </div>
         </div>
+
         <div class="modal" id="myModal" style="padding-top: 0px;" >
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -130,7 +142,6 @@
                                 </div>
                                 @endif
                             </div>
-
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
