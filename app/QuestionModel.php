@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class QuestionModel extends Model {
 
     protected $table = "question";
-    protected $fillable = ['idEvent', 'Speaker_idSpeaker', 'User_NIP', 'Admin_idAdmin', 'Event_idEvent', 'question', 'answer', 'reaction_like', 'reaction_dislike'];
+    protected $fillable = ['Speaker_idSpeaker', 'User_NIP', 'Admin_idAdmin', 'Event_idEvent', 'question', 'answer', 'status' , 'reaction_like', 'reaction_dislike'];
     protected $primaryKey = 'idQuestion';
 
     public function EventModel() {
@@ -15,11 +15,15 @@ class QuestionModel extends Model {
     }
 
     public function SpeakerModel() {
-        return $this->belongsTo('App\SpeakerModel');
+        return $this->belongsTo('App\SpeakerModel','Speaker_idSpeaker','idSpeaker');
     }
 
     public function AdminModel() {
-        return $this->belongsTo('App\AdminModel');
+        return $this->belongsTo('App\AdminModel','Admin_idAdmin');
+    }
+    
+    public function user(){
+        return $this->belongsTo('App\user','User_NIP','NIP');
     }
 
 }

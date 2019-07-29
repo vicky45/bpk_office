@@ -13,6 +13,10 @@ class Join_EventModel extends Model
     public function EventModel(){
         return $this->belongsTo('App\EventModel');
     }
+    public function User(){
+        return $this->belongsTo('App\User');
+    }
+    
     public function AdminModel(){
         return $this->belongsTo('App\AdminModel');
     }

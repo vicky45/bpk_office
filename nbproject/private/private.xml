@@ -5,7 +5,11 @@
         <group>
             <file>file:/C:/xampp/htdocs/laravel/sitanya/routes/web.php</file>
             <file>file:/C:/xampp/htdocs/laravel/sitanya/app/Http/Controllers/C_Event.php</file>
-            <file>file:/C:/xampp/htdocs/laravel/sitanya/app/Http/Controllers/Backup/Bck_Event.php</file>
+            <file>file:/C:/xampp/htdocs/laravel/sitanya/app/Http/Controllers/C_Question.php</file>
+            <file>file:/C:/xampp/htdocs/laravel/sitanya/resources/views/homeadmin.blade.php</file>
+            <file>file:/C:/xampp/htdocs/laravel/sitanya/resources/views/homeuser.blade.php</file>
+            <file>file:/C:/xampp/htdocs/laravel/sitanya/resources/views/tanjahome.blade.php</file>
+            <file>file:/C:/xampp/htdocs/laravel/sitanya/app/QuestionModel.php</file>
         </group>
     </open-files>
 </project-private>

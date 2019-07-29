@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\EventModel;
 use App\AdminModel;
@@ -12,22 +12,26 @@ use App\QuestionModel;
 use Auth;
 use Illuminate\Support\Str;
 
-
 class C_Event extends Controller {
 
     public function __construct() {
         $this->middleware('auth');
     }
+
     public function home() {
         return view('tanjahome');
+    }
+
+    public function show(Request $request, $id) {
+        //Note Use
     }
 
     public function create() {//create some page create
         //Not Use
     }
 
-    public function destroy($id) {//hapusSpeaker
-        //Not Use    
+    public function destroy($id) {//hapus
+        //Not Use
     }
 
     public function edit($id) {//update data berdasar
@@ -61,15 +65,15 @@ class C_Event extends Controller {
                         'location' => $request->location
             ]);
             $Admin = AdminModel::create([
-                    'Name_Admin' => $username
+                        'Name_Admin' => $username
             ]);
             if ($EventModel->exists) {
                 $request->session()->forget('event');
-                $Event = EventModel::where('code_event',$codeevent)->get();
-                foreach($Event as $id){
+                $Event = EventModel::where('code_event', $codeevent)->get();
+                foreach ($Event as $id) {
                     $session = $id->idEvent;
                 }
-                $request->session()->put('event',$session);
+                $request->session()->put('event', $session);
                 return redirect('/homeadmin');
             } else {
                 return redirect()->back()->with(['warning' => 'Create Event Failed!']);
@@ -110,35 +114,37 @@ class C_Event extends Controller {
         }
     }
 
- 
     public function user_event(request $request) {// /homeuser
-        $idev = null;
-        $nip = null;
+        $tmp = null;
         if ($request->session()->has('event')) {
-            $join = Join_EventModel :: where('User_NIP', Auth::user()->NIP)
-                    ->where('Event_idEvent', $request->session()->get('event'))
+            $event = EventModel::where('idEvent', $request->session()->get('event'))
                     ->get();
-            $User = QuestionModel :: where('User_NIP', Auth::user()->NIP)
-                                    ->where('Event_idEvent', $request->session()->get('event'))
-                                    ->get();
-            $Event = EventModel::where('idEvent',$request->session()->get('event'))
-                                ->join('question', 'status','0')
-                                ->get();
-            
-                
-            foreach ($join as $jo) {
-                $idev = $jo->Event_idEvent;
-                $nip = $jo->User_NIP;
+            $join = Join_EventModel :: where('Event_idEvent', $request->session()->get('event'))
+                    ->where('User_NIP', Auth::user()->NIP)
+                    ->count();
+            $questme = Questionmodel::where('Event_idEvent', $request->session()->get('event'))
+                    ->where('User_NIP', Auth::user()->NIP)
+                    ->get();
+
+            $questall = Questionmodel::where('Event_idEvent', $request->session()->get('event'))
+                    ->where('status', 1)
+                    ->get();
+
+            foreach ($event as $ev) {
+                $tmp = $ev->status_event;
             }
-            if ($idev === $request->session()->get('event') && $nip === Auth::user()->NIP) {
-                return view('homeuser',['event' => $Event],['User' => $User ]);
+            if ($tmp === 0) {
+                return redirect('/home')->with(['warning' => 'Event has Ended!']);
             } else {
-                Join_EventModel::create([
-                    'Event_idEvent' => $request->session()->get('event'),
-                    'Admin_idAdmin' => 0,
-                    'User_NIP' => Auth::user()->NIP
-                ]);
-                return view('homeuser',['event' => $Event],['User' => $User ]);
+                if ($join < 1) {
+                    Join_EventModel::create([
+                        'Event_idEvent' => $request->session()->get('event'),
+                        'User_NIP' => Auth::user()->NIP
+                    ]);
+                    return view('homeuser', compact('event', 'questme', 'questall'));
+                } else {
+                    return view('homeuser', compact('event', 'questme', 'questall'));
+                }
             }
         } else {
             return redirect('/home')->with(['warning' => 'Input code and Join Required!']);
@@ -146,22 +152,19 @@ class C_Event extends Controller {
     }
 
     public function admin_event(request $request) {// /homeadmin
-        $idev = null;
-        $nip = null;
         if ($request->session()->has('event')) {
-            $join = Join_EventModel :: where('User_NIP', Auth::user()->NIP)
-                    ->where('Event_idEvent', $request->session()->get('event'))
+            $event = EventModel::where('idEvent', $request->session()->get('event'))
                     ->get();
-            foreach ($join as $jo) {
-                $idev = $jo->Event_idEvent;
-                $nip = $jo->User_NIP;
-            }
-            if ($idev === $request->session()->get('event') && $nip === Auth::user()->NIP) {
-                return "admin Old";
-            } else {
-                AdminModel::create([
-                    'Name_Admin' => Auth::user()->name
-                ]);
+            $join = Join_EventModel :: where('Event_idEvent', $request->session()->get('event'))
+                    ->where('User_NIP', Auth::user()->NIP)
+                    ->count();
+            $question_validate = QuestionModel::where('Event_idEvent', $request->session()->get('event'))
+                    ->where('status', 0)
+                    ->get();
+            $question_approve = QuestionModel::where('Event_idEvent', $request->session()->get('event'))
+                    ->where('status', 1)
+                    ->get();
+            if ($join < 1) {
                 $floor = AdminModel::where('Name_Admin', Auth::user()->name)->get();
                 foreach ($floor as $ad) {
                     $idAdmin = $ad->idAdmin;
@@ -171,7 +174,9 @@ class C_Event extends Controller {
                     'Admin_idAdmin' => $idAdmin,
                     'User_NIP' => Auth::user()->NIP
                 ]);
-                return "admin New";
+                return view('homeadmin', compact('event', 'question_validate', 'question_approve'));
+            } else {
+                return view('homeadmin', compact('event', 'question_validate', 'question_approve'));
             }
         } else {
             return redirect('/home')->with(['warning' => 'Input code and Join Required!']);
@@ -179,7 +184,6 @@ class C_Event extends Controller {
     }
 
     public function update(Request $request, $id) {//update berdasar
-        // update data pegawai
         $EventModel = EventModel::find($id);
         $EventModel->code_event = $request->code;
         $EventModel->name_event = $request->event;
@@ -188,52 +192,45 @@ class C_Event extends Controller {
         $EventModel->time_event = $request->time;
         $EventModel->save();
         if ($EventModel->exists) {
-            $request->session()->forget('event');
-            $request->session()->put('event', $request->code);
             return redirect()->back()->with(['success' => 'Update Event Completed!']);
         }
         return redirect()->back()->with(['error' => 'Update Event Failed!Try Again!']);
     }
 
-    public function show(Request $request, $codeevent) {  //summary  
-    }
-   //    =====================Speaker Function==========================
+    //    =====================Speaker Function==========================
     public function speaker_add(Request $request) {
-        $event = EventModel :: where('code_event', '=', $request->session()->get('event'))->get();
-        foreach ($event as $ev) {
-            $idEvent = $ev->idEvent;
-        }
         SpeakerModel::create([
-            'idEvent' => $idEvent,
-            'name_speaker' => $request->speaker,
+            'Event_idEvent' => $request->session()->get('event'),
+            'name_speaker' => $request->speaker
         ]);
         return redirect()->back()->with(['success' => 'Speaker Succes Added!']);
     }
+
     public function speaker_delete($id) {
         $speak = SpeakerModel::find($id);
         $speak->delete();
         return redirect()->back()->with(['success' => 'Speaker Succes Deleted!']);
     }
-    /** ==================================Test Case=============================================================* */
 
-     public function tampilkanSession(Request $request) {
-		if($request->session()->has('event')){
-			echo $request->session()->get('event');
-		}else{
-			echo 'Tidak ada data dalam session.';
-		}
-	}
- 
-	// membuat session
-	public function buatSession(Request $request) {
-		$request->session()->put('event','BPKRI');
-		echo "Data telah ditambahkan ke session.";
-	}
- 
-	// menghapus session
-	public function hapusSession(Request $request) {
-		$request->session()->forget('event');
-		echo "Data telah dihapus dari session.";
-	}
-    
+    /** ==============================Out Event===================================* */
+    public function Out_Event(Request $request) {
+        $tmpadmin = 0;
+        $join = Join_EventModel :: where('User_NIP', Auth::user()->NIP)
+                ->where('Event_idEvent', $request->session()->get('event'))
+                ->get();
+        foreach ($join as $tmp) {
+            $tmpadmin = $tmp->Admin_idAdmin;
+        }
+        if ($tmpadmin > 0) {
+            $EventModel = EventModel::find($request->session()->get('event'));
+            $EventModel->status_event = 0;
+            $EventModel->save();
+            $request->session()->forget('event');
+            return redirect()->action('C_Event@home');
+        } else {
+            $request->session()->forget('event');
+            return redirect()->action('C_Event@home');
+        }
     }
+
+}

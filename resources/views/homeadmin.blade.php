@@ -19,6 +19,12 @@
         <script src="{{ asset('asset/js/jquery-3.4.1.min.js') }}"></script>
         <script src="{{ asset('asset/js/popper.min.js') }}"></script>
         <script src="{{ asset('asset/js/bootstrap.min.js') }}"></script>
+        <script type="text/javascript">
+        var auto_refresh = setInterval(
+        function () {
+            $('#show_question').load('/validate/{{session()->get('event')}}').fadeIn("slow");
+        }, 3000);
+        </script>
     </head>
     <body class="bg-color">
         <nav class="navbar navbar-dark navbar-expand-md bg-warning justify-content-between">
@@ -62,7 +68,7 @@
                                     <span class="dropdown-item-text"><b>{{ Auth::user()->name }}</b></span>
 
                                     <div class="dropdown-divider"></div>
-                                    <a class="text-decoration-none" href="/switch_event">Switch Event</a>
+                                    <a class="text-decoration-none" href="/out">Switch Event</a>
                                 </div>
                             </div>
                         </li>
@@ -137,7 +143,7 @@
                         @endif
                     </div>
                     <div class="col-md-4">
-                        <a href="">
+                        <a href="/out">
                             <button class="btn btn-outline-danger float-sm-right">
                                 End Event
                             </button>
@@ -149,25 +155,27 @@
                         <div class="card card-bg2 padding-card col-sm-6" >
                             <h2>Question List</h2>
                             <hr>
-                            <div class="card padding-manual scroll">
-                                <div class="card" id="question">
+                            <div id="show_question" class="card padding-manual scroll">
+                                @foreach($question_validate as $v)
+                                <div class="card">
                                     <div class="card-header-answer">
-                                        <div class="row">
-                                            <div class="col-md-8">
+                                        <div class="row col-md-12">
+                                            <div class="col-md-5">
                                                 <img src="asset/img/Logo/user.jpg" alt="Avatar" class="avatar">
-                                                <b>{{ Auth::user()->name }}</b>
+                                                <b>{{$v->user->name}}</b>
                                             </div>
                                             <!--aprove-->
-                                            <div class="col-md-3">
-                                                <a href="">
+                                            <div class="col-md-5">
+                                                <a href="/approve/{{($v->idQuestion)}}">
                                                     <button class="btn btn-success float-sm-right">
                                                         <i class="fa fa-check"></i> Approve
                                                     </button>
                                                 </a>
                                             </div>
-                                            <div class="col-md-1">
-                                                <a href="">
-                                                    <button class="btn btn-danger">
+                                            <!--button delete-->
+                                            <div class="col-md-2">
+                                                <a href="/delete/{{($v->idQuestion)}}">
+                                                    <button class="btn btn-danger float-sm-right">
                                                         <i class="fa fa-trash"></i>
                                                     </button>
                                                 </a>
@@ -178,39 +186,73 @@
                                         <hr class="hr-fit">
                                     </div>
                                     <div class="card-body">
-                                        <p><b> Apa yang dimaksud dengan sistem pertanyaan dalam seminar BPK? </b></p>
+                                        <p><b> {{$v->question}} </b></p>
                                     </div>
                                     <div class="card-footer ">
-                                        <small class="text-muted"><b>Kategori </b></small>
+                                        @if($v->Speaker_idSpeaker == 0)
+                                         <small class="text-muted"><b>Universal Question</b></small>
+                                         @else
+                                        <small class="text-muted"><b>{{$v->SpeakerModel->name_speaker}} </b></small>
+                                        @endif
                                         <a class="float-sm-right" href="#" style="color:red;"><i class="fa fa-thumbs-o-down"></i><span> <b>10&emsp;</b> </span></a>
                                         <a class="float-sm-right" href="#" style="color:green;" ><i class="fa fa-thumbs-o-up"></i><span> <b>15&emsp;</b> </span></a>
                                     </div>
                                 </div>
                                 <br>
+                                @endforeach
                             </div>
                         </div>
                         <div class="card card-bg3 padding-card col-sm-6">
                             <h2>Question Approve</h2>
                             <hr>
                             <div class="card padding-manual scroll">
+                                @foreach($question_approve as $a)
                                 <div class="card" id="question">
                                     <div class="card-header-answer">
                                         <img src="asset/img/Logo/user.jpg" alt="Avatar" class="avatar">
-                                        <b>{{ Auth::user()->name }}</b>
+                                        <b>{{$a->user->name}}</b>
                                     </div>
                                     <div class="text-center" >
                                         <hr class="hr-fit">
                                     </div>
                                     <div class="card-body">
-                                        <p><b> Apa yang dimaksud dengan sistem pertanyaan dalam seminar BPK? </b></p>
+                                        <p><b> {{$a->question}} </b></p>
+                                        <br>
+                                         @if($a->Speaker_idSpeaker == 0)
+                                         <small class="text-muted"><b>Universal Question</b></small>
+                                         @else
+                                        <small class="text-muted"><b>{{$a->SpeakerModel->name_speaker}} </b></small>
+                                        @endif
                                     </div>
                                     <div class="card-footer ">
-                                        <small class="text-muted"><b>Kategori </b></small>
-                                        <a class="float-sm-right" href="#" style="color:red;"><i class="fa fa-thumbs-o-down"></i><span> <b>10&emsp;</b> </span></a>
-                                        <a class="float-sm-right" href="#" style="color:green;" ><i class="fa fa-thumbs-o-up"></i><span> <b>15&emsp;</b> </span></a>
+                                        
+                                        @if($a->answer === "Not Answered")
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <form action="{{route('question.update',$a->idQuestion)}}" method="POST">
+                                                    {{ method_field('PATCH') }}
+                                                    {{ csrf_field() }}
+                                                    <div class="input-group">
+                                                        <input type="text" name="answer" placeholder="{{$a->answer}}" class="form-control">
+                                                        @if($errors->has('answer'))
+                                                        <div class="text-danger">
+                                                            {{ $errors->first('event')}}
+                                                        </div>
+                                                        @endif
+                                                        <span class="input-group-btn">
+                                                            <input type="submit"  value="Answer" class="btn btn-success" data-disable-with="Search">
+                                                        </span> 
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        @else
+                                        <p class="font-italic text-sm-center ">{{$a->answer}}</p>
+                                        @endif
                                     </div>
                                 </div>
                                 <br>
+                                @endforeach
                             </div>
                         </div>
                     </div>

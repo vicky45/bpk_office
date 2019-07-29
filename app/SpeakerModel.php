@@ -10,11 +10,12 @@ class SpeakerModel extends Model
     protected $fillable = ['Event_idEvent' , 'name_speaker'];
     protected $primaryKey = 'idSpeaker';
     
+    public function QuestionModel(){
+        return $this->hasMany('App\QuestionModel','Speaker_idSpeaker','idSpeaker');
+    }
     
     public function EventModel(){
         return $this->belongsTo('App\EventModel');
     }
-     public function QuestionModel(){
-        return $this->hasMany('App\QuestionModel','Speaker_idSpeaker','idSpeaker');
-    }   
+     
 }
