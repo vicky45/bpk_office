@@ -1,13 +1,13 @@
 @foreach( $question_validate as $v)
 <div class="card">
     <div class="card-header-answer">
-        <div class="row col-md-12">
-            <div class="col-md-5">
+        <div class="row">
+            <div class="col-md-7">
                 <img src="asset/img/Logo/user.jpg" alt="Avatar" class="avatar">
                 <b>{{$v->user->name}}</b>
             </div>
             <!--aprove-->
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <a href="/approve/{{($v->idQuestion)}}">
                     <button class="btn btn-success float-sm-right">
                         <i class="fa fa-check"></i> Approve
@@ -15,7 +15,7 @@
                 </a>
             </div>
             <!--button delete-->
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <a href="/delete/{{($v->idQuestion)}}">
                     <button class="btn btn-danger float-sm-right">
                         <i class="fa fa-trash"></i>
@@ -36,8 +36,8 @@
             @else
            <small class="text-muted"><b>{{$v->SpeakerModel->name_speaker}} </b></small>
            @endif
-        <a class="float-sm-right" href="#" style="color:red;"><i class="fa fa-thumbs-o-down"></i><span> <b>10&emsp;</b> </span></a>
-        <a class="float-sm-right" href="#" style="color:green;" ><i class="fa fa-thumbs-o-up"></i><span> <b>15&emsp;</b> </span></a>
+        <a class="float-sm-right" href="#" style="color:red;"><i class="fa fa-thumbs-o-down"></i><span> <b>{{($v->reaction_dislike)}}&emsp;</b> </span></a>
+        <a class="float-sm-right" href="#" style="color:green;" ><i class="fa fa-thumbs-o-up"></i><span> <b>{{($v->reaction_like)}}&emsp;</b> </span></a>
     </div>
 </div>
 <br>

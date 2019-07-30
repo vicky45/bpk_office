@@ -43,13 +43,13 @@
                         </li>
                     </ul>
                 </div>
-                <a id="myBtn" class=" mx-auto text-center text-dark order-0 order-sm-1 size-roll">
+                <a data-toggle="modal" data-target="#update" class=" mx-auto text-center text-dark order-0 order-sm-1 size-roll">
                     @foreach ($event as $ev)
                     <h5><b>{{$ev->name_event}}</b></h5>
                     <h6>{{$ev->date_event}}</h6>
                     <h6>{{$ev->location}}</h6> 
                     <h6>#{{$ev->code_event}}</h6> 
-                    @endforeach
+                    
                 </a>
                 <div class="navbar-collapse collapse w-50 order-sm-2 dual-nav">
                     <ul class="nav navbar-nav ml-auto">
@@ -60,16 +60,18 @@
                                 <button onclick="myFunction()" class="dropbtnhdr">
                                     <div class="containeruser">
                                         <img src="asset/img/Logo/user.jpg" alt="Avatar" class="imageuser">
-                                        <div class="overlay">{{ Auth::user()->name }}</div>
+                                        <div class="overlay">Admin</div>
                                     </div>
                                 </button>
-
+                                @if($ev->status_event == 0)
                                 <div id="myDropdown" class="dropdown-content dual-nav">
                                     <span class="dropdown-item-text"><b>{{ Auth::user()->name }}</b></span>
-
                                     <div class="dropdown-divider"></div>
-                                    <a class="text-decoration-none" href="/out">Switch Event</a>
-                                </div>
+                                    <a class="text-decoration-none" href="/home">Log Out</a>
+                                </div
+                                @else
+                                @endif
+                                @endforeach
                             </div>
                         </li>
                     </ul>
@@ -90,6 +92,7 @@
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
+            <!--View Question-->
             <div id="quest" class=" tab-pane active"><br>
                 <div id="mySidenav" class="sidenav">
                     <div class="card card-bg1 padding-card">
@@ -159,13 +162,13 @@
                                 @foreach($question_validate as $v)
                                 <div class="card">
                                     <div class="card-header-answer">
-                                        <div class="row col-md-12">
-                                            <div class="col-md-5">
+                                        <div class="row">
+                                            <div class="col-md-7">
                                                 <img src="asset/img/Logo/user.jpg" alt="Avatar" class="avatar">
                                                 <b>{{$v->user->name}}</b>
                                             </div>
                                             <!--aprove-->
-                                            <div class="col-md-5">
+                                            <div class="col-md-4">
                                                 <a href="/approve/{{($v->idQuestion)}}">
                                                     <button class="btn btn-success float-sm-right">
                                                         <i class="fa fa-check"></i> Approve
@@ -173,7 +176,7 @@
                                                 </a>
                                             </div>
                                             <!--button delete-->
-                                            <div class="col-md-2">
+                                            <div class="col-md-1">
                                                 <a href="/delete/{{($v->idQuestion)}}">
                                                     <button class="btn btn-danger float-sm-right">
                                                         <i class="fa fa-trash"></i>
@@ -190,12 +193,12 @@
                                     </div>
                                     <div class="card-footer ">
                                         @if($v->Speaker_idSpeaker == 0)
-                                         <small class="text-muted"><b>Universal Question</b></small>
-                                         @else
+                                        <small class="text-muted"><b>Universal Question</b></small>
+                                        @else
                                         <small class="text-muted"><b>{{$v->SpeakerModel->name_speaker}} </b></small>
                                         @endif
-                                        <a class="float-sm-right" href="#" style="color:red;"><i class="fa fa-thumbs-o-down"></i><span> <b>10&emsp;</b> </span></a>
-                                        <a class="float-sm-right" href="#" style="color:green;" ><i class="fa fa-thumbs-o-up"></i><span> <b>15&emsp;</b> </span></a>
+                                        <a class="float-sm-right" href="#" style="color:red;"><i class="fa fa-thumbs-o-down"></i><span> <b>{{($v->reaction_dislike)}}&emsp;</b> </span></a>
+                                        <a class="float-sm-right" href="#" style="color:green;" ><i class="fa fa-thumbs-o-up"></i><span> <b>{{($v->reaction_like)}}&emsp;</b> </span></a>
                                     </div>
                                 </div>
                                 <br>
@@ -258,18 +261,70 @@
                     </div>
                 </div>
             </div>
-            <div id="poll" class=" tab-pane fade"><br>
-                <h3>Menu 1</h3
-                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <div id="poll" class=" tab-pane fade">
+                <br>
+                <div class="row col-md-12">
+                    <div class="col-md-12">
+                        <a href="/out">
+                            <button class="btn btn-outline-danger float-sm-right">
+                                End Event
+                            </button>
+                        </a>
+                    </div>
+                        
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card padding-card" >
+                            <div class="row">
+                            <div class="col-md-7">	
+                                <h2>LIST POLLING</h2>
+                            </div>
+                             <div class="col-md-5">	
+                                <button data-toggle="modal" data-target="#polling" type="button" class="btn btn-info float-sm-right">Create Poll</button>
+                            </div>
+                            </div>
+                            
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <strong>Which topic would you like to discuss today?</strong>
+                                    <p>Multiple choice
+                                        <br>Votes : 15</p>
+                                </div>
+                                <div class="col-md-1">
+                                    <a href="activate.html"><i class="fa fa-play"></i></a>
+                                </div>
+                                <div class="col-md-1">
+                                    <a href="result.html"><i class="fa fa-lock"></i></a>
+                                </div>
+                                <div class="col-md-1">
+                                    <a href="result.html"><i class="fa fa-trash"></i></a>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-center">
+                            <h3><strong>RESULT</strong></h3>
+                        </div>
+                        <div class="card padding-card text-center">
+                            <p>There's no better moment</p>
+                        </div>
+                    </div>
+                </div>
             </div>
+            
             <div id="sum" class="tab-pane fade"><br>
-                <h3>Menu 2</h3>
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-            </div>
-        </div>       
+                
+            </div> 
+        </div>
         <!-- Tab panes -->
         <div clas="container">
-            <div class="modal" id="myModal" style="padding-top: 0px;" >
+            <div class="modal" id="update" style="padding-top: 0px;" >
                 <div class="modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">
                         <!-- Modal Header -->
@@ -357,6 +412,26 @@
                     </div>
                 </div>
             </div>
+            
+            <div id="polling" class="modal">
+                <div class="modal-content col-sm-6" >
+                    <div class="modal-header text-center" style="">
+                        <h2>Create Polling</h2>
+                        <button type="button" class="btn close-modal" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div style="padding:5%">
+                        <form class="form-group" action="createPoll.html">
+                            <label>Select poll type  :</label>
+                            <select class="form-control">
+                                <option>Multiple Choice</option>
+                                <option>Rating</option>
+                            </select>
+                            <br>
+                            <input type="text" class="form-control" placeholder="What would you ask?"></input><br>
+                            <button type="submit" class="btn btn-primary">Create</button></div>
+                </div>
+            </div>
+            
         </div>
     </body>
     <script>
@@ -387,6 +462,7 @@
             document.getElementById("mySidenav").style.width = "0";
             document.getElementById("main").style.marginLeft = "0";
         }
+        
 // Get the modal
         var modal = document.getElementById("myModal");
 // Get the button that opens the modal
@@ -407,6 +483,10 @@
                 modal.style.display = "none";
             }
         }
+//        =================================
+
+        
+        
 // Click on a close button to hide the current list item
         var close = document.getElementsByClassName("close");
         var i;

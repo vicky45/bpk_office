@@ -19,13 +19,13 @@
         <script src="{{ asset('asset/js/jquery-3.4.1.min.js') }}"></script>
         <script src="{{ asset('asset/js/popper.min.js') }}"></script>
         <script src="{{ asset('asset/js/bootstrap.min.js') }}"></script>
-<!--        <script type="text/javascript">
+        <script type="text/javascript">
             var auto_refresh = setInterval(
             function () {
-               $('#quest').load('/question').fadeIn("slow");
-            }, 10000); // refresh setiap 10000 milliseconds
-    
-        </script>-->
+               $('#show_question').load('{{route('question.show',session()->get('event'))}}').fadeIn("slow");
+            }, 15000);
+        </script>
+        
     </head>
     <body class="bg-color"> 
         <nav class="navbar navbar-dark navbar-expand-md bg-warning justify-content-between">
@@ -61,14 +61,14 @@
                                 <button onclick="myFunction()" class="dropbtnhdr">
                                     <div class="containeruser">
                                         <img src="asset/img/Logo/user.jpg" alt="Avatar" class="imageuser">
+                                        <div class="overlay">User</div>
                                     </div>
                                 </button>
 
                                 <div id="myDropdown" class="dropdown-content dual-nav">
                                     <span class="dropdown-item-text"><b>{{ Auth::user()->name }}</b></span>
-
                                     <div class="dropdown-divider"></div>
-                                    <a class="text-decoration-none" href="/switch_event">Switch Event</a>
+                                    <a class="text-decoration-none" href="/out">Switch Event</a>
                                 </div>
                             </div>
                         </li>
@@ -110,10 +110,10 @@
                             <div class="col-sm-12 text-center">
                                 <hr style="width: 50%">
                             </div>
-                           @foreach($User as $quest)
+                           @foreach($questme as $quest)
                             <div class="row">
                                 <div class="col-sm-12 text-center">
-                                    <span><i> {{$quest->question}} </i></span>
+                                    <span><i> {{$quest->question}}</i></span>
                                     <button class="btn float-right">
                                         <a class="link-icon" href="" style="text-decoration:none">
                                             <i class="fa fa-trash float-right "></i> 
@@ -132,37 +132,77 @@
                         </div>
                         <br>
                     </div>
-
+                    <!--All Question-->
                     <div class="card "style="background-color:#fbfbfb;">
-                        <div id="quest" class="col-sm-12 text-center padding-card scroll">
-                            @foreach($ev->QuestionModel as $quest)
-                            <div class="card padding-card   ">
-                                <div class="row">
-                                    <div class="col-sm-8" style="text-align: left;">
-                                        <i class="fa fa-user-circle"></i>
-                                        <span> Anonymous</span>
-                                    </div>
-                                    <div id="like" class="col-sm-4" style="text-align:right">
-                                        <!--<small class="text-muted"><b>Kategori </b></small>-->
-                                    <a class="float-sm-right" href="#" style="text-decoration:none"><i class="fa fa-thumbs-o-up"></i><span> <b>15&emsp;</b> </span></a>
-                                    <a class="float-sm-right" href="#" style="text-decoration:none"><i class="fa fa-thumbs-o-down"></i><span> <b>10&emsp;</b> </span></a>
-                                
-                                    </div>
-                                </div>
-                                <hr>
-                                <p>{{$quest->question}}</p>
+                        <div id="show_question" class="col-sm-12 text-center padding-card scroll">
+                            @foreach( $questall as $all)
+                    <div class="card padding-card   ">
+                        <div class="row">
+                            <div class="col-sm-8" style="text-align: left;">
+                                <i class="fa fa-user-circle"></i>
+                                <span> {{$all->user->name}}</span>
                             </div>
-                            <br>
-                            @endforeach
+                            <div id="like" class="col-sm-4" style="text-align:right">
+                                <!--<small class="text-muted"><b>Kategori </b></small>-->
+                                <a class="float-sm-right" href="#" style="text-decoration:none"><i class="fa fa-thumbs-o-up"></i><span> <b>15&emsp;</b> </span></a>
+                                <a class="float-sm-right" href="#" style="text-decoration:none"><i class="fa fa-thumbs-o-down"></i><span> <b>10&emsp;</b> </span></a>
+
+                            </div>
+                        </div>
+                        <hr>
+                        <p>{{$all ->question}}</p>
+                    </div>
+                    <br>
+                    @endforeach
                         </div>
                     </div>
                 </div>
             </div>
 
             <div id="poll" class=" tab-pane fade"><br>
-                <h3>Comming Soon</h3>
-                <p>
+                <div class="row" style="padding:3%">
+                    <div class="col-sm-6" style="">
+                        <div class="text-center" style="padding-bottom:5%">
+                            <h3><strong>LIST</strong></h3>
+                        </div>
+
+                        <div class="card" style="padding:5%;background:#efefef">
+                            <div class="col-sm-4">	
+                                <button id="myBtn" type="button" class="btn btn-info">Create Poll</button>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-1" style="">
+                                </div>
+                                <div class="col-sm-8" style="">
+                                    <strong>Which topic would you like to discuss today?</strong>
+                                    <p>Multiple choice
+                                        <br>Votes : 15</p>
+                                </div>
+                                <div class="col-sm-1">
+                                    <a href="activate.html"><i class="fa fa-play"></i></a></div>
+
+                                <div class="col-sm-1">
+                                    <a href="result.html"><i class="fa fa-lock"></i></a></div>
+
+                                <div class="col-sm-1">
+                                    <a href="result.html"><i class="fa fa-trash"></i></a></div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="text-center" style="padding-bottom:5%">
+                            <h3><strong>RESULT</strong></h3>
+                        </div>
+                        <div class="card text-center" style="padding:5% 10%;height:100%;background:#efefef">
+                            <p>There's no better moment</p>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
         </div>       
 <!-- Tab panes -->
         <div clas="container">
@@ -171,7 +211,7 @@
                     <div class="modal-content">
                         <!-- Modal Header -->
                         <div class="modal-header">
-                            <h4 class="modal-title">Ask Some Question</h4>
+                            <h4 class="modal-title">Ask the Speaker</h4>
                             <button type="button" class="btn close-modal" data-dismiss="modal">&times;</button>
                         </div>
                         <!-- Modal body -->

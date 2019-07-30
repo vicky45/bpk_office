@@ -27,7 +27,8 @@ class C_Event extends Controller {
     }
 
     public function create() {//create some page create
-        //Not Use
+       $event_active = EventModel::where('status_event',1)->get(); 
+        return view('Extended.show_active',compact('event_active'));
     }
 
     public function destroy($id) {//hapus

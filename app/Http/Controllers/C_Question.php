@@ -1,118 +1,98 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Auth;
-use App\EventModel;
-use App\Join_EventModel;
 use App\SpeakerModel;
 use App\QuestionModel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class C_Question extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $event = EventModel :: where('code_event', '=', $request->session()->get('event'))->get();
-        foreach ($event as $ev) {
-            $idEvent = $ev->idEvent;
-        }
-        $question = QuestionModel::where('idEvent','=',$idEvent)->get();
-        return ['question'=>$question];
+class C_Question extends Controller {
+
+    public function index() {
+        //Not Use
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function edit($id) {
+        //Not Use
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
+    public function create() {
+        //note Use
+    }
+
+    public function destroy($id) {//remove question
+//        Not Use
+    }
+
+    public function store(Request $request) {//store question
         $Question = QuestionModel :: where('User_NIP', Auth::user()->NIP)
-                   ->where('Event_idEvent', $request->session()->get('event'))
-                   ->get();
-      
-        if($request->speak === "--Select Speaker--"){
+                ->where('Event_idEvent', $request->session()->get('event'))
+                ->get();
+        if ($request->speak === "--Select Speaker--") {
             QuestionModel::create([
                 'User_NIP' => Auth::user()->NIP,
-                'Event_idEvent'=>$request->session()->get('event'),
+                'Event_idEvent' => $request->session()->get('event'),
                 'question' => $request->ask
-                ]);
+            ]);
             return redirect()->back();
-        }else{
+        } else {
             $speak = SpeakerModel :: where('name_speaker', '=', $request->speak)->get();
             foreach ($speak as $ec) {
                 $idSpeak = $ec->idSpeaker;
             }
             QuestionModel::create([
-                'idEvent' => $idEvent,
-                'NIP' => Auth::user()->NIP,
-                'idSpeaker' => $idSpeak,
+                'Event_idEvent' => $request->session()->get('event'),
+                'User_NIP' => Auth::user()->NIP,
+                'Speaker_idSpeaker' => $idSpeak,
                 'question' => $request->ask,
             ]);
             return redirect()->back();
         }
     }
-    
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show()
-    {
+    public function show(Request $request, $id) { //refresh all question by javascript
+        $question_approve = QuestionModel::where('Event_idEvent', $id)
+                ->where('status', 1)
+                ->get();
+        return view('Extended.question_approve', compact('question_approve'));
+    }
+
+    public function update(Request $request, $id) {//update answer by admin
+        $answer = QuestionModel::find($id);
+//        $answer->Admin_idAdmin =
+        $answer->answer = $request->answer;
+        $answer->save();
+        return redirect()->back()->with(['success' => 'Answer Completed!']);
+    }
+
+    public function Show_validate(Request $request, $id) {//for view admin to validate question
+        $question_validate = QuestionModel::where('Event_idEvent', $id)
+                ->where('status', 0)
+                ->get();
+        return view('Extended.question_validate', compact('question_validate'));
+    }
+
+    public function approve($id) {//for admin to validate
+        $approve = QuestionModel::find($id);
+        $approve->status = 1;
+        $approve->save();
+        return redirect()->back()->with(['success' => 'Approve Completed!']);
+    }
+
+    public function delete($id) {
+        $statusupdate = QuestionModel::find($id);
+        $statusupdate->delete();
+        return redirect()->back()->with(['success' => 'Question Deleted!']);
+    }
+
+    public function like() {
         
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //Not Use
+    public function dislike() {
+        
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
