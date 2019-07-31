@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class RatingModel extends Model
 {
     protected $table = "rating";
-    protected $fillable = ['idRating','rating', 'total_rating'];
+    protected $fillable = ['polling_idPolling','rating', 'total_rating'];
     protected $primaryKey = 'idRating';
     
     
      public function PollingModel(){
-        return $this->hasMany('App\PollingModel','multiple_choices_id_multiple_choice','id_multiple_choice');
+        return $this->belongsTo('App\PollingModel');
     }
 }

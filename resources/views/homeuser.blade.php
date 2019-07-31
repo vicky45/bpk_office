@@ -20,12 +20,12 @@
         <script src="{{ asset('asset/js/popper.min.js') }}"></script>
         <script src="{{ asset('asset/js/bootstrap.min.js') }}"></script>
         <script type="text/javascript">
-            var auto_refresh = setInterval(
-            function () {
-               $('#show_question').load('{{route('question.show',session()->get('event'))}}').fadeIn("slow");
-            }, 15000);
+var auto_refresh = setInterval(
+        function () {
+            $('#show_question').load('{{route('question.show',session()->get('event'))}}').fadeIn("slow");
+        }, 15000);
         </script>
-        
+
     </head>
     <body class="bg-color"> 
         <nav class="navbar navbar-dark navbar-expand-md bg-warning justify-content-between">
@@ -55,7 +55,7 @@
                 <div class="navbar-collapse collapse w-50 order-sm-2">
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="">
+                            <a class="nav-link">
                             </a>
                             <div class="dropdown">
                                 <button onclick="myFunction()" class="dropbtnhdr">
@@ -68,16 +68,21 @@
                                 <div id="myDropdown" class="dropdown-content dual-nav">
                                     <span class="dropdown-item-text"><b>{{ Auth::user()->name }}</b></span>
                                     <div class="dropdown-divider"></div>
-                                    <a class="text-decoration-none" href="/out">Switch Event</a>
+                                    <a class="text-decoration-none" href="/out">Log Out</a>
                                 </div>
                             </div>
                         </li>
                     </ul>
                 </div>
                 <div class="navbar collapse  dual-nav col-sm-12">
-                    <button type="button" class="btn btn-secondary btn-block" href="#" >
-                        <i class="fa fa-toggle-off"></i>&nbsp;Switch Event
-                    </button>
+
+                    <button type="button" class="btn btn-secondary btn-block">
+                        <a href="/out" style="color: white;">
+                            <i class="fa fa-toggle-off"></i>&nbsp;Switch Event
+                        </a>
+                    </button>    
+
+
                 </div>
             </div>
         </nav>
@@ -105,20 +110,15 @@
                             </div>
                             <br>
                         </div>
-                        
+
                         <div class="card col-sm-12 scroll">
                             <div class="col-sm-12 text-center">
                                 <hr style="width: 50%">
                             </div>
-                           @foreach($questme as $quest)
+                            @foreach($questme as $quest)
                             <div class="row">
-                                <div class="col-sm-12 text-center">
+                                <div class="col-sm-12">
                                     <span><i> {{$quest->question}}</i></span>
-                                    <button class="btn float-right">
-                                        <a class="link-icon" href="" style="text-decoration:none">
-                                            <i class="fa fa-trash float-right "></i> 
-                                        </a>
-                                    </button>
                                     <hr style="width: 50%">
                                 </div>
                             </div>
@@ -134,26 +134,26 @@
                     </div>
                     <!--All Question-->
                     <div class="card "style="background-color:#fbfbfb;">
-                        <div id="show_question" class="col-sm-12 text-center padding-card scroll">
+                        <div id="show_question" class="col-sm-12 padding-card scroll">
                             @foreach( $questall as $all)
-                    <div class="card padding-card   ">
-                        <div class="row">
-                            <div class="col-sm-8" style="text-align: left;">
-                                <i class="fa fa-user-circle"></i>
-                                <span> {{$all->user->name}}</span>
-                            </div>
-                            <div id="like" class="col-sm-4" style="text-align:right">
-                                <!--<small class="text-muted"><b>Kategori </b></small>-->
-                                <a class="float-sm-right" href="#" style="text-decoration:none"><i class="fa fa-thumbs-o-up"></i><span> <b>15&emsp;</b> </span></a>
-                                <a class="float-sm-right" href="#" style="text-decoration:none"><i class="fa fa-thumbs-o-down"></i><span> <b>10&emsp;</b> </span></a>
+                            <div class="card padding-card col-sm-12">
+                                
+                                    <div class="d-inline" style="text-align: left;">
+                                        <i class="fa fa-user-circle"></i>
+                                        <span> {{$all->user->name}}</span>
+                                    </div>
+                                    <div id="like" class="d-inline" style="text-align:right">
+                                        <!--<small class="text-muted"><b>Kategori </b></small>-->
+                                        <a class="float-sm-right" href="#" style="text-decoration:none"><i class="fa fa-thumbs-o-up"></i><span> <b>15&emsp;</b> </span></a>
+                                        <a class="float-sm-right" href="#" style="text-decoration:none"><i class="fa fa-thumbs-o-down"></i><span> <b>10&emsp;</b> </span></a>
 
+                                    </div>
+                                
+                                <hr>
+                                <p>{{$all ->question}}</p>
                             </div>
-                        </div>
-                        <hr>
-                        <p>{{$all ->question}}</p>
-                    </div>
-                    <br>
-                    @endforeach
+                            <br>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -203,81 +203,81 @@
                 </div>
             </div>
         </div>
-        </div>       
-<!-- Tab panes -->
-        <div clas="container">
-            <div class="modal" id="myModal" style="padding-top: 0px;" >
-                <div class="modal-dialog modal-dialog-scrollable modal-lg">
-                    <div class="modal-content">
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h4 class="modal-title">Ask the Speaker</h4>
-                            <button type="button" class="btn close-modal" data-dismiss="modal">&times;</button>
-                        </div>
-                        <!-- Modal body -->
-                        <div class="modal-body">
-                            <form class="form-group" method="POST" action="{{ route('question.store')}}">
+    </div>       
+    <!-- Tab panes -->
+    <div clas="container">
+        <div class="modal" id="myModal" style="padding-top: 0px;" >
+            <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Ask the Speaker</h4>
+                        <button type="button" class="btn close-modal" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <form class="form-group" method="POST" action="{{ route('question.store')}}">
                             {{ csrf_field() }}
-                                <input type="text" class="form-control" name="ask" placeholder="What would you ask?"></input>
-                                <label></label>
-                                <select class="form-control" name="speak">
-                                    <option>--Select Speaker--</option>
-                                    @foreach ($ev->SpeakerModel as $speak)
-                                    <option>{{$speak->name_speaker}}</option>
-                                    @endforeach
-                                </select>
-                                <hr>
-                                <input type="checkbox"> Ask as Anonymous</input><br><br>
-                                <button type="submit" class="btn btn-primary">Send</button>
-                            </form>
+                            <input type="text" class="form-control" name="ask" placeholder="What would you ask?"></input>
+                            <label></label>
+                            <select class="form-control" name="speak">
+                                <option>--Select Speaker--</option>
+                                @foreach ($ev->SpeakerModel as $speak)
+                                <option>{{$speak->name_speaker}}</option>
+                                @endforeach
+                            </select>
+                            <hr>
+                            <input type="checkbox"> Ask as Anonymous</input><br><br>
+                            <button type="submit" class="btn btn-primary">Send</button>
+                        </form>
 
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </body>
-    <script>
-        function myFunction() {
-            document.getElementById("myDropdown").classList.toggle("show");
-        }
-        window.onclick = function (event) {
-            if (!event.target.matches('.dropbtn')) {
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                var i;
-                for (i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
+    </div>
+</body>
+<script>
+    function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+    window.onclick = function (event) {
+        if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
                 }
             }
         }
-        var modal = document.getElementById("myModal");
-        var btn = document.getElementById("myBtn");
-        var span = document.getElementsByClassName("close-modal")[0];
-        btn.onclick = function () {
-            modal.style.display = "block";
-        }
-        span.onclick = function () {
+    }
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("myBtn");
+    var span = document.getElementsByClassName("close-modal")[0];
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+    window.onclick = function (event) {
+        if (event.target == modal) {
             modal.style.display = "none";
         }
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
+    }
+    var close = document.getElementsByClassName("close");
+    var i;
+    for (i = 0; i < close.length; i++) {
+        close[i].onclick = function () {
+            var div = this.parentElement;
+            div.style.display = "none";
         }
-        var close = document.getElementsByClassName("close");
-        var i;
-        for (i = 0; i < close.length; i++) {
-            close[i].onclick = function () {
-                var div = this.parentElement;
-                div.style.display = "none";
-            }
-        }
-        
-        
+    }
 
-      
-    </script>
+
+
+
+</script>
 </html>

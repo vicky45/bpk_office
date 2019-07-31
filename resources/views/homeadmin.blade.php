@@ -68,8 +68,13 @@
                                     <span class="dropdown-item-text"><b>{{ Auth::user()->name }}</b></span>
                                     <div class="dropdown-divider"></div>
                                     <a class="text-decoration-none" href="/home">Log Out</a>
-                                </div
+                                </div>
                                 @else
+                                <div id="myDropdown" class="dropdown-content dual-nav">
+                                    <span class="dropdown-item-text"><b>{{ Auth::user()->name }}</b></span>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="text-decoration-none" href="/Out">End Event</a>
+                                </div>
                                 @endif
                                 @endforeach
                             </div>
@@ -128,7 +133,7 @@
                 </div>
                 <div class="row col-md-12">
                     <div class="col-md-4">
-                        <span class=" btn btn-primary" onclick="openNav()"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>  Create Speaker's</span>
+                        <span class=" btn btn-outline-primary" onclick="openNav()"><i class="fa fa-users" aria-hidden="true"></i>  Create Speaker's</span>
                     </div>
 
                     <div class="col-sm-4">
@@ -146,11 +151,7 @@
                         @endif
                     </div>
                     <div class="col-md-4">
-                        <a href="/out">
-                            <button class="btn btn-outline-danger float-sm-right">
-                                End Event
-                            </button>
-                        </a>
+                        
                     </div>
                 </div>
                 <div id="main">
@@ -159,7 +160,8 @@
                             <h2>Question List</h2>
                             <hr>
                             <div id="show_question" class="card padding-manual scroll">
-                                @foreach($question_validate as $v)
+                                @if($question_validate->count() > 0 )
+                                @foreach( $question_validate as $v)
                                 <div class="card">
                                     <div class="card-header-answer">
                                         <div class="row">
@@ -203,6 +205,13 @@
                                 </div>
                                 <br>
                                 @endforeach
+                                @else
+                                <div class="text-center">
+                                    <hr style="width: 50%">
+                                    <h4>There's is No Question</h4>
+                                    <hr style="width: 50%">
+                                </div>
+                                @endif 
                             </div>
                         </div>
                         <div class="card card-bg3 padding-card col-sm-6">
@@ -264,64 +273,76 @@
             <div id="poll" class=" tab-pane fade">
                 <br>
                 <div class="row col-md-12">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
+                        <button data-toggle="modal" data-target="#polling" type="button" class="btn btn-outline-primary float-sm-left">
+                            <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                            Create Poll
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                    </div>
+                </div>
+                <div id="main">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card padding-card" >
+                                    <div class="row">
+                                        <div class="col-md-7">	
+                                            <h2>List Polling</h2>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <strong>Which topic would you like to discuss today?</strong>
+                                            <p>Multiple choice
+                                                <br>Votes : 15</p>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <a href="activate.html"><i class="fa fa-play"></i></a>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <a href="result.html"><i class="fa fa-lock"></i></a>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <a href="result.html"><i class="fa fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card padding-card text-center">
+                                    <div class="col-md-12">	
+                                        <h2 class="float-sm-left">Result</h2>
+                                    </div>
+                                    <hr>
+                                    <p>There's no better some polling</p>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            
+            <div id="sum" class="tab-pane fade"><br>
+                <div class="row col-md-12">
+                    <div class="col-md-6">
+                        <button data-toggle="modal" data-target="#polling" type="button" class="btn btn-outline-primary float-sm-left">Create Poll</button>
+                    </div>
+                    <div class="col-md-6">
                         <a href="/out">
                             <button class="btn btn-outline-danger float-sm-right">
                                 End Event
                             </button>
                         </a>
                     </div>
-                        
-                    </div>
                 </div>
-                <br>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card padding-card" >
-                            <div class="row">
-                            <div class="col-md-7">	
-                                <h2>LIST POLLING</h2>
-                            </div>
-                             <div class="col-md-5">	
-                                <button data-toggle="modal" data-target="#polling" type="button" class="btn btn-info float-sm-right">Create Poll</button>
-                            </div>
-                            </div>
-                            
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-9">
-                                    <strong>Which topic would you like to discuss today?</strong>
-                                    <p>Multiple choice
-                                        <br>Votes : 15</p>
-                                </div>
-                                <div class="col-md-1">
-                                    <a href="activate.html"><i class="fa fa-play"></i></a>
-                                </div>
-                                <div class="col-md-1">
-                                    <a href="result.html"><i class="fa fa-lock"></i></a>
-                                </div>
-                                <div class="col-md-1">
-                                    <a href="result.html"><i class="fa fa-trash"></i></a>
-                                </div>
-                            </div>
-                            <hr>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="text-center">
-                            <h3><strong>RESULT</strong></h3>
-                        </div>
-                        <div class="card padding-card text-center">
-                            <p>There's no better moment</p>
-                        </div>
-                    </div>
+                <div id="main">
+                    
                 </div>
-            </div>
-            
-            <div id="sum" class="tab-pane fade"><br>
-                
             </div> 
         </div>
+    
         <!-- Tab panes -->
         <div clas="container">
             <div class="modal" id="update" style="padding-top: 0px;" >
@@ -340,7 +361,7 @@
                                 {{ csrf_field() }}
                                 <!--form name event-->
                                 <div class="form-group">
-                                    <label><strong> Event Name </strong></label>
+                                    <label> Event Name </label>
                                     <input type="text" class="form-control" name="event" value="{{$ev->name_event}}" required="required">
                                     @if($errors->has('event'))
                                     <div class="text-danger">
@@ -349,10 +370,10 @@
                                     @endif
                                 </div>
                                 <!--form name date-->
-                                <label><strong> Date </strong></label>
+                                <label> Date </label>
                                 <div class="form-group row">
-                                    <div class="col-md-6" style="padding-left: 0px;">
-                                        <input type="date" class="form-control" id="date" name="date" value="{{$ev->date_event}}" required="required" >
+                                    <div class="col-md-6">
+                                        <input type="date" class="form-control" id="date" name="date" value="{{$ev->date_event}}"required="required" >
                                         @if($errors->has('date'))
                                         <div class="text-danger">
                                             {{ $errors->first('date')}}
@@ -360,19 +381,21 @@
                                         @endif
                                     </div>
                                     <!--form name time-->
-                                    <label><strong>  at : </strong></label>
+                                    <label> at : </label>
                                     <div class="col-md-5" style="padding-right: 50px;">
-                                        <input type="time" class="form-control" name="time" value="{{$ev->time_event}}" required="required">
+                                        <input type="time" class="form-control" name="time" value="{{$ev->time_event}}"required="required">
                                         @if($errors->has('location'))
                                         <div class="text-danger">
                                             {{ $errors->first('location')}}
                                         </div>
                                         @endif
                                     </div>
+
                                 </div>
+
                                 <!--form location event-->
                                 <div class="form-group">
-                                    <label><strong> Place </strong></label>
+                                    <label> Place </label>
                                     <input type="text" class="form-control" name="location" value="{{$ev->location}}" required="required">
                                     @if($errors->has('location'))
                                     <div class="text-danger">
@@ -383,7 +406,7 @@
                                 <div class="form-group">
                                     <input type="hidden" name="id" value="{{ $ev->idEvent }}">
                                     <!--form code event-->
-                                    <label><strong> Event Code </strong></label>
+                                    <label> Event Code </label>
                                     <input type="text" class="form-control" name="code" value="{{$ev->code_event}}" minlength="6" maxlength="6" required="required">
                                     @if($errors->has('event'))
                                     <div class="text-danger">
@@ -412,29 +435,103 @@
                     </div>
                 </div>
             </div>
-            
+
             <div id="polling" class="modal">
-                <div class="modal-content col-sm-6" >
-                    <div class="modal-header text-center" style="">
-                        <h2>Create Polling</h2>
-                        <button type="button" class="btn close-modal" data-dismiss="modal">&times;</button>
+                <div class="modal-content col-md-6" >
+                    <div class="modal-header">
+                        <div class="col-md-9">
+                        <h3>Create Polling</h3>
+                        </div>
+                        <div class="col-md-3">
+                        <button type="button" class="btn close-modal float-sm-right" data-dismiss="modal">&times;</button>
+                        </div>
+                        <hr>
                     </div>
-                    <div style="padding:5%">
-                        <form class="form-group" action="createPoll.html">
-                            <label>Select poll type  :</label>
-                            <select class="form-control">
-                                <option>Multiple Choice</option>
-                                <option>Rating</option>
-                            </select>
-                            <br>
-                            <input type="text" class="form-control" placeholder="What would you ask?"></input><br>
-                            <button type="submit" class="btn btn-primary">Create</button></div>
+                    <br>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label> Select poll type : </label>
+                            </div>
+                            <div class="col-md-5">
+                                <select class="form-control" name="type" onchange="showDiv(this.value)">
+                                    <option value="no">Select Polling</option>
+                                    <option value="rating">Rating</option>
+                                    <option value="multiple">Multiple Choice</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div id="form-no">
+                            
+                        </div>
+                        <div id="form-rating" style="display:none">
+                            <form class="form-group" method="POST" action="{{route('polling.store')}}">
+                                {{ csrf_field() }}
+                                 <input type="hidden" name="type" value="rating">
+                                <input class="form-control" type="text" placeholder="What would you give to rate today?">
+                                <div class="padding-card">
+                                    <div class="stars">
+                                            <input class="star star-5" checked="checked" id="star-5" type="radio" name="star5"/>
+                                            <label class="star star-5" for="star-5"></label>
+                                            <input class="star star-4" id="star-4" type="radio" name="star"/>
+                                            <label class="star star-4" for="star-4"></label>
+                                            <input class="star star-3" id="star-3" type="radio" name="star"/>
+                                            <label class="star star-3" for="star-3"></label>
+                                            <input class="star star-2" id="star-2" type="radio" name="star"/>
+                                            <label class="star star-2" for="star-2"></label>
+                                            <input class="star star-1" id="star-1" type="radio" name="star"/>
+                                            <label class="star star-1" for="star-1"></label>
+                                    </div>
+                                </div>
+                                <br>
+                                <button class="btn btn-primary float-sm-right" type="submit">Create Rate</button>
+                            </form>
+                        </div>
+                        <div id="form-multiple" style="display:none">
+                            <form class="form-inline" method="POST" action="{{route('polling.store')}}">
+                                {{ csrf_field() }}
+                                 <input type="hidden" name="type" value="multiple">
+                                <input class="form-control pad-mul col-sm-12" type="text" placeholder="What would you send choice today?">
+                                <br>
+                                <div class="form-group pad-mul col-sm-12" >
+                                    <label>A.&nbsp;</label>
+                                    <input type="text" name ="1" class=" form-control" placeholder="Choice name" required="required" >
+                                </div>
+                                <div class="form-group pad-mul col-sm-12">
+                                    <label>B.&nbsp;</label>
+                                    <input type="text" name ="2" class=" form-control" placeholder="Choice name" required="required" >
+                                </div>
+                                <div class="form-group pad-mul col-sm-12">
+                                    <label>C.&nbsp;</label>
+                                    <input type="text" name ="3" class=" form-control" placeholder="Choice name" >
+                                </div>
+                                <div class="form-group pad-mul col-sm-12">
+                                    <label>D.&nbsp;</label>
+                                    <input type="text" name ="4" class=" form-control" placeholder="Choice name" >
+                                </div>
+                                <div class="form-group col-sm-8">
+                                </div>
+                                <div class="form-group col-sm-4">
+                                <button class="btn btn-primary float-sm-right" type="submit">Create choice</button>
+                                </div>
+                            </form>
+                        </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
         </div>
     </body>
     <script>
+        
+        function showDiv(id){
+            var idv = "form-"+id;
+            document.getElementById('form-no').style.display = 'none';
+            document.getElementById('form-rating').style.display = 'none';
+            document.getElementById('form-multiple').style.display = 'none';
+            document.getElementById(idv).style.display = 'block';
+        }
         /* When the user clicks on the button, 
          toggle between hiding and showing the dropdown content */
         function myFunction() {
@@ -462,29 +559,6 @@
             document.getElementById("mySidenav").style.width = "0";
             document.getElementById("main").style.marginLeft = "0";
         }
-        
-// Get the modal
-        var modal = document.getElementById("myModal");
-// Get the button that opens the modal
-        var btn = document.getElementById("myBtn");
-// Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close-modal")[0];
-// When the user clicks the button, open the modal 
-        btn.onclick = function () {
-            modal.style.display = "block";
-        }
-// When the user clicks on <span> (x), close the modal
-        span.onclick = function () {
-            modal.style.display = "none";
-        }
-// When the user clicks anywhere outside of the modal, close it
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-//        =================================
-
         
         
 // Click on a close button to hide the current list item
