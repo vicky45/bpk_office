@@ -22,7 +22,11 @@ class EventModel extends Model
         return $this->hasMany('App\PollingModel','Event_idEvent','idEvent');
     }
     
-    public function Joint_EventModel(){
-        return $this->hasMany('App\join_EventModel','Event_idEvent','idEvent');
+    public function User_has_EventModel(){
+        return $this->hasMany('App\User_has_EventEventModel','Event_idEvent','idEvent');
+    }
+    
+    public function AdminModel(){
+        return $this->hasMany('App\AdminModel','Event_idEvent','idEvent');
     }
 }

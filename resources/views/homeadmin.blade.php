@@ -108,7 +108,7 @@
                         <form class="form-horizontal" method="POST" action="/speaker">
                             {{ csrf_field() }}
                             <div class="form-group">
-                                <input type="text" class="form-control form-speaker" id="speaker" name="speaker" placeholder="Categories" required="required">
+                                <input type="text" class="form-control form-speaker" id="speaker" name="speaker" placeholder="Name Speaker" required="required">
                             </div>
                             <button type="submit" class="btn btn-primary float-sm-right">Save</button>
                         </form>
@@ -120,10 +120,10 @@
                                     <p class="text-left">{{$speak->name_speaker}}</p>
                                 </button>
                             </div>
-                            <div class="containeruser col-sm-5">
-                                <button class="btn">
+                            <div class="containeruser col-sm-6">
+                                <button class="btn float-sm-right">
                                     <a class="link-icon" href="/delete_speaker/{{$speak->idSpeaker}}">
-                                        <i class="fa fa-trash float-right fa-2x"></i> 
+                                        <i class="fa fa-trash float-sm-right"></i> 
                                     </a>
                                 </button>
                             </div>
@@ -440,10 +440,10 @@
                 <div class="modal-content col-md-6" >
                     <div class="modal-header">
                         <div class="col-md-9">
-                        <h3>Create Polling</h3>
+                            <h3>Create Polling</h3>
                         </div>
                         <div class="col-md-3">
-                        <button type="button" class="btn close-modal float-sm-right" data-dismiss="modal">&times;</button>
+                            <button type="button" class="btn close-modal float-sm-right" data-dismiss="modal">&times;</button>
                         </div>
                         <hr>
                     </div>
@@ -471,6 +471,7 @@
                                  <input type="hidden" name="type" value="rating">
                                 <input class="form-control" type="text" placeholder="What would you give to rate today?">
                                 <div class="padding-card">
+                                    <h5> Maximal 5 Stars </h5>
                                     <div class="stars">
                                             <input class="star star-5" checked="checked" id="star-5" type="radio" name="star5"/>
                                             <label class="star star-5" for="star-5"></label>

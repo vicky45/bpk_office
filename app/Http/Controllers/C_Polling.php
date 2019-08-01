@@ -41,23 +41,25 @@ class C_Polling extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) { //store polling 
-
-        switch ($request->type) {
-            case 'multiple':
-                return  $request->type;
-                break;
-            case 'rating':
-                return  $request->type;
-                break;
+        $event = EventModel::find($request->session()->get('event'));
+        foreach ($event as $ev){
+        foreach($ev->Join_EventModel as $j){
+            $idAdmin = $j->Admin_idAdmin;
         }
-//         $PollingModel = PollingModel::create([
-//                        'code_event' => $codeevent,
-//                        'name_event' => $request->event,
-//                        'date_event' => $request->date,
-//                        'time_event' => $request->time,
-//                        'status_event' => 1,
-//                        'location' => $request->location
-//            ]);
+        
+        }
+        switch ($request->type) {
+            case 'rating':
+//                PollingModel::create([
+//                    'Admin_idAdmin'= 
+//                ]);
+                return $idAdmin;
+                break;
+            case 'multiple':
+//                
+                break;
+            
+        }
     }
 
     /**

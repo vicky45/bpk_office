@@ -60,6 +60,10 @@ class C_Question extends Controller {
     }
 
     public function update(Request $request, $id) {//update answer by admin
+        $admin = AdminModel::where('Event_idEvent', $id);
+        $
+        
+        
         $answer = QuestionModel::find($id);
 //        $answer->Admin_idAdmin =
         $answer->answer = $request->answer;

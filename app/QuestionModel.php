@@ -11,7 +11,7 @@ class QuestionModel extends Model {
     protected $primaryKey = 'idQuestion';
 
     public function EventModel() {
-        return $this->belongsTo('App\EventModel');
+        return $this->belongsTo('App\EventModel','Event_idEvent','idEvent');
     }
 
     public function SpeakerModel() {
@@ -19,7 +19,7 @@ class QuestionModel extends Model {
     }
 
     public function AdminModel() {
-        return $this->belongsTo('App\AdminModel','Admin_idAdmin');
+        return $this->belongsTo('App\AdminModel','Admin_idAdmin','idAdmin');
     }
     
     public function user(){

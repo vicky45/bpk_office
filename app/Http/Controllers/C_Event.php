@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\EventModel;
 use App\AdminModel;
-use App\Join_EventModel;
+use App\User;
+use App\User_has_EventModel;
 use App\SpeakerModel;
 use App\QuestionModel;
 use Auth;
@@ -40,14 +41,17 @@ class C_Event extends Controller {
     }
 
     public function store(Request $request) {//store data code admin or user
-        $idEvent = null;
-        $idadmin = null;
-        $code_event = null;
-        $session = null;
-        $username = Auth::user()->name;
+        $request->session()->forget('event');
         $usernip = Auth::user()->NIP;
         $code = $request->join;
+        $session = null;
+        $idadmin = null;
+        //resource global event
+        $idEvent = null;
+        $code_event = null;
         $status = 0;
+        
+        
         //log in with create event
         if ($code === null) {
             $codeevent = Str::random(6);
@@ -65,17 +69,28 @@ class C_Event extends Controller {
                         'status_event' => 1,
                         'location' => $request->location
             ]);
+            
+            $user = User::where('NIP',$usernip)->get();
+            $Event = EventModel::where('code_event', $codeevent)->get();
+            
+            foreach($user as $user){
+                $name = $user->name;
+                $NIP = $user->NIP;
+            }
+            foreach ($Event as $event) {
+                    $session = $event->idEvent;
+            }
+            
             $Admin = AdminModel::create([
-                        'Name_Admin' => $username
+                        'Name_Admin' => $name,
+                        'User_NIP' => $NIP,
+                        'Event_idEvent' => $session,
             ]);
             if ($EventModel->exists) {
                 $request->session()->forget('event');
-                $Event = EventModel::where('code_event', $codeevent)->get();
-                foreach ($Event as $id) {
-                    $session = $id->idEvent;
-                }
                 $request->session()->put('event', $session);
                 return redirect('/homeadmin');
+                
             } else {
                 return redirect()->back()->with(['warning' => 'Create Event Failed!']);
             }
@@ -83,19 +98,16 @@ class C_Event extends Controller {
             //log in with code
             $event = EventModel :: where('code_event', '=', $code)->get();
             foreach ($event as $ev) {
-                $code_event = $ev->code_event;
                 $idEvent = $ev->idEvent;
+                $code_event = $ev->code_event;
                 $status = $ev->status_event;
             }
-            if ($code === $code_event) {
-                $request->session()->forget('event');
-                $join = Join_EventModel :: where('User_NIP', $usernip)
-                        ->where('Event_idEvent', $idEvent)
-                        ->get();
-                foreach ($join as $jo) {
-                    $idadmin = $jo->Admin_idAdmin;
-                }
-                if ($idadmin > 0) {
+            
+            if ($code === $code_event) {                
+                $admin = AdminModel :: where('Event_idEvent', $session)
+                    ->where('User_NIP',$usernip)
+                    ->count();
+                if ($admin > 0) {
                     $request->session()->put('event', $idEvent);
                     $Upstatus = EventModel::find($idEvent);
                     $Upstatus->status_event = 1;
@@ -103,7 +115,6 @@ class C_Event extends Controller {
                     return redirect('/homeadmin');
                 } else {
                     if ($status == 1) {
-                        $request->session()->put('event', $idEvent);
                         return redirect('/homeuser');
                     } else {
                         return redirect()->back()->with(['warning' => 'Event Not Active!']);
@@ -116,18 +127,20 @@ class C_Event extends Controller {
     }
 
     public function user_event(request $request) {// /homeuser
-        $tmp = null;
         if ($request->session()->has('event')) {
-            $event = EventModel::where('idEvent', $request->session()->get('event'))
+            $session = $request->session()->get('event');
+            $usernip = Auth::user()->NIP;
+            $tmp = null;
+            $event = EventModel::where('idEvent', $session)
                     ->get();
-            $join = Join_EventModel :: where('Event_idEvent', $request->session()->get('event'))
-                    ->where('User_NIP', Auth::user()->NIP)
+            $user = User_has_EventModel :: where('Event_idEvent', $session)
+                    ->where('User_NIP', $usernip)
                     ->count();
-            $questme = Questionmodel::where('Event_idEvent', $request->session()->get('event'))
-                    ->where('User_NIP', Auth::user()->NIP)
+            $questme = Questionmodel::where('Event_idEvent', $session)
+                    ->where('User_NIP', $usernip)
                     ->get();
 
-            $questall = Questionmodel::where('Event_idEvent', $request->session()->get('event'))
+            $questall = Questionmodel::where('Event_idEvent', $session)
                     ->where('status', 1)
                     ->get();
 
@@ -135,51 +148,49 @@ class C_Event extends Controller {
                 $tmp = $ev->status_event;
             }
             if ($tmp === 0) {
+                $request->session()->forget('event');
                 return redirect('/home')->with(['warning' => 'Event has Ended!']);
             } else {
-                if ($join < 1) {
-                    Join_EventModel::create([
-                        'Event_idEvent' => $request->session()->get('event'),
-                        'User_NIP' => Auth::user()->NIP
+                if ($user < 1) {
+                    User_has_EventModel::created([
+                        'User_NIP' => $usernip,
+                        'Event_idEvent' => $session,
                     ]);
                     return view('homeuser', compact('event', 'questme', 'questall'));
                 } else {
                     return view('homeuser', compact('event', 'questme', 'questall'));
                 }
+//            }
             }
         } else {
+            $request->session()->forget('event');
             return redirect('/home')->with(['warning' => 'Input code and Join Required!']);
         }
     }
 
-    public function admin_event(request $request) {// /homeadmin
+    public function admin_event(request $request) {// /homeadmin   
         if ($request->session()->has('event')) {
-            $event = EventModel::where('idEvent', $request->session()->get('event'))
-                    ->get();
-            $join = Join_EventModel :: where('Event_idEvent', $request->session()->get('event'))
-                    ->where('User_NIP', Auth::user()->NIP)
+            $usernip = Auth::user()->NIP;
+            $session = $request->session()->get('event');
+            $admin = AdminModel :: where('Event_idEvent', $session)
+                    ->where('User_NIP',$usernip)
                     ->count();
-            $question_validate = QuestionModel::where('Event_idEvent', $request->session()->get('event'))
-                    ->where('status', 0)
-                    ->get();
-            $question_approve = QuestionModel::where('Event_idEvent', $request->session()->get('event'))
-                    ->where('status', 1)
-                    ->get();
-            if ($join < 1) {
-                $floor = AdminModel::where('Name_Admin', Auth::user()->name)->get();
-                foreach ($floor as $ad) {
-                    $idAdmin = $ad->idAdmin;
-                }
-                Join_EventModel::create([
-                    'Event_idEvent' => $request->session()->get('event'),
-                    'Admin_idAdmin' => $idAdmin,
-                    'User_NIP' => Auth::user()->NIP
-                ]);
+            if ($admin == 1 && $session > 0) {
+                $event = EventModel::where('idEvent', $session)
+                        ->get();
+                $question_validate = QuestionModel::where('Event_idEvent', $session)
+                        ->where('status', 0)
+                        ->get();
+                $question_approve = QuestionModel::where('Event_idEvent', $session)
+                        ->where('status', 1)
+                        ->get();
                 return view('homeadmin', compact('event', 'question_validate', 'question_approve'));
-            } else {
-                return view('homeadmin', compact('event', 'question_validate', 'question_approve'));
+            }else{
+                $request->session()->forget('event');
+                return redirect('/home')->with(['warning' => 'Input code admin Required!']);
             }
         } else {
+            $request->session()->forget('event');
             return redirect('/home')->with(['warning' => 'Input code and Join Required!']);
         }
     }

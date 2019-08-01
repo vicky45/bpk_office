@@ -411,8 +411,8 @@ input.star:checked ~ label.star:before {
 }
 
 input.star-5:checked ~ label.star:before {
-  color: #fff903;
-  text-shadow: 0 0 20px #952;
+  color: #ffed00;
+  text-shadow: 0 0 8px #007bff;
 }
 
 input.star-1:checked ~ label.star:before { color: #F62; }

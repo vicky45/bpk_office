@@ -29,9 +29,14 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
     
-    public function Join_EventModel(){
-        return $this->hasMany('App\Join_EventModel','User_NIP','NIP');
+    public function User_has_EventModel(){
+        return $this->hasMany('App\User_has_EventModel','User_NIP','NIP');
     }
+    
+    public function AdminModel(){
+        return $this->hasOne('App\AdminModel','User_NIP','NIP');
+    }
+    
     public function QuestionModel(){
         return $this->hasMany('App\QuestionModel','User_NIP','NIP');
     }
