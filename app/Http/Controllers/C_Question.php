@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
 use App\SpeakerModel;
 use App\QuestionModel;
 use App\Http\Controllers\Controller;
@@ -27,13 +26,15 @@ class C_Question extends Controller {
     }
 
     public function store(Request $request) {//store question
-        $Question = QuestionModel :: where('User_NIP', Auth::user()->NIP)
-                ->where('Event_idEvent', $request->session()->get('event'))
+        $event = $request->session()->get('event');
+        $user = $request->session()->get('user');
+        $Question = QuestionModel :: where('User_NIP', $user)
+                ->where('Event_idEvent', $event)
                 ->get();
         if ($request->speak === "--Select Speaker--") {
             QuestionModel::create([
-                'User_NIP' => Auth::user()->NIP,
-                'Event_idEvent' => $request->session()->get('event'),
+                'User_NIP' => $user,
+                'Event_idEvent' => $event,
                 'question' => $request->ask
             ]);
             return redirect()->back();
@@ -43,8 +44,8 @@ class C_Question extends Controller {
                 $idSpeak = $ec->idSpeaker;
             }
             QuestionModel::create([
-                'Event_idEvent' => $request->session()->get('event'),
-                'User_NIP' => Auth::user()->NIP,
+                'Event_idEvent' => $event,
+                'User_NIP' => $user,
                 'Speaker_idSpeaker' => $idSpeak,
                 'question' => $request->ask,
             ]);
@@ -60,12 +61,9 @@ class C_Question extends Controller {
     }
 
     public function update(Request $request, $id) {//update answer by admin
-        $admin = AdminModel::where('Event_idEvent', $id);
-        $
-        
-        
+        $admin = $request->session()->get('admin');
         $answer = QuestionModel::find($id);
-//        $answer->Admin_idAdmin =
+        $answer->Admin_idAdmin = $admin;
         $answer->answer = $request->answer;
         $answer->save();
         return redirect()->back()->with(['success' => 'Answer Completed!']);

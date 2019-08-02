@@ -17,9 +17,9 @@ class PollingModel extends Model
         return $this->belongsTo('App\EventModel');
     }
     public function RatingModel() {
-        return $this->hasMany('App\RatingModel','Polling_idPolling','idPolling');
+        return $this->hasMany('App\RatingModel','polling_idPolling','idPolling');
     }
-    public function MultipletModel() {
-        return $this->hasMany('App\MultipleModel','Polling_idPolling','idPolling');
+    public function MultipleModel() {
+        return $this->hasMany('App\MultipleModel','polling_idPolling','idPolling');
     }
 }

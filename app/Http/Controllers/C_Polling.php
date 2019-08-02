@@ -4,70 +4,69 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\EventModel;
-use App\AdminModel;
-use App\Join_EventModel;
-use App\SpeakerModel;
-use App\QuestionModel;
-use Auth;
+use App\PollingModel;
+use App\RatingModel;
+use App\MultipleModel;
+
+
 
 
 class C_Polling extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //Not Use
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        //Not Use
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request) { //store polling 
-        $event = EventModel::find($request->session()->get('event'));
-        foreach ($event as $ev){
-        foreach($ev->Join_EventModel as $j){
-            $idAdmin = $j->Admin_idAdmin;
+        $admin = $request->session()->get('admin');
+        $event = $request->session()->get('event');
+        $type = $request->type;
+        $title = $request->title;
+        $idPoll = null;
+        $choise = [];
+
+        //Create Polling by type
+        PollingModel::create([
+            'Admin_idAdmin' => $admin,
+            'Event_idEvent' => $event,
+            'type_polling' => $type,
+            'title_polling' => $title,
+            'status_polling' => 0
+        ]);
+        $Poll = PollingModel::where('Event_idEvent', $event)
+                ->where('title_polling', $title)
+                ->get();
+        foreach ($Poll as $p) {
+            $idPoll = $p->idPolling;
         }
-        
-        }
-        switch ($request->type) {
+        switch ($type) {
             case 'rating':
-//                PollingModel::create([
-//                    'Admin_idAdmin'= 
-//                ]);
-                return $idAdmin;
+                for ($i = 1; $i <= 5; $i++) {
+                    RatingModel::create([
+                        'polling_idPolling' => $idPoll,
+                        'rating' => $i
+                    ]);
+                }
+                return redirect()->back()->with(['success' => 'Created rating Success!']);
                 break;
             case 'multiple':
-//                
+                //Get data n input User multiple choise
+                $choice = array($request->A, $request->B, $request->C, $request->D);
+                for ($i = 0; $i < 4; $i++) {
+                    MultipleModel::create([
+                        'polling_idPolling' => $idPoll,
+                        'multiple_choice' => $choice[$i]
+                    ]);
+                }
+                return redirect()->back()->with(['success' => 'Created Multiple Success!']);
                 break;
-            
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    }   
     public function show($id)
     {
         //

@@ -24,7 +24,10 @@
         function () {
             $('#show_question').load('/validate/{{session()->get('event')}}').fadeIn("slow");
         }, 3000);
+        
         </script>
+        
+        
     </head>
     <body class="bg-color">
         <nav class="navbar navbar-dark navbar-expand-md bg-warning justify-content-between">
@@ -49,7 +52,6 @@
                     <h6>{{$ev->date_event}}</h6>
                     <h6>{{$ev->location}}</h6> 
                     <h6>#{{$ev->code_event}}</h6> 
-                    
                 </a>
                 <div class="navbar-collapse collapse w-50 order-sm-2 dual-nav">
                     <ul class="nav navbar-nav ml-auto">
@@ -84,7 +86,7 @@
             </div>
         </nav>
         <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
+        <ul class="nav nav-tabs" id="Sheet" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active"  data-toggle="tab" href="#quest">Question</a>
             </li>
@@ -113,7 +115,7 @@
                             <button type="submit" class="btn btn-primary float-sm-right">Save</button>
                         </form>
                         <hr>
-                        @foreach ($ev->SpeakerModel as $speak)
+                       @foreach ($ev->SpeakerModel as $speak)
                         <div class= "row">
                             <div class="containeruser font-weight-bold">
                                 <button type="button" class="btn btn-block" >
@@ -185,7 +187,7 @@
                                                     </button>
                                                 </a>
                                             </div>
-                                        </div>
+                                        </div>  
                                     </div>
                                     <div class="text-center" >
                                         <hr class="hr-fit">
@@ -283,47 +285,113 @@
                     </div>
                 </div>
                 <div id="main">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="card padding-card" >
-                                    <div class="row">
-                                        <div class="col-md-7">	
-                                            <h2>List Polling</h2>
+                    <div class="card-deck">
+                        <div class="card card-bg2 padding-card col-sm-6" >
+                            <h2>Poll List</h2>
+                            <hr>
+                            <div id="polling_standby" class="card padding-manual scroll">
+                                @foreach($polling_standby as $stand)
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-md-9">
+                                                <h4><strong>{{$stand->title_polling}}</strong></h4>
+                                                <p>{{$stand->type_polling}}</p>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="activate.html"><i class="fa fa-play"></i></a>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="result.html"><i class="fa fa-lock"></i></a>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="result.html"><i class="fa fa-trash"></i></a>
+                                            </div>
                                         </div>
                                     </div>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-md-9">
-                                            <strong>Which topic would you like to discuss today?</strong>
-                                            <p>Multiple choice
-                                                <br>Votes : 15</p>
+                                    <div class="card-body">
+                                        @if($stand->type_polling == "multiple")
+                                        <ul class="list-styled">
+                                        @foreach($stand->MultipleModel as $li)
+                                            <li>{{$li->multiple_choice}}</li>
+                                        @endforeach
+                                        </ul> 
+                                        @elseif ($stand->type_polling == "rating")
+                                        <div class="stars">
+                                            <label class="star star-5" for="star-5"></label>
+                                            <label class="star star-4" for="star-4"></label>
+                                            <label class="star star-3" for="star-3"></label>
+                                            <label class="star star-2" for="star-2"></label>
+                                            <label class="star star-1" for="star-1"></label>
                                         </div>
-                                        <div class="col-md-1">
-                                            <a href="activate.html"><i class="fa fa-play"></i></a>
+                                        @else
+                                        <div class="text-center">
+                                            <hr style="width: 50%;">
+                                            <h4>There's is No Polling Active</h4>
                                         </div>
-                                        <div class="col-md-1">
-                                            <a href="result.html"><i class="fa fa-lock"></i></a>
-                                        </div>
-                                        <div class="col-md-1">
-                                            <a href="result.html"><i class="fa fa-trash"></i></a>
-                                        </div>
+                                        @endif
                                     </div>
-                                    <hr>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card padding-card text-center">
-                                    <div class="col-md-12">	
-                                        <h2 class="float-sm-left">Result</h2>
-                                    </div>
-                                    <hr>
-                                    <p>There's no better some polling</p>
-                                </div>
+                                <br> 
+                             @endforeach
                             </div>
                         </div>
+                        <div class="card card-bg2 padding-card col-sm-6" >
+                            <h2>Result</h2>
+                            <hr>
+                            <div id="polling_standby" class="card padding-manual scroll">
+                                @if($polling_result->count() > 0 )
+                                @foreach($polling_result as $pr )
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <div class="col-md-9 text-left">
+                                                <h4><strong>{{$pr->title_polling}}</strong></h4>
+                                                <p>{{$pr->type_polling}}</p>
+                                        </div>
+                                       
+                                            <div class="h4 col-sm-12 text-left">
+                                                A.&nbsp;
+                                            </div> 
+                                            <div class="progress col-sm-12" style="height:20px;">
+                                                <div class="progress-bar" style="width:70%;height:20px;"> 70</div>
+                                            </div>
+                                        <br>
+                                            <div class="h4 col-sm-12 text-left">
+                                                B.&nbsp;
+                                            </div> 
+                                            <div class="progress col-sm-12" style="height:20px;">
+                                                <div class="progress-bar" style="width:70%;height:20px;"> 70</div>
+                                            </div>
+                                        <br>
+                                            <div class="h4 col-sm-12 text-left">
+                                                C.&nbsp;
+                                            </div> 
+                                            <div class="progress col-sm-12" style="height:20px;">
+                                                <div class="progress-bar" style="width:70%;height:20px;"> 70</div>
+                                            </div>
+                                        <br>
+                                            <div class="h4 col-sm-12 text-left">
+                                                D.&nbsp;
+                                            </div> 
+                                            <div class="progress col-sm-12" style="height:20px;">
+                                                <div class="progress-bar" style="width:70%;height:20px;"> 70</div>
+                                            </div>
+
+                                    </div>
+                                </div>
+                                <br> 
+                                @endforeach
+                                @else
+                                <div class="text-center">
+                                    <hr style="width: 50%;">
+                                    <h4>There's is No Polling Active</h4>
+                                </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
             <div id="sum" class="tab-pane fade"><br>
                 <div class="row col-md-12">
                     <div class="col-md-6">
@@ -469,7 +537,7 @@
                             <form class="form-group" method="POST" action="{{route('polling.store')}}">
                                 {{ csrf_field() }}
                                  <input type="hidden" name="type" value="rating">
-                                <input class="form-control" type="text" placeholder="What would you give to rate today?">
+                                 <input class="form-control" name ="title" type="text" placeholder="What would you give to rate today?" required="required">
                                 <div class="padding-card">
                                     <h5> Maximal 5 Stars </h5>
                                     <div class="stars">
@@ -492,24 +560,24 @@
                         <div id="form-multiple" style="display:none">
                             <form class="form-inline" method="POST" action="{{route('polling.store')}}">
                                 {{ csrf_field() }}
-                                 <input type="hidden" name="type" value="multiple">
-                                <input class="form-control pad-mul col-sm-12" type="text" placeholder="What would you send choice today?">
+                                <input type="hidden" name="type" value="multiple">
+                                <input class="form-control pad-mul col-sm-12" name="title" type="text" placeholder="What would you send choice today?">
                                 <br>
                                 <div class="form-group pad-mul col-sm-12" >
                                     <label>A.&nbsp;</label>
-                                    <input type="text" name ="1" class=" form-control" placeholder="Choice name" required="required" >
+                                    <input type="text" name="A" class=" form-control" placeholder="Choice name 1" required="required" >
                                 </div>
                                 <div class="form-group pad-mul col-sm-12">
                                     <label>B.&nbsp;</label>
-                                    <input type="text" name ="2" class=" form-control" placeholder="Choice name" required="required" >
+                                    <input type="text" name="B" class=" form-control" placeholder="Choice name 2" required="required" >
                                 </div>
                                 <div class="form-group pad-mul col-sm-12">
                                     <label>C.&nbsp;</label>
-                                    <input type="text" name ="3" class=" form-control" placeholder="Choice name" >
+                                    <input type="text" name="C" class=" form-control" placeholder="Choice name 3" >
                                 </div>
                                 <div class="form-group pad-mul col-sm-12">
                                     <label>D.&nbsp;</label>
-                                    <input type="text" name ="4" class=" form-control" placeholder="Choice name" >
+                                    <input type="text" name="D" class=" form-control" placeholder="Choice name 4" >
                                 </div>
                                 <div class="form-group col-sm-8">
                                 </div>
@@ -525,7 +593,21 @@
         </div>
     </body>
     <script>
-        
+        $('#Sheet a').click(function(e) {
+          e.preventDefault();
+          $(this).tab('show');
+        });
+
+        // store the currently selected tab in the hash value
+        $("ul.nav-tabs > li > a").on("shown.bs.tab", function(e) {
+          var id = $(e.target).attr("href").substr(1);
+          window.location.hash = id;
+        });
+
+        // on load of the page: switch to the currently selected tab
+        var hash = window.location.hash;
+        $('#Sheet a[href="' + hash + '"]').tab('show');
+
         function showDiv(id){
             var idv = "form-"+id;
             document.getElementById('form-no').style.display = 'none';
