@@ -73,7 +73,7 @@ class C_Polling extends Controller
                 break;
         }
     }   
-    public function show($id) {//show polling active right (javascript auto update)
+    public function show($id) {//show polling active right from admin (javascript auto update)
         $n_choice_multi = null;
         $n_choice_rate = null;
         $polling_result = PollingModel::where('Event_idEvent', $id)
@@ -82,7 +82,6 @@ class C_Polling extends Controller
         foreach ($polling_result as $count) {
             switch ($count->type_polling) {
                 case 'Multiple':
-                    $i = null;
                     foreach ($count->MultipleModel as $count_m) {
                         $n_choice_multi = $count_m->sum('total_multiple_choice');
                     }
@@ -97,6 +96,13 @@ class C_Polling extends Controller
         return view('Extended.polling_result', compact('polling_result','n_choice_multi','n_choice_rate'));
     }
 
+    public function show_user($id) {//show polling active right from admin (javascript auto update)
+        $polling_show = PollingModel::where('Event_idEvent', $id)
+                ->where('status_polling', 1)
+                ->get();
+        return view('Extended.polling_show', compact('polling_show'));
+    }
+    
     public function approve_polling(Request $request,$id){
         $event = $request->session()->get('event');
         $poll = PollingModel::where('Event_idEvent',$event)

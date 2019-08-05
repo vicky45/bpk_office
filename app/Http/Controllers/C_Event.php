@@ -40,7 +40,8 @@ class C_Event extends Controller {
     }
     
     public function show(Request $request, $id) {//show summary
-        return view('Extended.summary');
+        $question = QuestionModel::where('Event_idEvent',$id)->get();
+        return view('Extended.summary',compact('question'));
     }
     
     public function store(Request $request) {//store data code admin or user

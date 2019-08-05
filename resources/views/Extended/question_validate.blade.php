@@ -17,7 +17,7 @@
             </div>
             <!--button delete-->
             <div class="col-md-1">
-                <a href="/delete/{{($v->idQuestion)}}">
+                <a href="/remove/{{($v->idQuestion)}}">
                     <button class="btn btn-danger float-sm-right">
                         <i class="fa fa-trash"></i>
                     </button>
@@ -45,8 +45,8 @@
 @endforeach
 @else
 <div class="text-center">
-    <hr style="width: 50%">
+    <hr style="width: 50%;">
     <h4>There's is No Question</h4>
-    <hr style="width: 50%">
+    <hr style="width: 50%;">
 </div>
 @endif

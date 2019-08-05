@@ -23,7 +23,8 @@
 var auto_refresh = setInterval(
         function () {
             $('#show_question').load('{{route('question.show',session()->get('event'))}}').fadeIn("slow");
-        }, 15000);
+            $('#polling').load('/showpoll/{{session()->get('event')}}').fadeIn("slow");
+        }, 2000);
         </script>
 
     </head>
@@ -81,13 +82,11 @@ var auto_refresh = setInterval(
                             <i class="fa fa-toggle-off"></i>&nbsp;Switch Event
                         </a>
                     </button>    
-
-
                 </div>
             </div>
         </nav>
         <!-- Nav tabs -->
-        <ul class="nav nav-tabs justify-content-center" role="tablist">
+        <ul class="nav nav-tabs justify-content-center" id="Sheet" role="tablist">
             <li class="nav-item">
                 <a class="a-shet nav-link active" data-toggle="tab" href="#quest"><i class="fa fa-question-circle"></i>&nbsp;<b>Question</b></a>
             </li>
@@ -135,75 +134,21 @@ var auto_refresh = setInterval(
                     <!--All Question-->
                     <div class="card "style="background-color:#fbfbfb;">
                         <div id="show_question" class="col-sm-12 padding-card scroll">
-                            @foreach( $questall as $all)
-                            <div class="card padding-card col-sm-12">
-                                
-                                    <div class="d-inline" style="text-align: left;">
-                                        <i class="fa fa-user-circle"></i>
-                                        <span> {{$all->user->name}}</span>
-                                    </div>
-                                    <div id="like" class="d-inline" style="text-align:right">
-                                        <!--<small class="text-muted"><b>Kategori </b></small>-->
-                                        <a class="float-sm-right" href="#" style="text-decoration:none"><i class="fa fa-thumbs-o-up"></i><span> <b>15&emsp;</b> </span></a>
-                                        <a class="float-sm-right" href="#" style="text-decoration:none"><i class="fa fa-thumbs-o-down"></i><span> <b>10&emsp;</b> </span></a>
-
-                                    </div>
-                                
-                                <hr>
-                                <p>{{$all ->question}}</p>
-                            </div>
-                            <br>
-                            @endforeach
+                            
                         </div>
                     </div>
                 </div>
             </div>
 
             <div id="poll" class=" tab-pane fade"><br>
-                <div class="row" style="padding:3%">
-                    <div class="col-sm-6" style="">
-                        <div class="text-center" style="padding-bottom:5%">
-                            <h3><strong>LIST</strong></h3>
-                        </div>
-
-                        <div class="card" style="padding:5%;background:#efefef">
-                            <div class="col-sm-4">	
-                                <button id="myBtn" type="button" class="btn btn-info">Create Poll</button>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-1" style="">
-                                </div>
-                                <div class="col-sm-8" style="">
-                                    <strong>Which topic would you like to discuss today?</strong>
-                                    <p>Multiple choice
-                                        <br>Votes : 15</p>
-                                </div>
-                                <div class="col-sm-1">
-                                    <a href="activate.html"><i class="fa fa-play"></i></a></div>
-
-                                <div class="col-sm-1">
-                                    <a href="result.html"><i class="fa fa-lock"></i></a></div>
-
-                                <div class="col-sm-1">
-                                    <a href="result.html"><i class="fa fa-trash"></i></a></div>
-                            </div>
-                            <hr>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div class="text-center" style="padding-bottom:5%">
-                            <h3><strong>RESULT</strong></h3>
-                        </div>
-                        <div class="card text-center" style="padding:5% 10%;height:100%;background:#efefef">
-                            <p>There's no better moment</p>
-                        </div>
+                <div class="col-sm-12" align="center">
+                    <div id="polling" class="card padding-card scroll">
+                        
                     </div>
                 </div>
             </div>
         </div>
-    </div>       
+           
     <!-- Tab panes -->
     <div clas="container">
         <div class="modal" id="myModal" style="padding-top: 0px;" >
@@ -218,7 +163,7 @@ var auto_refresh = setInterval(
                     <div class="modal-body">
                         <form class="form-group" method="POST" action="{{ route('question.store')}}">
                             {{ csrf_field() }}
-                            <input type="text" class="form-control" name="ask" placeholder="What would you ask?"></input>
+                            <input type="text" class="form-control" name="ask" placeholder="What would you ask?" required="required"></input>
                             <label></label>
                             <select class="form-control" name="speak">
                                 <option>--Select Speaker--</option>
@@ -227,10 +172,8 @@ var auto_refresh = setInterval(
                                 @endforeach
                             </select>
                             <hr>
-                            <input type="checkbox"> Ask as Anonymous</input><br><br>
                             <button type="submit" class="btn btn-primary">Send</button>
                         </form>
-
                     </div>
                 </div>
             </div>
@@ -238,6 +181,34 @@ var auto_refresh = setInterval(
     </div>
 </body>
 <script>
+    $('a[data-toggle="tab"]').click(function (e) {
+         e.preventDefault();
+            $(this).tab('show');
+        });
+
+        $('a[data-toggle="tab"]').on("shown.bs.tab", function (e) {
+            var id = $(e.target).attr("href");
+            localStorage.setItem('Sheet', id)
+        });
+
+        var selectedTab = localStorage.getItem('Sheet');
+        if (selectedTab != null) {
+            $('a[data-toggle="tab"][href="' + selectedTab + '"]').tab('show');
+        }
+    
+    function reactionL() {
+    var x = document.getElementById("tumbsUP");
+    x.disabled = true;
+    }
+    
+    function reactionD() {
+    var x = document.getElementById("tumbsDWN");
+    x.disabled = true;
+    var y = document.getElementById("tumbsUP");
+    y.disabled = false;
+    }
+    
+    
     function myFunction() {
         document.getElementById("myDropdown").classList.toggle("show");
     }

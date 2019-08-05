@@ -1,3 +1,24 @@
+@php
+    $count_question = 0;
+    $count_like = 0;
+    $count_dislike = 0;   
+@endphp
+<!--Count for Question-->
+ @foreach($question as $q)
+    @php
+        $count_question += count($q->question);
+    @endphp
+ @endforeach
+ <!--Count for Like, Dislike-->
+ @foreach($question as $count)
+    @php
+        $count_like += $count->reaction_like;
+        $count_dislike += $count->reaction_dislike;
+    @endphp
+ @endforeach
+
+ <!------->
+ 
 <div class="row">
     <div class="col-md-6">
         <div class="card padding-card">
@@ -9,7 +30,8 @@
                     <h4>Question</h4>          
                 </div>
                 <div class="col-md-4">
-                    <span class="number float-sm-right"> 10</span>
+                    
+                    <span class="number float-sm-right"> {{$count_question}}</span>
                 </div>
             </div>
             <hr>
@@ -20,7 +42,7 @@
                         Like
                     </div>
                     <div class="col-md-8">
-                        <span class="float-sm-right">19</span>
+                        <span class="float-sm-right">{{$count_like}}</span>
                     </div>
                 </div>
                 <div class="row">
@@ -29,12 +51,13 @@
                         Dislike
                     </div>
                     <div class="col-md-8">
-                        <span class="float-sm-right">19</span>
+                        <span class="float-sm-right">{{$count_dislike}}</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    
     <div class="col-md-6">
         <div class="card padding-card">
             <div class="row head">
@@ -45,7 +68,7 @@
                     <h4>Polling</h4>          
                 </div>
                 <div class="col-md-4">
-                    <span class="number float-md-right"> 10</span>
+                    <span class="number float-md-right"> 12</span>
                 </div>
             </div>
             <hr>

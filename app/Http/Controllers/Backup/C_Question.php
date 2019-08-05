@@ -50,13 +50,7 @@ class C_Question extends Controller {
             return redirect()->back();
         }
     }
-    
-    public function delete($id) {
-        $statusupdate = QuestionModel::find($id);
-        $statusupdate->delete();
-        return redirect()->back()->with(['success' => 'Question Deleted!']);
-    }
-    
+
     public function show(Request $request, $id) { //refresh all question by javascript
         $question_approve = QuestionModel::where('Event_idEvent', $id)
                 ->where('status', 1)
@@ -87,20 +81,18 @@ class C_Question extends Controller {
         return redirect()->back()->with(['success' => 'Approve Completed!']);
     }
 
-    
-    public function approve_all($id) {//for admin to validate all question
-        QuestionModel::where('Event_idEvent', $id)->update(['status' => 1]);
-        return redirect()->back()->with(['success' => 'Approve all Completed!']);
+    public function delete($id) {
+        $statusupdate = QuestionModel::find($id);
+        $statusupdate->delete();
+        return redirect()->back()->with(['success' => 'Question Deleted!']);
     }
     
-    public function like($id) {
-        QuestionModel::find($id)->increment('reaction_like');
-        return redirect()->back();
+    public function like() {
+        
     }
 
-    public function dislike($id) {
-        QuestionModel::find($id)->increment('reaction_dislike');
-        return redirect()->back();
+    public function dislike() {
+        
     }
     
 }

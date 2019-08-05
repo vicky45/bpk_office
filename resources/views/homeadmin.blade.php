@@ -26,7 +26,7 @@
             $('#show_question').load('/validate/{{session()->get('event')}}').fadeIn("slow");
             $('#polling_result').load('{{route('polling.show',session()->get('event'))}}').fadeIn("slow");
             $('#summary').load('{{route('event.show',session()->get('event'))}}').fadeIn("slow");
-        }, 1000);
+        }, 500);
         
          $(window).on('load', function(){ 
              $(".se-pre-con").fadeOut("slow");
@@ -37,7 +37,7 @@
         
     </head>  
     <body class="bg-color">
-        <div class="se-pre-con"></div>
+        
         <nav class="navbar navbar-dark navbar-expand-md bg-warning justify-content-between">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-nav">
@@ -167,8 +167,19 @@
                 <div id="main">
                     <div class="card-deck">
                         <div class="card card-bg2 padding-card col-sm-6" >
-                            <h2>Question List</h2>
-                            <hr>
+                            <div class ="row">
+                                <div class="col-md-6">
+                                    <h2>Question List</h2>
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="/approveall/{{session()->get('event')}}">
+                                        <button class="btn btn-success float-sm-right">
+                                            <i class="fa fa-check"></i> Approve All
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                            <br>
                             <div id="show_question" class="card padding-manual scroll">
                                 <div class="justify-content-center">
                                 <div class="loader"></div>
@@ -200,27 +211,35 @@
                                     <div class="card-footer ">
                                         
                                         @if($a->answer === "Not Answered")
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <form action="{{route('question.update',$a->idQuestion)}}" method="POST">
-                                                    {{ method_field('PATCH') }}
-                                                    {{ csrf_field() }}
-                                                    <div class="input-group">
-                                                        <input type="text" name="answer" placeholder="{{$a->answer}}" class="form-control">
-                                                        @if($errors->has('answer'))
-                                                        <div class="text-danger">
-                                                            {{ $errors->first('event')}}
-                                                        </div>
-                                                        @endif
-                                                        <span class="input-group-btn">
-                                                            <input type="submit"  value="Answer" class="btn btn-success" data-disable-with="Search">
-                                                        </span> 
-                                                    </div>
-                                                </form>
-                                            </div>
+                                        <div class="col-md-12">
+                                                <a href="#">
+                                                    <button data-toggle="modal" data-target="#edit" type="button" class="btn btn-success float-sm-right">
+                                                        <i class="fa fa-comment"></i> Answer
+                                                    </button>
+                                                </a>
                                         </div>
                                         @else
-                                        <p class="font-italic text-sm-center ">{{$a->answer}}</p>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="font-italic text-sm-center ">{{$a->answer}}</p>
+                                            </div>
+                                            <div class="col-md-7">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <a href="#">
+                                                    <button data-toggle="modal" data-target="#edit" type="button" class="btn btn-info float-sm-right">
+                                                        <i class="fa fa-check"></i> Edit Answer
+                                                    </button>
+                                                </a>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="">
+                                                    <button class="btn btn-danger float-sm-right">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        </div>
                                         @endif
                                     </div>
                                 </div>
@@ -386,16 +405,17 @@
                                     @php
                                         $countall = 0;
                                     @endphp
-                                    @foreach($ev->AdminModel as $admin)
+                                    @foreach($ev->AdminModel as $count_admin)
                                         @php
-                                            $countall += count($admin->Name_Admin);
+                                            $countall += count($count_admin->Name_Admin);
                                         @endphp
                                     @endforeach
                                     
-                                    @foreach($ev->User_has_EventModel as $user)
+                                    @foreach($ev->User_has_EventModel as $count_user)
                                         @php
-                                             $countall += count($user->User_NIP);
+                                             $countall += count($count_user->User_NIP);
                                         @endphp
+                                    @endforeach
                                     <div class="row head">
                                         <div class="col-md-2">
                                             <i class="fa fa-users fa-2x"></i>  
@@ -408,6 +428,7 @@
                                         </div>
                                     </div>
                                     <hr>
+                                    @foreach($ev->AdminModel as $admin)
                                     <div class="row">
                                         <div class="col-md-2">
                                             <span class="question-user">
@@ -423,7 +444,7 @@
                                     </div>
                                     <hr>
                                     @endforeach
-                                    
+                                    @foreach($used as $user)
                                     <div class="row">
                                         <div class="col-md-2">
                                             <span class="question-user">
@@ -431,14 +452,13 @@
                                             </span>
                                         </div>
                                         <div class="col-md-6">
-                                            <span>{{$admin->Name_Admin}} </span>
+                                            <span>{{$user->User->name}} </span>
                                         </div>
                                         <div class="col-md-4">
-                                            <span>Admin</span>
+                                            <span>User</span>
                                         </div>
                                     </div>
-                                   
-                                    
+                                   @endforeach
                                 </div>
                             </div>
                             <br>
@@ -572,6 +592,63 @@
                 </div>
             </div>
 
+            <div id="edit" class="modal">
+                <div class="modal-content col-md-6" >
+                    <div class="modal-header">
+                        @foreach($question_approve as $a)
+                        @if($a->answer === "Not Answered")
+                        <div class="col-md-9">
+                            <h3>Answer Question</h3>
+                        </div>
+                        @else
+                        <div class="col-md-9">
+                            <h3>Edit Answer</h3>
+                        </div>
+                        @endif
+                        
+                        <div class="col-md-3">
+                            <button type="button" class="btn close-modal float-sm-right" data-dismiss="modal">&times;</button>
+                        </div>
+                        <hr>
+                    </div>
+                    <br>
+                    <div class="modal-body">
+                        <div class="col-md-12">
+                             <hr style="width: 50%;">
+                            <h5 class="text-sm-center "><strong>{{$a->question}}</strong></h5>
+                             <hr style="width: 50%;">
+                        </div>
+                        <div class="col-md-12">
+                            <form action="{{route('question.update',$a->idQuestion)}}" method="POST">
+                                {{ method_field('PATCH') }}
+                                {{ csrf_field() }}
+                                <div class="input-group">
+                                    <textarea class="form-control" rows="4" name="answer" placeholder="{{$a->answer}}" required="required"></textarea>
+                                    @if($errors->has('answer'))
+                                    <div class="text-danger">
+                                        {{ $errors->first('event')}}
+                                    </div>
+                                    @endif
+                                </div>
+                                <br>
+                                <div class="col-md-12 float-sm-right">
+                                    @if($a->answer === "Not Answered")
+                                    <span class="input-group-btn float-sm-right">
+                                        <input type="submit"  value="Send Answer" class="btn btn-info">
+                                    </span> 
+                                    @else
+                                    <span class="input-group-btn float-sm-right">
+                                        <input type="submit"  value="Edit Answer" class="btn btn-info">
+                                    </span> 
+                                    @endif
+                                </div>
+                            </form>
+                        </div>
+                       @endforeach
+                    </div>
+                </div>
+            </div>
+            
             <div id="polling" class="modal">
                 <div class="modal-content col-md-6" >
                     <div class="modal-header">
@@ -629,7 +706,7 @@
                             <form class="form-inline" method="POST" action="{{route('polling.store')}}">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="type" value="Multiple">
-                                <input class="form-control pad-mul col-sm-12" name="title" type="text" placeholder="What would you send choice today?">
+                                <input class="form-control pad-mul col-sm-12" name="title" type="text" placeholder="What would you send choice today?" required="required">
                                 <br>
                                 <div class="form-group pad-mul col-sm-12" >
                                     <label>A.&nbsp;</label>
