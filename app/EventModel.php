@@ -23,7 +23,7 @@ class EventModel extends Model
     }
     
     public function User_has_EventModel(){
-        return $this->hasMany('App\User_has_EventEventModel','Event_idEvent','idEvent');
+        return $this->hasMany('App\User_has_EventModel','Event_idEvent','idEvent');
     }
     
     public function AdminModel(){

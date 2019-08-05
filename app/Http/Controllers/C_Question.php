@@ -21,9 +21,7 @@ class C_Question extends Controller {
         //note Use
     }
 
-    public function destroy($id) {//remove question
-//        Not Use
-    }
+    
 
     public function store(Request $request) {//store question
         $event = $request->session()->get('event');
@@ -88,7 +86,7 @@ class C_Question extends Controller {
         $statusupdate->delete();
         return redirect()->back()->with(['success' => 'Question Deleted!']);
     }
-
+    
     public function like() {
         
     }
@@ -96,5 +94,5 @@ class C_Question extends Controller {
     public function dislike() {
         
     }
-
+    
 }

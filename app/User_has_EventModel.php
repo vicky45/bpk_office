@@ -11,10 +11,10 @@ class User_has_EventModel extends Model
     protected $primaryKey = 'idUser_has_Join';
     
     public function EventModel(){
-        return $this->belongsTo('App\EventModel');
+        return $this->belongsTo('App\EventModel','Event_idEvent','idEvent');
     }
     public function User(){
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User','User_NIP','NIP');
     }
     
 }

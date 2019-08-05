@@ -24,15 +24,8 @@ class C_Event extends Controller {
         return view('tanjahome');
     }
 
-    public function show(Request $request, $id) {
-        //Note Use
-    }
-
-    public function create() {//create some page create
-        $event_active = EventModel::where('status_event', 1)->get();
-        return view('Extended.show_active', compact('event_active'));
-    }
-
+    
+    
     public function destroy($id) {//hapus
         //Not Use
     }
@@ -41,6 +34,15 @@ class C_Event extends Controller {
         //Not Use
     }
 
+    public function create() {//create some Event create
+        $event_active = EventModel::where('status_event', 1)->get();
+        return view('Extended.show_active', compact('event_active'));
+    }
+    
+    public function show(Request $request, $id) {//show summary
+        return view('Extended.summary');
+    }
+    
     public function store(Request $request) {//store data code admin or user
         $usernip = Auth::user()->NIP;
         $code = $request->join;
@@ -148,10 +150,6 @@ class C_Event extends Controller {
                     ->where('User_NIP', $usernip)
                     ->get();
 
-            $questall = Questionmodel::where('Event_idEvent', $session)
-                    ->where('status', 1)
-                    ->get();
-
             foreach ($event as $ev) {
                 $tmp = $ev->status_event;
             }
@@ -161,13 +159,13 @@ class C_Event extends Controller {
                 return redirect('/home')->with(['warning' => 'Event has Ended!']);
             } else {
                 if ($user < 1) {
-                    User_has_EventModel::created([
-                        'User_NIP' => $usernip,
+                    User_has_EventModel::create([
                         'Event_idEvent' => $session,
+                        'User_NIP' => $usernip,
                     ]);
-                    return view('homeuser', compact('event', 'questme', 'questall'));
+                    return view('homeuser', compact('event', 'questme'));
                 } else {
-                    return view('homeuser', compact('event', 'questme', 'questall'));
+                    return view('homeuser', compact('event', 'questme'));
                 }
             }
         } else {
@@ -182,20 +180,16 @@ class C_Event extends Controller {
             $session = $request->session()->get('event');
             $event = EventModel::where('idEvent', $session)
                     ->get();
-            $question_validate = QuestionModel::where('Event_idEvent', $session)
-                    ->where('status', 0)
+            $used = User_has_EventModel::where('Event_idEvent', $session)
                     ->get();
             $question_approve = QuestionModel::where('Event_idEvent', $session)
                     ->where('status', 1)
                     ->get();
-            $polling_standby = PollingModel::where('Event_idEvent', $session)
-                    ->where('status_polling', 0)
-                    ->get();
+            $polling_ready = PollingModel::where('Event_idEvent', $session)->get();
             $polling_result = PollingModel::where('Event_idEvent', $session)
                     ->where('status_polling', 1)
                     ->get();
-            
-            return view('homeadmin', compact('event', 'question_validate', 'question_approve','polling_standby','polling_result'));
+            return view('homeadmin', compact('event','used','question_approve','polling_ready','polling_result'));
         } else {
             $request->session()->forget('event');
             $request->session()->forget('admin');
@@ -241,6 +235,7 @@ class C_Event extends Controller {
             $EventModel->status_event = 0;
             $EventModel->save();
             $request->session()->forget('event');
+            $request->session()->forget('admin');
             return redirect()->action('C_Event@home');
         } else {
             $request->session()->forget('event');
@@ -248,9 +243,12 @@ class C_Event extends Controller {
             return redirect()->action('C_Event@home');
         }
     }
-    
-    public function tampilkanSession(Request $request){
-        
-    }
-
 }
+//
+//  <div class="h4 col-sm-12 text-left">
+//           {{$li->multiple_choice}}
+//        </div> 
+//        <div class="progress col-sm-12" style="height:20px;">
+//            <div class="progress-bar progress-bar-striped" style="width:{{$i}}%;height:20px;">{{$li->total_multiple_choice}}</div>
+//        </div>
+//        <br>

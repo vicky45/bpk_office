@@ -21,6 +21,7 @@ class C_Polling extends Controller
     {
         //Not Use
     }
+    
 
     public function store(Request $request) { //store polling 
         $admin = $request->session()->get('admin');
@@ -45,7 +46,7 @@ class C_Polling extends Controller
             $idPoll = $p->idPolling;
         }
         switch ($type) {
-            case 'rating':
+            case 'Rating':
                 for ($i = 1; $i <= 5; $i++) {
                     RatingModel::create([
                         'polling_idPolling' => $idPoll,
@@ -54,55 +55,90 @@ class C_Polling extends Controller
                 }
                 return redirect()->back()->with(['success' => 'Created rating Success!']);
                 break;
-            case 'multiple':
+            case 'Multiple':
                 //Get data n input User multiple choise
                 $choice = array($request->A, $request->B, $request->C, $request->D);
+                
                 for ($i = 0; $i < 4; $i++) {
+                    if($choice[$i] != null){
                     MultipleModel::create([
                         'polling_idPolling' => $idPoll,
                         'multiple_choice' => $choice[$i]
                     ]);
+                    }else{
+                    $i = 4;
+                    }
                 }
                 return redirect()->back()->with(['success' => 'Created Multiple Success!']);
                 break;
         }
     }   
-    public function show($id)
-    {
-        //
+    public function show($id) {//show polling active right (javascript auto update)
+        $n_choice_multi = null;
+        $n_choice_rate = null;
+        $polling_result = PollingModel::where('Event_idEvent', $id)
+                ->where('status_polling', 1)
+                ->get();
+        foreach ($polling_result as $count) {
+            switch ($count->type_polling) {
+                case 'Multiple':
+                    $i = null;
+                    foreach ($count->MultipleModel as $count_m) {
+                        $n_choice_multi = $count_m->sum('total_multiple_choice');
+                    }
+                    break;
+                case 'Rating':
+                    foreach ($count->RatingModel as $count_m) {
+                        $n_choice_rate = $count_m->sum('total_rating');
+                    }
+                    break;
+            }
+        }
+        return view('Extended.polling_result', compact('polling_result','n_choice_multi','n_choice_rate'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+    public function approve_polling(Request $request,$id){
+        $event = $request->session()->get('event');
+        $poll = PollingModel::where('Event_idEvent',$event)
+                ->where('status_polling',1)
+                ->count();
+        if($poll == 0){
+            $show = PollingModel::find($id);
+            $show->status_polling = 1;
+            $show->save();
+            return redirect()->back();
+            }else{
+             return redirect()->back()->with(['warning' => 'Failed! You have active Polling!']);
+            }
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+    
+    public function delete_polling($id){
+        $type = null;
+        $polling = PollingModel::where('idPolling',$id)->get();
+        foreach ($polling as $p) {
+            $type = $p->type_polling;
+        }
+        $polling = PollingModel::find($id);
+        $polling->delete();
+        
+        switch ($type) {
+            case 'Rating':
+                RatingModel::where('Polling_idPolling',$id)->delete();
+                return redirect()->back()->with(['success' => 'Delete rating Success!']);
+                break;
+            case 'Multiple':
+                MultipleModel::where('Polling_idPolling',$id)->delete();
+                return redirect()->back()->with(['success' => 'Delete Multiple Success!']);
+                break;
+        }
+        return redirect()->back();
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    
+    public function stop_polling($id){
+        $polling = PollingModel::find($id);
+        $polling->status_polling = 11;
+        $polling->save();
+        return redirect()->back();
     }
+    
 }
