@@ -164,7 +164,6 @@ var auto_refresh = setInterval(
                         <form class="form-group" method="POST" action="{{ route('question.store')}}">
                             {{ csrf_field() }}
                             <input type="text" class="form-control" name="ask" placeholder="What would you ask?" required="required"></input>
-                            <label></label>
                             <select class="form-control" name="speak">
                                 <option>--Select Speaker--</option>
                                 @foreach ($ev->SpeakerModel as $speak)
@@ -195,19 +194,6 @@ var auto_refresh = setInterval(
         if (selectedTab != null) {
             $('a[data-toggle="tab"][href="' + selectedTab + '"]').tab('show');
         }
-    
-    function reactionL() {
-    var x = document.getElementById("tumbsUP");
-    x.disabled = true;
-    }
-    
-    function reactionD() {
-    var x = document.getElementById("tumbsDWN");
-    x.disabled = true;
-    var y = document.getElementById("tumbsUP");
-    y.disabled = false;
-    }
-    
     
     function myFunction() {
         document.getElementById("myDropdown").classList.toggle("show");

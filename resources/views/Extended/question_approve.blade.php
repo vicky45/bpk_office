@@ -8,7 +8,7 @@
         <div id="like" class="col-sm-4" style="text-align:right">
             <!--<small class="text-muted"><b>Kategori </b></small>-->
             <button class="btn">
-                <a class="float-sm-right" id="tumbsUP" onclick="reactionL()" href="/like/{{$all->idQuestion}}" style="text-decoration:none"><i class="fa fa-thumbs-o-up"></i><span> <b>{{$all->reaction_like}}&emsp;</b> </span></a>
+                <a class="float-sm-right" href="/like/{{$all->idQuestion}}" style="text-decoration:none"><i class="fa fa-thumbs-o-up"></i><span> <b>{{$all->reaction_like}}&emsp;</b> </span></a>
             </button>
             <button class="btn" id>
             <a class="float-sm-right" href="/dislike/{{$all->idQuestion}}" style="text-decoration:none"><i class="fa fa-thumbs-o-down"></i><span> <b>{{$all->reaction_dislike}}&emsp;</b> </span></a>

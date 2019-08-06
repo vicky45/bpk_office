@@ -1,11 +1,11 @@
 @if($polling_result->count() > 0 )
-@php
-$type = null;
-@endphp
+    @php
+    $type = null;
+    @endphp
 @foreach($polling_result as $pr )
-@php
-$type = $pr->type_polling;
-@endphp
+    @php
+    $type = $pr->type_polling;
+    @endphp
     <div class="card">
                     <div class="card-body text-center">
                         <div class="col-md-9 text-left">

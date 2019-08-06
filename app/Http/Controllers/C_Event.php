@@ -41,7 +41,10 @@ class C_Event extends Controller {
     
     public function show(Request $request, $id) {//show summary
         $question = QuestionModel::where('Event_idEvent',$id)->get();
-        return view('Extended.summary',compact('question'));
+        $polling = PollingModel::where('Event_idEvent',$id)
+                                ->where('status_polling',11)
+                                ->get();
+        return view('Extended.summary',compact('question','polling'));
     }
     
     public function store(Request $request) {//store data code admin or user
@@ -190,7 +193,10 @@ class C_Event extends Controller {
             $polling_result = PollingModel::where('Event_idEvent', $session)
                     ->where('status_polling', 1)
                     ->get();
-            return view('homeadmin', compact('event','used','question_approve','polling_ready','polling_result'));
+            $summary_poll = PollingModel::where('Event_idEvent', $session)
+                    ->where('status_polling', 11)
+                    ->get();
+            return view('homeadmin', compact('event','used','question_approve','polling_ready','polling_result','summary_poll'));
         } else {
             $request->session()->forget('event');
             $request->session()->forget('admin');

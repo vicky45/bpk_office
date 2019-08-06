@@ -145,7 +145,6 @@
                     <div class="col-md-4">
                         <span class=" btn btn-outline-primary" onclick="openNav()"><i class="fa fa-users" aria-hidden="true"></i>  Create Speaker's</span>
                     </div>
-
                     <div class="col-sm-4">
                         @if ($message = Session::get('success'))
                         <div class="alert alert-success alert-block">
@@ -160,8 +159,7 @@
                         </div>
                         @endif
                     </div>
-                    <div class="col-md-4">
-                        
+                    <div class="col-md-4"> 
                     </div>
                 </div>
                 <div id="main">
@@ -213,7 +211,7 @@
                                         @if($a->answer === "Not Answered")
                                         <div class="col-md-12">
                                                 <a href="#">
-                                                    <button data-toggle="modal" data-target="#edit" type="button" class="btn btn-success float-sm-right">
+                                                    <button data-toggle="modal" data-target="#edit{{$a->idQuestion}}" type="button" class="btn btn-success float-sm-right">
                                                         <i class="fa fa-comment"></i> Answer
                                                     </button>
                                                 </a>
@@ -227,13 +225,13 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <a href="#">
-                                                    <button data-toggle="modal" data-target="#edit" type="button" class="btn btn-info float-sm-right">
+                                                    <button data-toggle="modal" data-target="#edit{{$a->idQuestion}}" type="button" class="btn btn-info float-sm-right">
                                                         <i class="fa fa-check"></i> Edit Answer
                                                     </button>
                                                 </a>
                                             </div>
                                             <div class="col-md-1">
-                                                <a href="">
+                                                <a href="/remove_ans/{{$a->idQuestion}}">
                                                     <button class="btn btn-danger float-sm-right">
                                                         <i class="fa fa-trash"></i>
                                                     </button>
@@ -469,27 +467,84 @@
                                 <div class="col-md-12">
                                     <h3>Polling Result</h3>
                                     <div id="card-polling" class="card">
+                                       
                                         <div class="row">
                                             <div class="tab">
-                                                <button class="tablinks" onclick="openPoll(event, 'London')" id="defaultOpen">London</button>
-                                                <button class="tablinks" onclick="openPoll(event, 'Paris')">Paris</button>
-                                                <button class="tablinks" onclick="openPoll(event, 'Tokyo')">Tokyo</button>
+                                                
+                                            @php
+                                                $i = 0;
+                                            @endphp
+                                            @foreach($summary_poll as $poll_view)
+                                                @if($i < 1)
+                                                    <button class="tablinks" onclick="openPoll(event, '{{$poll_view->idPolling}}')"  id="defaultOpen">{{$poll_view->title_polling}}</button>
+                                                @else
+                                                    <button class="tablinks" onclick="openPoll(event, '{{$poll_view->idPolling}}')">{{$poll_view->title_polling}}</button>
+                                                @endif
+                                                    @php
+                                                        $i++;
+                                                    @endphp
+                                            @endforeach
                                             </div>
+                                            @foreach($summary_poll as $poll_view)
+                                            <div id="{{$poll_view->idPolling}}" class="tabcontent scroll">
+                                                <h34{{$poll_view->title_polling}}</h3>
+                                                @if($poll_view->type_polling === "Multiple")
+                                                    @foreach($poll_view->MultipleModel as $show_multiple)
+                                                    <div class="h4 col-sm-12 text-left">
+                                                        {{$show_multiple->multiple_choice}}
+                                                    </div> 
+                                                    <!-- Variabel $n_choice_multi from controller C_Polling-->
+                                                    <div class="progress col-sm-12" style="height:20px;">
+                                                        <div class="progress-bar progress-bar-striped" 
+                                                             style="width:{{$show_multiple->total_multiple_choice}}%;height:20px;">{{$show_multiple->total_multiple_choice}}</div>
+                                                    </div>
+                                                    <br>
+                                                    @endforeach
+                                                @else
+                                                    @foreach($poll_view->RatingModel as $show_rating)
+                                                    <div class="h4 col-sm-12 text-left">
+                                                        @if($show_rating->rating === 5)
+                                                        <input class="star star-4" checked="checked" type="radio">
+                                                        <label class="star star-5" for="star-5"></label>
+                                                        <label class="star star-4" for="star-4"></label>
+                                                        <label class="star star-3" for="star-3"></label>
+                                                        <label class="star star-2" for="star-2"></label>
+                                                        <label class="star star-1" for="star-1"></label>
+                                                        @elseif($show_rating->rating === 4)
+                                                        <input class="star star-4" checked="checked" type="radio">
+                                                        <label class="star star-4" for="star-4"></label>
+                                                        <label class="star star-3" for="star-3"></label>
+                                                        <label class="star star-2" for="star-2"></label>
+                                                        <label class="star star-1" for="star-1"></label>
+                                                        @elseif($show_rating->rating === 3)
+                                                        <input class="star star-3" checked="checked" type="radio">
+                                                        <label class="star star-3" for="star-3"></label>
+                                                        <label class="star star-2" for="star-2"></label>
+                                                        <label class="star star-1" for="star-1"></label>
+                                                        @elseif($show_rating->rating === 2)
+                                                        <input class="star star-3" checked="checked" type="radio">
+                                                        <label class="star star-2" for="star-2"></label>
+                                                        <label class="star star-1" for="star-1"></label>
+                                                        @else
+                                                        <input class="star star-3" checked="checked" type="radio">
+                                                        <label class="star star-1" for="star-1"></label>
+                                                        @endif
+                                                    </div>
+                                                    <div class="h4 col-sm-12 text-left">
+                                                        {{$show_rating->rating}}&nbsp;Star
+                                                    </div>
+                                                    <!-- Variabel $n_choice_rate from controller C_Polling-->
+                                                    <div class="progress col-sm-12" style="height:20px;">
+                                                        <div class="progress-bar progress-bar-striped" style="width:{{$show_rating->total_rating}}%;height:20px;"> {{$show_rating->total_rating}}</div>
+                                                    </div>
+                                                    <br>
+                                                    @endforeach                 
+                                                <!--end views-->
+                                                @endif
 
-                                            <div id="London" class="tabcontent">
-                                                <h3>London</h3>
-                                                <p>London is the capital city of England.</p>
-                                            </div>
 
-                                            <div id="Paris" class="tabcontent">
-                                                <h3>Paris</h3>
-                                                <p>Paris is the capital of France.</p> 
                                             </div>
-
-                                            <div id="Tokyo" class="tabcontent">
-                                                <h3>Tokyo</h3>
-                                                <p>Tokyo is the capital of Japan.</p>
-                                            </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
@@ -591,11 +646,11 @@
                     </div>
                 </div>
             </div>
-
-            <div id="edit" class="modal">
-                <div class="modal-content col-md-6" >
+            
+            @foreach($question_approve as $a)
+            <div id="edit{{$a->idQuestion}}" class="modal">
+                <div class="modal-content col-md-6">
                     <div class="modal-header">
-                        @foreach($question_approve as $a)
                         @if($a->answer === "Not Answered")
                         <div class="col-md-9">
                             <h3>Answer Question</h3>
@@ -614,6 +669,7 @@
                     <br>
                     <div class="modal-body">
                         <div class="col-md-12">
+                            <div class="text-muted text-center font-italic">Question</div>
                              <hr style="width: 50%;">
                             <h5 class="text-sm-center "><strong>{{$a->question}}</strong></h5>
                              <hr style="width: 50%;">
@@ -644,10 +700,10 @@
                                 </div>
                             </form>
                         </div>
-                       @endforeach
                     </div>
                 </div>
             </div>
+            @endforeach
             
             <div id="polling" class="modal">
                 <div class="modal-content col-md-6" >
@@ -738,37 +794,39 @@
         
     </body>
     <script>
-        function openPoll(evt, Pollid) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-          tabcontent[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-          tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(Pollid).style.display = "block";
-        evt.currentTarget.className += " active";
-        }
-        // Get the element with id="defaultOpen" and click on it
-        document.getElementById("defaultOpen").click();
-      
-      
         $('a[data-toggle="tab"]').click(function (e) {
-         e.preventDefault();
-            $(this).tab('show');
+            e.preventDefault();
+               $(this).tab('show');
         });
 
         $('a[data-toggle="tab"]').on("shown.bs.tab", function (e) {
-            var id = $(e.target).attr("href");
-            localStorage.setItem('Sheet', id)
+                var id = $(e.target).attr("href");
+                localStorage.setItem('Sheet', id)
         });
 
         var selectedTab = localStorage.getItem('Sheet');
         if (selectedTab != null) {
             $('a[data-toggle="tab"][href="' + selectedTab + '"]').tab('show');
         }
+        
+        function openPoll(evt, Pollid) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+              tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+              tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(Pollid).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen").click();
+      
+      
+        
         
         function showDiv(id){
             var idv = "form-"+id;

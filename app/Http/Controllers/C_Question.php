@@ -52,9 +52,14 @@ class C_Question extends Controller {
     }
     
     public function delete($id) {
-        $statusupdate = QuestionModel::find($id);
-        $statusupdate->delete();
+        $delete = QuestionModel::find($id);
+        $delete->delete();
         return redirect()->back()->with(['success' => 'Question Deleted!']);
+    }
+    
+    public function remove_answer($id) {
+        $remove_answer = QuestionModel::find($id)->update(['answer' => "Not Answered"]);;
+        return redirect()->back()->with(['success' => 'Answer Deleted!']);
     }
     
     public function show(Request $request, $id) { //refresh all question by javascript
