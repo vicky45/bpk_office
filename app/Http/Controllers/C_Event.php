@@ -12,6 +12,7 @@ use App\SpeakerModel;
 use App\QuestionModel;
 use App\PollingModel;
 use Auth;
+use PDF;
 use Illuminate\Support\Str;
 
 class C_Event extends Controller {
@@ -252,12 +253,10 @@ class C_Event extends Controller {
             return redirect()->action('C_Event@home');
         }
     }
+    //For Download Summary
+    public function Downloadsummary($id){
+        $EventModel = EventModel::find($id);
+        $DOMPDF = PDF::loadview('summarypdf',['EventModel'=>$EventModel]);
+    	return $DOMPDF->download('summary-pdf');
+    }
 }
-//
-//  <div class="h4 col-sm-12 text-left">
-//           {{$li->multiple_choice}}
-//        </div> 
-//        <div class="progress col-sm-12" style="height:20px;">
-//            <div class="progress-bar progress-bar-striped" style="width:{{$i}}%;height:20px;">{{$li->total_multiple_choice}}</div>
-//        </div>
-//        <br>

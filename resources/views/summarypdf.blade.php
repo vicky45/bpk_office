@@ -36,7 +36,8 @@
         
         
     </head>  
-    <body class="bg-color">  
+    <body class="bg-color">
+        
         <nav class="navbar navbar-dark navbar-expand-md bg-info justify-content-between">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-nav">
@@ -398,9 +399,7 @@
             <div id="sum" class="tab-pane fade"><br>
                 <div class="row col-md-12">
                     <div class="col-md-6">
-                        <!--<a href="/download/{{$ev->idEvent}}">-->
                         <button data-toggle="modal" type="button" class="btn btn-info bg-info float-sm-left">Download Summary</button>
-                        </a>
                     </div>
                 </div>
                 <div id="main">

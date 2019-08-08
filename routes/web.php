@@ -47,3 +47,7 @@ Route::get('/delete/{id}', 'C_Polling@delete_polling');
 Route::get('/stop/{id}', 'C_Polling@stop_polling');
 Route::get('/submit/{id}', 'C_Polling@submitPolling');
 
+//Route Summary Download
+Route::get('/download/{id}', 'C_Event@Downloadsummary');
+
+

@@ -41,49 +41,8 @@
             <div class="hero-text">
                 <h1 style="font-size:450%;">TANYA</h1>
                 <p style="font-size:120%;">Sistem Informasi Penyampaian Pertanyaan<br>Badan Pemeriksa Keuangan Republik Indonesia</p>
-                <div class="row">
-                    <form class="form-inline">
-                        <div class="input-container col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                            <i class="fa fa-hashtag iconform"></i>
-                            <input class="input-field" type="text" placeholder="Code Event" name="join"disabled>
-                            <div class="input-group-append">
-                                <button class="btn btn-warning " disabled>
-                                    <i class="fa fa-check"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                    <div class="col-sm-12 col-md-12 col-lg-1 col-xl-1">
-                        <h2>or</h2>
-                    </div>
-                    <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <button  id="myBtn" type="button" class="btn btn-warning btn-sm" style="height: 49px;">Create Event</button>
-
-                    </div>
-                </div>
             </div>
         </div>
-        <div class="modal" id="myModal" style="padding-top: 0px;" >
-            <div class="modal-dialog">
-                <div class="modal-content">
-
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                        <h4 class="modal-title">Create an Event</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                        <div class="alert alert-danger">
-                            <strong>Log in Required!</strong> You must <a href="/login" class="alert-link">Log in </a>before.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
         <script>
 // ====== javascript Modal ====== //
             var modal = document.getElementById("myModal");
