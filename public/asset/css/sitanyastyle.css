@@ -7,6 +7,171 @@
     background-color: #efe7ce!important;
 }
 
+.bg-behind {
+    background-color: #43413d!important;
+}
+/*extension HomeSitanya CSS*/
+
+
+.hero-image {
+    height: -webkit-fill-available;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+.containerimg {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+.conform {
+    width: 100%;
+    padding-right: 19%;
+    padding-left: 20%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/* Place text in the middle of the image */
+.hero-text {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+/* TopNav */
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+.topnav a {
+  float:right;
+  display: block;
+  color: #afab9e;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+.topnav a:hover {
+  background-color: #00c7a3ed;
+  color: black;
+}
+.topnav a.active {
+  background-color: #00c7a3ed;
+  color: white;
+  float: left;
+}
+
+.topnav a.activeuser {
+  background-color: #00c7a3ed;
+  color: white;
+  float: right;
+}
+
+.topnav .icon {
+  display: none;
+}
+@media screen and (max-width: 600px) {
+  .topnav a:not(:first-child) {display: none;}
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+}
+@media screen and (max-width: 600px) {
+  .topnav.responsive {position: relative;}
+  .topnav.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+}
+.topnav-right {
+  float: right;
+}
+/*form*/
+* {box-sizing: border-box;}
+.input-container {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.iconform {
+  background: #04bd9b;
+  color: white;
+  min-width: 45px;
+  text-align: center;
+  font-size: 180%;
+  border-radius: 2px;
+  padding-top: 9px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+}
+
+.ibutton {
+  padding: 0px;
+  background: #ffc107;
+  color: white;
+  min-width: 50px;
+  text-align: center;
+  font-size: 180%;
+}
+
+.input-field {
+    width: 100%;
+    padding-top: 11px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    outline: none;
+}
+
+.input-field:focus {
+  border: 2px solid #ffc107;
+}
+.alert{
+    position: relative;
+    padding-top: 0.50rem;
+    padding-right: 1.50rem;
+    padding-bottom: 0.50rem;
+    padding-left: 1.50rem;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    background-color: #f44336;
+    color: white;
+    opacity: 1;
+    transition: opacity 0.6s;
+  }
+  
+  .cards {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  background-color: #1bff201c;
+}
+.card-notif {
+    background-color: #022b0b40!important;
+}
+.title-event {
+  color: #c3c3c3;
+  font-size: 20px;
+}
+
 /*==================User Image==================*/
 * {
     box-sizing: border-box;
@@ -178,7 +343,7 @@
 .modal-header {
     padding: 2px 16px;
     background-color: #fff;
-    color: #007bff8a;
+    color: #11c9a5;
 }
 
 .modal-body {
@@ -199,7 +364,7 @@
 
 /* Dropdown Button */
 .dropbtnhdr {
-  background-color: #ffc107;
+  background-color: #00c7a3ed;
   color: white;
   padding: 0px;
   font-size: 16px;
@@ -234,7 +399,7 @@
 }
 .dropdown-content a:hover {background-color: #ffc107;}
 .dropdown:hover .dropdown-content {display: block;}
-.dropdown:hover .dropbtnhdr {background-color: #ffc107;}
+.dropdown:hover .dropbtnhdr {background-color: #00c7a3ed;}
 .dropdown-content a:hover {background-color: #ddd}
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
@@ -388,7 +553,7 @@
 }
 
 .nav-link{
-    color: #652929;
+    color: #11c9a5;
 }
 .card-bg1{
     background-color:#ddd!important;

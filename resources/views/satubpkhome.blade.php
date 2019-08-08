@@ -5,12 +5,12 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Meta Description -->
-        <meta name="description" content="SITANYA, BPK Project PKL FilkomUB">
+        <meta name="description" content="TANYA, BPK Project PKL FilkomUB">
         <meta name="keywords" content="SITANYA, Filkom, UB">
         <meta name="author" content="Ananda Putra Alfa Robby, Cheni Irnandha Sebayang, Apriani Ingin Marito Tampubolon, Bella Nemesias Prasetiyani">
         <!-- Icon tab browser -->
-        <link rel="shortcut icon" href="asset/img/Logo/logo_bpkri.png" type="image/x-icon">
-        <title>TANJA | Badan Pemeriksa Keuangan Republik Indonesia</title>
+        <link rel="shortcut icon" href="asset/img/Logo/Image-x.png" type="image/x-icon">
+        <title>TANYA | Badan Pemeriksa Keuangan Republik Indonesia</title>
         <!-- Equipment -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/font.css') }}">
@@ -20,7 +20,7 @@
         <script src="{{ asset('asset/js/popper.min.js') }}"></script>
         <script src="{{ asset('asset/js/bootstrap.min.js') }}"></script>
     </head>
-    <body class="bg-dark">
+    <body class="bg-color">
         <div class="hero-image">
             <!--Tab Menu-->        
             <header>
@@ -39,7 +39,7 @@
                 <img src="asset/img/Bg_Sitanar/Bg_1.jpg" style="width:100%;">
             </div>
             <div class="hero-text">
-                <h1 style="font-size:450%;">TANJA</h1>
+                <h1 style="font-size:450%;">TANYA</h1>
                 <p style="font-size:120%;">Sistem Informasi Penyampaian Pertanyaan<br>Badan Pemeriksa Keuangan Republik Indonesia</p>
                 <div class="row">
                     <form class="form-inline">

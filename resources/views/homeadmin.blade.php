@@ -5,12 +5,12 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Meta Description -->
-        <meta name="description" content="SITANYA, BPK Project PKL FilkomUB">
+        <meta name="description" content="TANYA, BPK Project PKL FilkomUB">
         <meta name="keywords" content="SITANYA, Filkom, UB">
         <meta name="author" content="Ananda Putra Alfa Robby, Cheni Irnandha Sebayang, Apriani Ingin Marito Tampubolon, Bella Nemesias Prasetiyani">
         <!-- Icon tab sinar browser -->
-        <link rel="shortcut icon" href="asset/img/Logo/logo_bpkri.png" type="image/x-icon">
-        <title>SITANYA | Badan Pemeriksa Keuangan Republik Indonesia</title>
+        <link rel="shortcut icon" href="asset/img/Logo/Tanya-icon.png" type="image/x-icon">
+        <title>TANYA | Badan Pemeriksa Keuangan Republik Indonesia</title>
         <!-- Equipment -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/font.css') }}">
@@ -38,7 +38,7 @@
     </head>  
     <body class="bg-color">
         
-        <nav class="navbar navbar-dark navbar-expand-md bg-warning justify-content-between">
+        <nav class="navbar navbar-dark navbar-expand-md bg-info justify-content-between">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-nav">
                     <span class="navbar-toggler-icon"></span>
@@ -46,18 +46,18 @@
                 <div class="navbar-collapse collapse w-50 order-1 order-sm-0 dual-nav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <div class="navbar-header">
-                                <a class="navbar-brand" >
-                                    <img src="asset/img/Logo/logo_bpkri.png" style="height: 5.0rem;">
-                                    TANJA</a>
+                            <div class="row text-white">
+                              <div class="navbar-header ">
+                                    <img src="asset/img/Logo/Tanya-icon.png" style="height: 3.0rem;">
+                              </div>  
+                                <h1><strong>TANYA</strong></h1>
                             </div>
                         </li>
                     </ul>
                 </div>
-                <a data-toggle="modal" data-target="#update" class=" mx-auto text-center text-dark order-0 order-sm-1 size-roll">
+                <a data-toggle="modal" data-target="#update" class=" mx-auto text-center text-white order-0 order-sm-1 size-roll">
                     @foreach ($event as $ev)
                     <h5><b>{{$ev->name_event}}</b></h5>
-                    <h6>{{$ev->date_event}}</h6>
                     <h6>{{$ev->location}}</h6> 
                     <h6>#{{$ev->code_event}}</h6> 
                 </a>
@@ -79,12 +79,6 @@
                                     <div class="dropdown-divider"></div>
                                     <a class="text-decoration-none" href="/home">Log Out</a>
                                 </div>
-                                @else
-                                <div id="myDropdown" class="dropdown-content dual-nav">
-                                    <span class="dropdown-item-text"><b>{{ Auth::user()->name }}</b></span>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="text-decoration-none" href="/out">End Event</a>
-                                </div>
                                 @endif
                                 @endforeach
                             </div>
@@ -96,13 +90,13 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" id="Sheet" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active"  data-toggle="tab" href="#quest">Question</a>
+                <a class="nav-link active"  data-toggle="tab" href="#quest"><strong> QUESTION</strong></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  data-toggle="tab" href="#poll">Polling</a>
+                <a class="nav-link"  data-toggle="tab" href="#poll"><strong>POLLING</strong></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  data-toggle="tab" href="#sum">Summary</a>
+                <a class="nav-link"  data-toggle="tab" href="#sum"><STRONG>SUMMARY</strong></a>
             </li>
         </ul>
         <!-- Tab panes -->
@@ -143,7 +137,7 @@
                 </div>
                 <div class="row col-md-12">
                     <div class="col-md-4">
-                        <span class=" btn btn-outline-primary" onclick="openNav()"><i class="fa fa-users" aria-hidden="true"></i>  Create Speaker's</span>
+                        <span class=" btn btn-info bg-info" onclick="openNav()"><i class="fa fa-users" aria-hidden="true"></i>  Create Speaker's</span>
                     </div>
                     <div class="col-sm-4">
                         @if ($message = Session::get('success'))
@@ -159,7 +153,13 @@
                         </div>
                         @endif
                     </div>
-                    <div class="col-md-4"> 
+                    <div class="col-md-4">
+                        <a href="/out">
+                        <button  class="btn btn-outline-danger float-sm-right">
+                            <i class="fa fa-sign-out" aria-hidden="true"></i>
+                            End Event
+                        </button>
+                        </a>
                     </div>
                 </div>
                 <div id="main">
@@ -252,7 +252,7 @@
                 <br>
                 <div class="row col-md-12">
                     <div class="col-md-4">
-                        <button data-toggle="modal" data-target="#polling" type="button" class="btn btn-outline-primary float-sm-left">
+                        <button data-toggle="modal" data-target="#polling" type="button" class="btn btn-info bg-info float-sm-left">
                             <i class="fa fa-bar-chart" aria-hidden="true"></i>
                             Create Poll
                         </button>
@@ -266,6 +266,12 @@
                         @endif
                     </div>
                     <div class="col-md-4">
+                        <a href="/out">
+                        <button  class="btn btn-outline-danger float-sm-right">
+                            <i class="fa fa-sign-out" aria-hidden="true"></i>
+                            End Event
+                        </button>
+                        </a>
                     </div>
                 </div>
                 <div id="main">
@@ -393,7 +399,7 @@
             <div id="sum" class="tab-pane fade"><br>
                 <div class="row col-md-12">
                     <div class="col-md-6">
-                        <button data-toggle="modal" type="button" class="btn btn-outline-primary float-sm-left">Download Summary</button>
+                        <button data-toggle="modal" type="button" class="btn btn-info bg-info float-sm-left">Download Summary</button>
                     </div>
                 </div>
                 <div id="main">

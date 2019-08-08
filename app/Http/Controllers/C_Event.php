@@ -153,7 +153,9 @@ class C_Event extends Controller {
             $questme = Questionmodel::where('Event_idEvent', $session)
                     ->where('User_NIP', $usernip)
                     ->get();
-
+            $polling_result = PollingModel::where('Event_idEvent', $session)
+                    ->where('status_polling', 1)
+                    ->get();
             foreach ($event as $ev) {
                 $tmp = $ev->status_event;
             }
@@ -167,9 +169,9 @@ class C_Event extends Controller {
                         'Event_idEvent' => $session,
                         'User_NIP' => $usernip,
                     ]);
-                    return view('homeuser', compact('event', 'questme'));
+                    return view('homeuser', compact('event', 'questme','polling_result'));
                 } else {
-                    return view('homeuser', compact('event', 'questme'));
+                    return view('homeuser', compact('event', 'questme','polling_result'));
                 }
             }
         } else {

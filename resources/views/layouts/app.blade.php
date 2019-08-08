@@ -5,12 +5,12 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Meta Description -->
-        <meta name="description" content="SITANYA, BPK Project PKL FilkomUB">
-        <meta name="keywords" content="SITANYA, Filkom, UB">
+        <meta name="description" content="TANYA, BPK Project PKL FilkomUB">
+        <meta name="keywords" content="TANYA, Filkom, UB">
         <meta name="author" content="Ananda Putra Alfa Robby, Cheni Irnandha Sebayang, Apriani Ingin Marito Tampubolon, Bella Nemesias Prasetiyani">
         <!-- Icon tab browser -->
-        <link rel="shortcut icon" href="asset/img/Logo/logo_bpkri.png" type="image/x-icon">
-        <title>SITANYA | Badan Pemeriksa Keuangan Republik Indonesia</title>
+        <link rel="shortcut icon" href="asset/img/Logo/Image-x.png" type="image/x-icon">
+        <title>Log In | Badan Pemeriksa Keuangan Republik Indonesia</title>
         <!-- Equipment -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/font.css') }}">

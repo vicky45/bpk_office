@@ -5,12 +5,12 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Meta Description -->
-        <meta name="description" content="SITANYA, BPK Project PKL FilkomUB">
-        <meta name="keywords" content="SITANYA, Filkom, UB">
+        <meta name="description" content="TANYA, BPK Project PKL FilkomUB">
+        <meta name="keywords" content="TANYA, Filkom, UB">
         <meta name="author" content="Ananda Putra Alfa Robby, Cheni Irnandha Sebayang, Apriani Ingin Marito Tampubolon, Bella Nemesias Prasetiyani">
         <!-- Icon tab sinar browser -->
-        <link rel="shortcut icon" href="asset/img/Logo/logo_bpkri.png" type="image/x-icon">
-        <title>TANJA | Badan Pemeriksa Keuangan Republik Indonesia</title>
+        <link rel="shortcut icon" href="asset/img/Logo/Image-x.png" type="image/x-icon">
+        <title>TANYA | Badan Pemeriksa Keuangan Republik Indonesia</title>
         <!-- Equipment -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/font.css') }}">
@@ -24,12 +24,12 @@ var auto_refresh = setInterval(
         function () {
             $('#show_question').load('{{route('question.show',session()->get('event'))}}').fadeIn("slow");
             $('#polling').load('/showpoll/{{session()->get('event')}}').fadeIn("slow");
-        }, 2000);
+        }, 30000);
         </script>
 
     </head>
     <body class="bg-color"> 
-        <nav class="navbar navbar-dark navbar-expand-md bg-warning justify-content-between">
+        <nav class="navbar navbar-dark navbar-expand-md bg-info justify-content-between">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-nav">
                     <span class="navbar-toggler-icon"></span>
@@ -37,18 +37,18 @@ var auto_refresh = setInterval(
                 <div class="navbar-collapse collapse w-50 order-1 order-sm-0">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <div class="navbar-header">
-                                <a class="navbar-brand" >
-                                    <img src="asset/img/Logo/logo_bpkri.png" style="height: 5.0rem;">
-                                    TANJA</a>
+                            <div class="row text-white">
+                              <div class="navbar-header ">
+                                    <img src="asset/img/Logo/Tanya-icon.png" style="height: 3.0rem;">
+                              </div>  
+                                <h1><strong>&nbsp;TANYA</strong></h1>
                             </div>
                         </li>
                     </ul>
                 </div>
-                <a  class=" mx-auto text-center text-dark order-0 order-sm-1 size-roll">
+                <a  class=" mx-auto text-center text-white order-0 order-sm-1 size-roll">
                     @foreach ($event as $ev)
                     <h5><b>{{$ev->name_event}}</b></h5>
-                    <h6>{{$ev->date_event}}</h6>
                     <h6>{{$ev->location}}</h6> 
                     <h6>#{{$ev->code_event}}</h6> 
                     @endforeach
@@ -69,7 +69,9 @@ var auto_refresh = setInterval(
                                 <div id="myDropdown" class="dropdown-content dual-nav">
                                     <span class="dropdown-item-text"><b>{{ Auth::user()->name }}</b></span>
                                     <div class="dropdown-divider"></div>
-                                    <a class="text-decoration-none" href="/out">Log Out</a>
+                                    <a class="text-decoration-none" href="/out">
+                                        <i class="fa fa-sign-out"></i>&nbsp;
+                                        Log Out</a>
                                 </div>
                             </div>
                         </li>
@@ -88,10 +90,10 @@ var auto_refresh = setInterval(
         <!-- Nav tabs -->
         <ul class="nav nav-tabs justify-content-center" id="Sheet" role="tablist">
             <li class="nav-item">
-                <a class="a-shet nav-link active" data-toggle="tab" href="#quest"><i class="fa fa-question-circle"></i>&nbsp;<b>Question</b></a>
+                <a class="a-shet nav-link active" data-toggle="tab" href="#quest">&nbsp;<strong> QUESTION</strong></a>
             </li>
             <li class="nav-item">
-                <a class=" a-shet nav-link" data-toggle="tab" href="#poll"><i class="fa fa-check-square"></i>&nbsp;<b>Polling</b></a>
+                <a class=" a-shet nav-link" data-toggle="tab" href="#poll">&nbsp;<strong>POLLING</strong></a>
             </li>
         </ul>
         <!-- Tab panes -->
@@ -101,7 +103,8 @@ var auto_refresh = setInterval(
                     <div class="card padding-card" style="background-color:#fbfbfb;">
                         <div class="col-sm-12">
                             <div class="row">
-                                <h5><strong>Your Question</strong></h5>
+                                
+                                <h5><i class="fa fa-commenting-o fa-2x"></i>&nbsp;<strong>Your Question</strong></h5>
                                 <div class="col-sm-12">
                                     <button type="button" id="myBtn" class="btn btn-info float-right">
                                         <i class="fa fa-question-circle-o"></i>&nbsp; Ask Now</button>
@@ -127,14 +130,18 @@ var auto_refresh = setInterval(
                     <br>
                     <div class="col-sm-12 sheet-color">
                         <div class="row">
-                            <h5><strong>All Question</strong></h5>
+                            <h5><i class="fa fa-comments-o fa-2x"></i>&nbsp;<strong>All Question</strong></h5>
                         </div>
                         <br>
                     </div>
                     <!--All Question-->
                     <div class="card "style="background-color:#fbfbfb;">
                         <div id="show_question" class="col-sm-12 padding-card scroll">
-                            
+                            <div class="text-center">
+                                <hr style="width: 50%;">
+                                <h4>There's is No Question</h4>
+                                <hr style="width: 50%;">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -143,7 +150,31 @@ var auto_refresh = setInterval(
             <div id="poll" class=" tab-pane fade"><br>
                 <div class="col-sm-12" align="center">
                     <div id="polling" class="card padding-card scroll">
-                        
+                        @if($polling_result->count() > 0)
+                        @foreach($polling_result as $poll)
+                        <div class="card padding-card" align="left">
+                            <strong>{{$poll->title_polling}}</strong>
+                            <hr>
+                            <form class="form-group" action="/submit/{{$poll->idPolling}}">
+                                @foreach($poll->MultipleModel as $multi)
+                                <label class="container">
+                                    <div class="radio">
+                                        <input type="radio" name="choice" value="{{$multi->multiple_choice}}">&nbsp;{{$multi->multiple_choice}}
+                                    </div>
+                                </label>
+                                @endforeach
+                                <button type="submit" class="btn btn-warning float-sm-right">Send</button>  
+                            </form>
+                        </div>
+                        <br>
+                        @endforeach
+                        @else
+                        <div class="text-center">
+                            <hr style="width: 50%;">
+                            <h4>There's is No Polling Active</h4>
+                            <hr style="width: 50%;">
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -164,6 +195,7 @@ var auto_refresh = setInterval(
                         <form class="form-group" method="POST" action="{{ route('question.store')}}">
                             {{ csrf_field() }}
                             <input type="text" class="form-control" name="ask" placeholder="What would you ask?" required="required"></input>
+                            <br>
                             <select class="form-control" name="speak">
                                 <option>--Select Speaker--</option>
                                 @foreach ($ev->SpeakerModel as $speak)
@@ -171,7 +203,7 @@ var auto_refresh = setInterval(
                                 @endforeach
                             </select>
                             <hr>
-                            <button type="submit" class="btn btn-primary">Send</button>
+                            <button type="submit" class="btn btn-info"><i class="fa fa-paper-plane-o"></i>&nbsp;Send</button>
                         </form>
                     </div>
                 </div>

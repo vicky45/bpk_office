@@ -1,4 +1,8 @@
-/*extension HomeSitanar CSS*/
+/*extension HomeSitanya CSS*/
+
+.bg-behind {
+    background-color: #43413d!important;
+}
 .hero-image {
     height: -webkit-fill-available;
     background-position: center;

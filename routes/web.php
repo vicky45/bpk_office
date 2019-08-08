@@ -45,7 +45,5 @@ Route::get('/showpoll/{id}', 'C_Polling@show_user');//for user
 Route::get('/show/{id}', 'C_Polling@approve_polling');//for admin
 Route::get('/delete/{id}', 'C_Polling@delete_polling');
 Route::get('/stop/{id}', 'C_Polling@stop_polling');
+Route::get('/submit/{id}', 'C_Polling@submitPolling');
 
-Route::get('/session/tampil', 'C_Event@tampilkanSession');
-Route::get('/session/buat', 'C_Event@buatSession');
-Route::get('/session/hapus', 'C_Event@hapusSession');

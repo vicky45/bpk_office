@@ -6,15 +6,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Meta Description -->
         <meta name="description" content="Tanja, BPK Project PKL FilkomUB">
-        <meta name="keywords" content="SITANYA, Filkom, UB">
+        <meta name="keywords" content="TANYA, Filkom, UB">
         <meta name="author" content="Ananda Putra Alfa Robby, Cheni Irnandha Sebayang, Apriani Ingin Marito Tampubolon, Bella Nemesias Prasetiyani">
         <!-- Icon tab sinar browser -->
-        <link rel="shortcut icon" href="asset/img/Logo/logo_bpkri.png" type="image/x-icon">
-        <title>TANJA | Badan Pemeriksa Keuangan Republik Indonesia</title>
+        <link rel="shortcut icon" href="asset/img/Logo/Image-x.png" type="image/x-icon">
+        <title>TANYA | Badan Pemeriksa Keuangan Republik Indonesia</title>
         <!-- Equipment -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/font.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/sinarstyle.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/sitanyastyle.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/bootstrap.min.css') }}">
         <script src="{{ asset('asset/js/jquery-3.4.1.min.js') }}"></script>
         <script src="{{ asset('asset/js/popper.min.js') }}"></script>
@@ -26,13 +26,20 @@
         }, 3000);
         </script>
     </head>
-    <body class="bg-dark">
+    <body class="bg-color">
         <div class="hero-image">
             <!--Tab Menu-->        
             <header>
                 <nav>
                     <div class="topnav fixed" id="myTopnav">
-                        <a class="active">SatuBPK</a>
+                        <a class="active">
+                            <div class="row text-white">
+                              
+                                    <img src="asset/img/Logo/Tanya-icon.png" style="height: 1.5rem;">
+                            
+                                <h5><strong>&nbsp;TANYA</strong></h5>
+                            </div>
+                        </a>
                         <a href="{{ route('logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}
@@ -49,7 +56,7 @@
                 <img src="asset/img/Bg_Sitanar/Bg_1.jpg" style="width:100%;">
             </div>
             <div class="hero-text h-75">
-                <h1 style="font-size:450%;">TANJA</h1>
+                <h1 style="font-size:450%;">TANYA</h1>
                 <p style="font-size:120%;">Sistem Informasi Penyampaian Pertanyaan dan Jawaban<br>Badan Pemeriksa Keuangan Republik Indonesia</p>
                 <div class="row">
                     <form class="form-inline" method="post" action="{{ route('event.store')}}">
@@ -63,7 +70,7 @@
                             </div>
                             @endif
                             <div class="input-group-append">
-                                <button id="btn-join" class="btn btn-warning " type="submit">
+                                <button id="btn-join" class="btn btn-info bg-info " type="submit">
                                     Join
                                 </button>
                             </div>
@@ -73,7 +80,7 @@
                         <h2>or</h2>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <button  id="myBtn" type="button" class="btn btn-warning btn-sm" style="height: 49px;">Create Event</button>
+                        <button  id="myBtn" type="button" class="btn btn-info btn-sm bg-info" style="height: 49px;">Create Event</button>
                     </div>
                 </div>
                 <div class="row">
