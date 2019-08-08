@@ -148,7 +148,7 @@ class C_Polling extends Controller
     }
     
     public function submitPolling($id){
-       $type = null;
+        $type = null;
         $polling = PollingModel::where('idPolling',$id)->get();
         foreach ($polling as $p) {
             $type = $p->type_polling;

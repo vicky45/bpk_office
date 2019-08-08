@@ -20,11 +20,16 @@
         <script src="{{ asset('asset/js/popper.min.js') }}"></script>
         <script src="{{ asset('asset/js/bootstrap.min.js') }}"></script>
         <script type="text/javascript">
-var auto_refresh = setInterval(
+        var auto_refresh = setInterval(
         function () {
             $('#show_question').load('{{route('question.show',session()->get('event'))}}').fadeIn("slow");
+        }, 1000);
+        
+        var auto_refresh = setInterval(
+        function () {
             $('#polling').load('/showpoll/{{session()->get('event')}}').fadeIn("slow");
         }, 30000);
+        
         </script>
 
     </head>
@@ -119,7 +124,7 @@ var auto_refresh = setInterval(
                             </div>
                             @foreach($questme as $quest)
                             <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-sm-12 text-center">
                                     <span><i> {{$quest->question}}</i></span>
                                     <hr style="width: 50%">
                                 </div>

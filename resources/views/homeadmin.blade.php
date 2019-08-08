@@ -26,7 +26,7 @@
             $('#show_question').load('/validate/{{session()->get('event')}}').fadeIn("slow");
             $('#polling_result').load('{{route('polling.show',session()->get('event'))}}').fadeIn("slow");
             $('#summary').load('{{route('event.show',session()->get('event'))}}').fadeIn("slow");
-        }, 500);
+        }, 5000);
         
          $(window).on('load', function(){ 
              $(".se-pre-con").fadeOut("slow");
@@ -165,16 +165,25 @@
                     <div class="card-deck">
                         <div class="card card-bg2 padding-card col-sm-6" >
                             <div class ="row">
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <h2>Question List</h2>
                                 </div>
-                                <div class="col-md-6">
-                                    <a href="/approveall/{{session()->get('event')}}">
-                                        <button class="btn btn-success float-sm-right">
-                                            <i class="fa fa-check"></i> Approve All
+                                <div class="col-md-4">
+                                    <a href="">
+                                        <button class="btn btn-warning float-sm-right">
+                                             Need Approve
                                         </button>
                                     </a>
                                 </div>
+                                <div class="col-md-3">
+                                    <a href="/approveall/{{session()->get('event')}}">
+                                        <button class="btn btn-success">
+                                            Approve All
+                                        </button>
+                                    </a>
+                                </div>
+                                
+                                
                             </div>
                             <br>
                             <div id="show_question" class="card padding-manual scroll">
@@ -187,6 +196,8 @@
                             <h2>Question Approve</h2>
                             <hr>
                             <div class="card padding-manual scroll">
+                                
+                                @if($question_approve->count() > 0)
                                 @foreach($question_approve as $a)
                                 <div class="card" id="question">
                                     <div class="card-header-answer">
@@ -206,7 +217,6 @@
                                         @endif
                                     </div>
                                     <div class="card-footer ">
-                                        
                                         @if($a->answer === "Not Answered")
                                         <div class="col-md-12">
                                                 <a href="#">
@@ -220,9 +230,9 @@
                                             <div class="col-md-12">
                                                 <p class="font-italic text-sm-center ">{{$a->answer}}</p>
                                             </div>
-                                            <div class="col-md-7">
+                                            <div class="col-md-6">
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-5">
                                                 <a href="#">
                                                     <button data-toggle="modal" data-target="#edit{{$a->idQuestion}}" type="button" class="btn btn-info float-sm-right">
                                                         <i class="fa fa-check"></i> Edit Answer
@@ -242,6 +252,14 @@
                                 </div>
                                 <br>
                                 @endforeach
+                                @else
+                                <div class="text-center">
+                                    <hr style="width: 50%;">
+                                    <h4>There's is No Question Show</h4>
+                                    <hr style="width: 50%;">
+                                </div>
+                                @endif
+
                             </div>
                         </div>
                     </div>
@@ -279,7 +297,6 @@
                             <h2>Poll List</h2>
                             <hr>
                             <div class="card padding-manual scroll">
-                                
                                 @if($polling_ready->count() > 0)
                                 @foreach($polling_ready as $stand)
                                 <div class="card">
@@ -469,7 +486,83 @@
                             <br>
                             <div class="col-md-8">
                                 <div id="summary">
-                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="card padding-card">
+                                                <div class="row head">
+                                                    <div class="col-md-2">
+                                                        <i class="fa fa-comment fa-2x"></i>  
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h4>Question</h4>          
+                                                    </div>
+                                                    <div class="col-md-4">
+
+                                                        <span class="number float-sm-right">0</span>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="body-content">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <span class ="fa fa-thumbs-o-up"></span>
+                                                            Like
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <span class="float-sm-right">0</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <span class ="fa fa-thumbs-o-down"></span>
+                                                            Dislike
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <span class="float-sm-right">0</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="card padding-card">
+                                                <div class="row head">
+                                                    <div class="col-md-2">
+                                                        <i class="fa fa-bar-chart fa-2x"></i>  
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h4>Polling</h4>          
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <span class="number float-md-right">0</span>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="body-content">
+                                                    <div class="row">
+                                                        <div class="col-md-5">
+                                                            <span class ="fa fa-sitemap"></span>
+                                                            Poll Votes
+                                                        </div>
+                                                        <div class="col-md-7">
+                                                            <span class="float-sm-right">0</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-5">
+                                                            <span class ="fa fa-check-square-o"></span>
+                                                            Votes per Poll
+                                                        </div>
+                                                        <div class="col-md-7">
+                                                            <span class="float-sm-right">0</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>    
                                 </div>
                                 <div class="col-md-12">
                                     <h3>Polling Result</h3>
@@ -482,19 +575,21 @@
                                                 $i = 0;
                                             @endphp
                                             @foreach($summary_poll as $poll_view)
-                                                @if($i < 1)
+                                                @php
+                                                    $i++;
+                                                @endphp
+                                                @if($i == 1)
                                                     <button class="tablinks" onclick="openPoll(event, '{{$poll_view->idPolling}}')"  id="defaultOpen">{{$poll_view->title_polling}}</button>
                                                 @else
                                                     <button class="tablinks" onclick="openPoll(event, '{{$poll_view->idPolling}}')">{{$poll_view->title_polling}}</button>
                                                 @endif
-                                                    @php
-                                                        $i++;
-                                                    @endphp
                                             @endforeach
                                             </div>
+                                            
                                             @foreach($summary_poll as $poll_view)
                                             <div id="{{$poll_view->idPolling}}" class="tabcontent scroll">
-                                                <h34{{$poll_view->title_polling}}</h3>
+                                                <h3>{{$poll_view->title_polling}}</h3>
+                                                <hr>
                                                 @if($poll_view->type_polling === "Multiple")
                                                     @foreach($poll_view->MultipleModel as $show_multiple)
                                                     <div class="h4 col-sm-12 text-left">

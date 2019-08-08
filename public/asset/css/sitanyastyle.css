@@ -11,8 +11,6 @@
     background-color: #43413d!important;
 }
 /*extension HomeSitanya CSS*/
-
-
 .hero-image {
     height: -webkit-fill-available;
     background-position: center;
@@ -421,8 +419,9 @@
   }
   
   .scroll {
-    max-height: 350px;
+    max-height: 300px;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 
