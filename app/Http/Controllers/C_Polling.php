@@ -147,7 +147,7 @@ class C_Polling extends Controller
         return redirect()->back();
     }
     
-    public function submitPolling($id){
+    public function submitPolling(Request $request, $id){
         $type = null;
         $polling = PollingModel::where('idPolling',$id)->get();
         foreach ($polling as $p) {
@@ -155,13 +155,13 @@ class C_Polling extends Controller
         }
         switch ($type) {
             case 'Rating':
-                    RatingModel::where('Polling_idPolling',$id)->increment('total_rating');
+                    RatingModel::where('polling_idPolling',$id)
+                    ->where('rating',$request->star)->increment('total_rating');
                 break;
             case 'Multiple':
-                    MultipleModel::where('Polling_idPolling',$id)->increment('total_multiple_choice');
+                    MultipleModel::where('id_multiple_choice',$request->choice)->increment('total_multiple_choice');
                 break;
         }
-        return redirect()->back();
-        
+        return redirect()->back()->with(['success' => 'Polling Succes!']);
     } 
 }
