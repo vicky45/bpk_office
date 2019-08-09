@@ -13,8 +13,6 @@
                             <p><small class="text-muted">{{$type}}</small></p>
                         </div>
                         <hr>
-@endforeach
-
 @if($pr->type_polling === "Multiple")
             @foreach($pr->MultipleModel as $show_multiple)
                             <div class="h4 col-sm-12 text-left">
@@ -71,6 +69,7 @@
         </div>
     </div>
     <br> 
+@endforeach
 @else
 <div class="text-center">
     <hr style="width: 50%;">

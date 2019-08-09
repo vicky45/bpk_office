@@ -153,15 +153,23 @@ class C_Polling extends Controller
         foreach ($polling as $p) {
             $type = $p->type_polling;
         }
-        switch ($type) {
-            case 'Rating':
-                    RatingModel::where('polling_idPolling',$id)
-                    ->where('rating',$request->star)->increment('total_rating');
-                break;
-            case 'Multiple':
-                    MultipleModel::where('id_multiple_choice',$request->choice)->increment('total_multiple_choice');
-                break;
+        $pollstats = PollingModel::where('idPolling',$id)
+                ->where('status_polling',1)
+                ->count();
+        if($pollstats > 0){
+            switch ($type) {
+                case 'Rating':
+                        RatingModel::where('polling_idPolling',$id)
+                        ->where('rating',$request->star)->increment('total_rating');
+                    break;
+                case 'Multiple':
+                        MultipleModel::where('id_multiple_choice',$request->choice)->increment('total_multiple_choice');
+                    break;
+            }
+            return redirect()->back()->with(['success' => 'Polling Succes!']);
+        }else{
+            return redirect()->back()->with(['warning' => 'Polling Closed!']);
         }
-        return redirect()->back()->with(['success' => 'Polling Succes!']);
-    } 
+        
+        } 
 }

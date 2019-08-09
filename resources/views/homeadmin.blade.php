@@ -643,8 +643,6 @@
                                                     @endforeach                 
                                                 <!--end views-->
                                                 @endif
-
-
                                             </div>
                                             @endforeach
                                         </div>
