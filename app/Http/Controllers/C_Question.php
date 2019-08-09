@@ -21,8 +21,6 @@ class C_Question extends Controller {
         //note Use
     }
 
-    
-
     public function store(Request $request) {//store question
         $event = $request->session()->get('event');
         $user = $request->session()->get('user');
@@ -50,18 +48,19 @@ class C_Question extends Controller {
             return redirect()->back();
         }
     }
-    
+
     public function delete($id) {
         $delete = QuestionModel::find($id);
         $delete->delete();
         return redirect()->back()->with(['success' => 'Question Deleted!']);
     }
-    
+
     public function remove_answer($id) {
-        $remove_answer = QuestionModel::find($id)->update(['answer' => "Not Answered"]);;
+        $remove_answer = QuestionModel::find($id)->update(['answer' => "Not Answered"]);
+        ;
         return redirect()->back()->with(['success' => 'Answer Deleted!']);
     }
-    
+
     public function show(Request $request, $id) { //refresh all question by javascript
         $question_approve = QuestionModel::where('Event_idEvent', $id)
                 ->where('status', 1)
@@ -92,12 +91,11 @@ class C_Question extends Controller {
         return redirect()->back()->with(['success' => 'Approve Completed!']);
     }
 
-    
     public function approve_all($id) {//for admin to validate all question
         QuestionModel::where('Event_idEvent', $id)->update(['status' => 1]);
         return redirect()->back()->with(['success' => 'Approve all Completed!']);
     }
-    
+
     public function like($id) {
         QuestionModel::find($id)->increment('reaction_like');
         return redirect()->back();
@@ -107,5 +105,4 @@ class C_Question extends Controller {
         QuestionModel::find($id)->increment('reaction_dislike');
         return redirect()->back();
     }
-    
 }

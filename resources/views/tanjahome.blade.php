@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Meta Description -->
-        <meta name="description" content="Tanja, BPK Project PKL FilkomUB">
+        <meta name="description" content="Tanya, BPK Project PKL FilkomUB">
         <meta name="keywords" content="TANYA, Filkom, UB">
         <meta name="author" content="Ananda Putra Alfa Robby, Cheni Irnandha Sebayang, Apriani Ingin Marito Tampubolon, Bella Nemesias Prasetiyani">
         <!-- Icon tab sinar browser -->
@@ -20,7 +20,7 @@
         <script src="{{ asset('asset/js/popper.min.js') }}"></script>
         <script src="{{ asset('asset/js/bootstrap.min.js') }}"></script>
         <script type="text/javascript">
-        var auto_refresh = setInterval(
+var auto_refresh = setInterval(
         function () {
             $('#event_active').load('{{route('event.create')}}').fadeIn("slow");
         }, 3000);
@@ -34,9 +34,7 @@
                     <div class="topnav fixed" id="myTopnav">
                         <a class="active">
                             <div class="row text-white">
-                              
-                                    <img src="asset/img/Logo/Tanya-icon.png" style="height: 1.5rem;">
-                            
+                                <img src="asset/img/Logo/Tanya-icon.png" style="height: 1.5rem;">
                                 <h5><strong>&nbsp;TANYA</strong></h5>
                             </div>
                         </a>
@@ -52,6 +50,7 @@
                     </div>
                 </nav>
             </header>
+            <!--View Big Page first TANYA-->
             <div class="containerimg">
                 <img src="asset/img/Bg_Sitanar/Bg_1.jpg" style="width:100%;">
             </div>
@@ -96,11 +95,10 @@
                 <br>
                 <div id="event_active">
                     <!--event_active-->
-                    
                 </div>
             </div>
         </div>
-
+        <!--Set Modal TANYA-->
         <div class="modal" id="myModal" style="padding-top: 0px;" >
             <div class="modal-dialog">
                 <div class="modal-content">

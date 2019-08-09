@@ -19,8 +19,7 @@
         <script src="{{ asset('asset/js/jquery-3.4.1.min.js') }}"></script>
         <script src="{{ asset('asset/js/popper.min.js') }}"></script>
         <script src="{{ asset('asset/js/bootstrap.min.js') }}"></script>
-    </head>
-
+     </head>
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <!-- Brand -->
         <a class="navbar-brand" href="/">SatuBPK</a>
@@ -40,7 +39,6 @@
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             {{ csrf_field() }}
                         </form>Log Out</a>
-
                 </div>
                 @endguest
             </li>

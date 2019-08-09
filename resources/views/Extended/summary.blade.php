@@ -1,54 +1,51 @@
 @php
-    $count_question = 0;
-    $count_like = 0;
-    $count_dislike = 0;
-    $poll_was_held = 0;
-    $poll_votes = 0;
-    $votes_per_poll = 0;
+$count_question = 0;
+$count_like = 0;
+$count_dislike = 0;
+$poll_was_held = 0;
+$poll_votes = 0;
+$votes_per_poll = 0;
 @endphp
-    
+
 <!--Count for Question-->
- @foreach($question as $q)
-    @php
-        $count_question += count($q->question);
-    @endphp
- @endforeach
- <!--Count for Like, Dislike-->
- @foreach($question as $count)
-    @php
-        $count_like += $count->reaction_like;
-        $count_dislike += $count->reaction_dislike;
-    @endphp
- @endforeach
- <!---Polling Count---->
- @foreach($polling as $count_poll)
-    @php
-        $poll_was_held += count($count_poll->idPolling);
-    @endphp 
- @endforeach
+@foreach($question as $q)
+@php
+$count_question += count($q->question);
+@endphp
+@endforeach
+<!--Count for Like, Dislike-->
+@foreach($question as $count)
+@php
+$count_like += $count->reaction_like;
+$count_dislike += $count->reaction_dislike;
+@endphp
+@endforeach
+<!---Polling Count---->
+@foreach($polling as $count_poll)
+@php
+$poll_was_held += count($count_poll->idPolling);
+@endphp 
+@endforeach
 
- @foreach($count_poll->MultipleModel as $allmulti)
-    @php
-        $poll_votes += $allmulti->total_multiple_choice;
-    @endphp
- @endforeach
+@foreach($count_poll->MultipleModel as $allmulti)
+@php
+$poll_votes += $allmulti->total_multiple_choice;
+@endphp
+@endforeach
 
- @foreach($count_poll->RatingModel as $allrate)
-    @php
-        $poll_votes += $allrate->total_rating;
-    @endphp
- @endforeach
-        @php
-            $votes_per_poll = $poll_votes;
-        @endphp
- @if($poll_was_held > 1)
-        @php
-            $votes_per_poll = $poll_votes/$poll_was_held;
-        @endphp
- @endif
- 
- 
- 
+@foreach($count_poll->RatingModel as $allrate)
+@php
+$poll_votes += $allrate->total_rating;
+@endphp
+@endforeach
+@php
+$votes_per_poll = $poll_votes;
+@endphp
+@if($poll_was_held > 1)
+@php
+$votes_per_poll = $poll_votes/$poll_was_held;
+@endphp
+@endif
 <div class="row">
     <div class="col-md-6">
         <div class="card padding-card">
@@ -60,7 +57,7 @@
                     <h4>Question</h4>          
                 </div>
                 <div class="col-md-4">
-                    
+
                     <span class="number float-sm-right"> {{$count_question}}</span>
                 </div>
             </div>
@@ -86,8 +83,7 @@
                 </div>
             </div>
         </div>
-    </div>
-    
+    </div>  
     <div class="col-md-6">
         <div class="card padding-card">
             <div class="row head">
@@ -125,5 +121,4 @@
         </div>
     </div>
 </div>
-<br>
-    
+<br>   

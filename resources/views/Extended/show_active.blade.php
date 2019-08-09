@@ -1,5 +1,3 @@
-
-
 @foreach($event_active as $active)
 <div class="card cards card-notif">
     <form method="post" action="{{ route('event.store')}}">

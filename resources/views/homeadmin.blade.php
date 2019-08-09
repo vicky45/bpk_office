@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Meta Description -->
         <meta name="description" content="TANYA, BPK Project PKL FilkomUB">
-        <meta name="keywords" content="SITANYA, Filkom, UB">
+        <meta name="keywords" content="TANYA, Filkom, UB">
         <meta name="author" content="Ananda Putra Alfa Robby, Cheni Irnandha Sebayang, Apriani Ingin Marito Tampubolon, Bella Nemesias Prasetiyani">
         <!-- Icon tab sinar browser -->
         <link rel="shortcut icon" href="asset/img/Logo/Tanya-icon.png" type="image/x-icon">
@@ -20,21 +20,17 @@
         <script src="{{ asset('asset/js/popper.min.js') }}"></script>
         <script src="{{ asset('asset/js/bootstrap.min.js') }}"></script>
         <script type="text/javascript">
-       
-        var auto_refresh = setInterval(
+
+var auto_refresh = setInterval(
         function () {
-            $('#show_question').load('/validate/{{session()->get('event')}}').fadeIn("slow");
-            $('#polling_result').load('{{route('polling.show',session()->get('event'))}}').fadeIn("slow");
-            $('#summary').load('{{route('event.show',session()->get('event'))}}').fadeIn("slow");
+        $('#show_question').load('/validate/{{session()->get('event')}}').fadeIn("slow");
+        $('#polling_result').load('{{route('polling.show',session()->get('event'))}}').fadeIn("slow");
+        $('#summary').load('{{route('event.show',session()->get('event'))}}').fadeIn("slow");
         }, 5000);
-        
-         $(window).on('load', function(){ 
-             $(".se-pre-con").fadeOut("slow");
-         });
-            
+$(window).on('load', function(){
+$(".se-pre-con").fadeOut("slow");
+});
         </script>
-        
-        
     </head>  
     <body class="bg-color">  
         <nav class="navbar navbar-dark navbar-expand-md bg-info justify-content-between">
@@ -46,9 +42,9 @@
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <div class="row text-white">
-                              <div class="navbar-header ">
+                                <div class="navbar-header ">
                                     <img src="asset/img/Logo/Tanya-icon.png" style="height: 3.0rem;">
-                              </div>  
+                                </div>  
                                 <h1><strong>TANYA</strong></h1>
                             </div>
                         </li>
@@ -116,7 +112,7 @@
                             <button type="submit" class="btn btn-primary float-sm-right">Save</button>
                         </form>
                         <hr>
-                       @foreach ($ev->SpeakerModel as $speak)
+                        @foreach ($ev->SpeakerModel as $speak)
                         <div class= "row">
                             <div class="containeruser font-weight-bold">
                                 <button type="button" class="btn btn-block" >
@@ -154,10 +150,10 @@
                     </div>
                     <div class="col-md-4">
                         <a href="/out">
-                        <button  class="btn btn-outline-danger float-sm-right">
-                            <i class="fa fa-sign-out" aria-hidden="true"></i>
-                            End Event
-                        </button>
+                            <button  class="btn btn-outline-danger float-sm-right">
+                                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                End Event
+                            </button>
                         </a>
                     </div>
                 </div>
@@ -171,7 +167,7 @@
                                 <div class="col-md-4">
                                     <a href="">
                                         <button class="btn btn-warning float-sm-right">
-                                             Need Approve
+                                            Need Approve
                                         </button>
                                     </a>
                                 </div>
@@ -182,13 +178,11 @@
                                         </button>
                                     </a>
                                 </div>
-                                
-                                
                             </div>
                             <br>
                             <div id="show_question" class="card padding-manual scroll">
                                 <div class="justify-content-center">
-                                <div class="loader"></div>
+                                    <div class="loader"></div>
                                 </div>
                             </div>
                         </div>
@@ -196,7 +190,6 @@
                             <h2>Question Approve</h2>
                             <hr>
                             <div class="card padding-manual scroll">
-                                
                                 @if($question_approve->count() > 0)
                                 @foreach($question_approve as $a)
                                 <div class="card" id="question">
@@ -210,20 +203,20 @@
                                     <div class="card-body">
                                         <p><b> {{$a->question}} </b></p>
                                         <br>
-                                         @if($a->Speaker_idSpeaker == 0)
-                                         <small class="text-muted"><b>Universal Question</b></small>
-                                         @else
+                                        @if($a->Speaker_idSpeaker == 0)
+                                        <small class="text-muted"><b>Universal Question</b></small>
+                                        @else
                                         <small class="text-muted"><b>{{$a->SpeakerModel->name_speaker}} </b></small>
                                         @endif
                                     </div>
                                     <div class="card-footer ">
                                         @if($a->answer === "Not Answered")
                                         <div class="col-md-12">
-                                                <a href="#">
-                                                    <button data-toggle="modal" data-target="#edit{{$a->idQuestion}}" type="button" class="btn btn-success float-sm-right">
-                                                        <i class="fa fa-comment"></i> Answer
-                                                    </button>
-                                                </a>
+                                            <a href="#">
+                                                <button data-toggle="modal" data-target="#edit{{$a->idQuestion}}" type="button" class="btn btn-success float-sm-right">
+                                                    <i class="fa fa-comment"></i> Answer
+                                                </button>
+                                            </a>
                                         </div>
                                         @else
                                         <div class="row">
@@ -259,7 +252,6 @@
                                     <hr style="width: 50%;">
                                 </div>
                                 @endif
-
                             </div>
                         </div>
                     </div>
@@ -284,10 +276,10 @@
                     </div>
                     <div class="col-md-4">
                         <a href="/out">
-                        <button  class="btn btn-outline-danger float-sm-right">
-                            <i class="fa fa-sign-out" aria-hidden="true"></i>
-                            End Event
-                        </button>
+                            <button  class="btn btn-outline-danger float-sm-right">
+                                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                End Event
+                            </button>
                         </a>
                     </div>
                 </div>
@@ -320,9 +312,9 @@
                                                 </div> 
                                             </div>
                                             <div class="col-md-1">
-                                               <div class="tooltip">
-                                                   <a href="/delete/{{$stand->idPolling}}"><i class="fa fa-trash fa-size" ></i></a>
-                                               </div> 
+                                                <div class="tooltip">
+                                                    <a href="/delete/{{$stand->idPolling}}"><i class="fa fa-trash fa-size" ></i></a>
+                                                </div> 
                                             </div>
                                             @elseif($stand->status_polling == 1)
                                             <div class="col-md-1">
@@ -337,10 +329,10 @@
                                                 </div> 
                                             </div>
                                             <div class="col-md-1">
-                                               <div class="tooltip">
-                                                   <a href="#Poll"><i class="fa fa-trash fa-size" ></i></a>
-                                                   <span class="tooltiptext"> Stop before Delete!</span>
-                                               </div> 
+                                                <div class="tooltip">
+                                                    <a href="#Poll"><i class="fa fa-trash fa-size" ></i></a>
+                                                    <span class="tooltiptext"> Stop before Delete!</span>
+                                                </div> 
                                             </div>
                                             @else
                                             <div class="col-md-1">
@@ -356,8 +348,8 @@
                                                 </div> 
                                             </div>
                                             <div class="col-md-1">
-                                               <div class="tooltip">
-                                                   <a  href="/delete/{{$stand->idPolling}}"><i class="fa fa-trash fa-size" ></i></a>
+                                                <div class="tooltip">
+                                                    <a  href="/delete/{{$stand->idPolling}}"><i class="fa fa-trash fa-size" ></i></a>
                                                 </div> 
                                             </div>
                                             @endif
@@ -366,9 +358,9 @@
                                     <div class="card-body">
                                         @if($stand->type_polling == "Multiple")
                                         <ul class="list-styled">
-                                        @foreach($stand->MultipleModel as $li)
+                                            @foreach($stand->MultipleModel as $li)
                                             <li>{{$li->multiple_choice}}</li>
-                                        @endforeach
+                                            @endforeach
                                         </ul> 
                                         @else
                                         <div class="stars">
@@ -387,10 +379,10 @@
                                 <div class="text-center">
                                     <hr style="width: 50%;">
                                     <h4>No Polling be Ready</h4>
-                                     <hr style="width: 50%;">
+                                    <hr style="width: 50%;">
                                 </div>
                                 @endif
-                                
+
                             </div>
                         </div>
                         <div class="card card-bg2 padding-card col-sm-6" >
@@ -399,7 +391,7 @@
                             <div id="polling_result" class="card padding-manual scroll">
                                 @if($polling_result->count() > 0 )
                                 <div class="justify-content-center">
-                                <div class="loader"></div>
+                                    <div class="loader"></div>
                                 </div>
                                 @else
                                 <div class="text-center">
@@ -421,239 +413,236 @@
                     </div>
                 </div>
                 <div id="main">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="card padding-card">
-                                    @php
-                                        $countall = 0;
-                                    @endphp
-                                    @foreach($ev->AdminModel as $count_admin)
-                                        @php
-                                            $countall += count($count_admin->Name_Admin);
-                                        @endphp
-                                    @endforeach
-                                    
-                                    @foreach($ev->User_has_EventModel as $count_user)
-                                        @php
-                                             $countall += count($count_user->User_NIP);
-                                        @endphp
-                                    @endforeach
-                                    <div class="row head">
-                                        <div class="col-md-2">
-                                            <i class="fa fa-users fa-2x"></i>  
-                                        </div>
-                                        <div class="col-md-6">
-                                            <h4>Active User</h4>          
-                                        </div>
-                                        <div class="col-md-4">
-                                            <span class="number"> {{$countall}}</span>
-                                        </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card padding-card">
+                                @php
+                                $countall = 0;
+                                @endphp
+                                @foreach($ev->AdminModel as $count_admin)
+                                @php
+                                $countall += count($count_admin->Name_Admin);
+                                @endphp
+                                @endforeach
+
+                                @foreach($ev->User_has_EventModel as $count_user)
+                                @php
+                                $countall += count($count_user->User_NIP);
+                                @endphp
+                                @endforeach
+                                <div class="row head">
+                                    <div class="col-md-2">
+                                        <i class="fa fa-users fa-2x"></i>  
                                     </div>
-                                    <hr>
-                                    @foreach($ev->AdminModel as $admin)
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <span class="question-user">
-                                                <i class="fa fa-user-circle fa-2x"></i>
-                                            </span>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <span>{{$admin->Name_Admin}} </span>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <span>Admin</span>
-                                        </div>
+                                    <div class="col-md-6">
+                                        <h4>Active User</h4>          
                                     </div>
-                                    <hr>
-                                    @endforeach
-                                    @foreach($used as $user)
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <span class="question-user">
-                                                <i class="fa fa-user-circle fa-2x"></i>
-                                            </span>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <span>{{$user->User->name}} </span>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <span>User</span>
-                                        </div>
+                                    <div class="col-md-4">
+                                        <span class="number"> {{$countall}}</span>
                                     </div>
-                                   @endforeach
                                 </div>
+                                <hr>
+                                @foreach($ev->AdminModel as $admin)
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <span class="question-user">
+                                            <i class="fa fa-user-circle fa-2x"></i>
+                                        </span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <span>{{$admin->Name_Admin}} </span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span>Admin</span>
+                                    </div>
+                                </div>
+                                <hr>
+                                @endforeach
+                                @foreach($used as $user)
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <span class="question-user">
+                                            <i class="fa fa-user-circle fa-2x"></i>
+                                        </span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <span>{{$user->User->name}} </span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span>User</span>
+                                    </div>
+                                </div>
+                                @endforeach
                             </div>
-                            <br>
-                            <div class="col-md-8">
-                                <div id="summary">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="card padding-card">
-                                                <div class="row head">
-                                                    <div class="col-md-2">
-                                                        <i class="fa fa-comment fa-2x"></i>  
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <h4>Question</h4>          
-                                                    </div>
-                                                    <div class="col-md-4">
-
-                                                        <span class="number float-sm-right">0</span>
-                                                    </div>
+                        </div>
+                        <br>
+                        <div class="col-md-8">
+                            <div id="summary">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card padding-card">
+                                            <div class="row head">
+                                                <div class="col-md-2">
+                                                    <i class="fa fa-comment fa-2x"></i>  
                                                 </div>
-                                                <hr>
-                                                <div class="body-content">
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <span class ="fa fa-thumbs-o-up"></span>
-                                                            Like
-                                                        </div>
-                                                        <div class="col-md-8">
-                                                            <span class="float-sm-right">0</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <span class ="fa fa-thumbs-o-down"></span>
-                                                            Dislike
-                                                        </div>
-                                                        <div class="col-md-8">
-                                                            <span class="float-sm-right">0</span>
-                                                        </div>
-                                                    </div>
+                                                <div class="col-md-6">
+                                                    <h4>Question</h4>          
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <span class="number float-sm-right">0</span>
                                                 </div>
                                             </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="card padding-card">
-                                                <div class="row head">
-                                                    <div class="col-md-2">
-                                                        <i class="fa fa-bar-chart fa-2x"></i>  
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <h4>Polling</h4>          
-                                                    </div>
+                                            <hr>
+                                            <div class="body-content">
+                                                <div class="row">
                                                     <div class="col-md-4">
-                                                        <span class="number float-md-right">0</span>
+                                                        <span class ="fa fa-thumbs-o-up"></span>
+                                                        Like
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <span class="float-sm-right">0</span>
                                                     </div>
                                                 </div>
-                                                <hr>
-                                                <div class="body-content">
-                                                    <div class="row">
-                                                        <div class="col-md-5">
-                                                            <span class ="fa fa-sitemap"></span>
-                                                            Poll Votes
-                                                        </div>
-                                                        <div class="col-md-7">
-                                                            <span class="float-sm-right">0</span>
-                                                        </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <span class ="fa fa-thumbs-o-down"></span>
+                                                        Dislike
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-md-5">
-                                                            <span class ="fa fa-check-square-o"></span>
-                                                            Votes per Poll
-                                                        </div>
-                                                        <div class="col-md-7">
-                                                            <span class="float-sm-right">0</span>
-                                                        </div>
+                                                    <div class="col-md-8">
+                                                        <span class="float-sm-right">0</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <br>    
+                                    <div class="col-md-6">
+                                        <div class="card padding-card">
+                                            <div class="row head">
+                                                <div class="col-md-2">
+                                                    <i class="fa fa-bar-chart fa-2x"></i>  
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h4>Polling</h4>          
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <span class="number float-md-right">0</span>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="body-content">
+                                                <div class="row">
+                                                    <div class="col-md-5">
+                                                        <span class ="fa fa-sitemap"></span>
+                                                        Poll Votes
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <span class="float-sm-right">0</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-5">
+                                                        <span class ="fa fa-check-square-o"></span>
+                                                        Votes per Poll
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <span class="float-sm-right">0</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <h3>Polling Result</h3>
-                                    <div id="card-polling" class="card">
-                                       
-                                        <div class="row">
-                                            <div class="tab">
-                                                
+                                <br>    
+                            </div>
+                            <div class="col-md-12">
+                                <h3>Polling Result</h3>
+                                <div id="card-polling" class="card">
+
+                                    <div class="row">
+                                        <div class="tab">
+
                                             @php
-                                                $i = 0;
+                                            $i = 0;
                                             @endphp
                                             @foreach($summary_poll as $poll_view)
-                                                @php
-                                                    $i++;
-                                                @endphp
-                                                @if($i == 1)
-                                                    <button class="tablinks" onclick="openPoll(event, '{{$poll_view->idPolling}}')"  id="defaultOpen">{{$poll_view->title_polling}}</button>
-                                                @else
-                                                    <button class="tablinks" onclick="openPoll(event, '{{$poll_view->idPolling}}')">{{$poll_view->title_polling}}</button>
-                                                @endif
-                                            @endforeach
-                                            </div>
-                                            
-                                            @foreach($summary_poll as $poll_view)
-                                            <div id="{{$poll_view->idPolling}}" class="tabcontent scroll">
-                                                <h3>{{$poll_view->title_polling}}</h3>
-                                                <hr>
-                                                @if($poll_view->type_polling === "Multiple")
-                                                    @foreach($poll_view->MultipleModel as $show_multiple)
-                                                    <div class="h4 col-sm-12 text-left">
-                                                        {{$show_multiple->multiple_choice}}
-                                                    </div> 
-                                                    <!-- Variabel $n_choice_multi from controller C_Polling-->
-                                                    <div class="progress col-sm-12" style="height:20px;">
-                                                        <div class="progress-bar progress-bar-striped" 
-                                                             style="width:{{$show_multiple->total_multiple_choice}}%;height:20px;">{{$show_multiple->total_multiple_choice}}</div>
-                                                    </div>
-                                                    <br>
-                                                    @endforeach
-                                                @else
-                                                    @foreach($poll_view->RatingModel as $show_rating)
-                                                    <div class="h4 col-sm-12 text-left">
-                                                        @if($show_rating->rating === 5)
-                                                        <input class="star star-4" checked="checked" type="radio">
-                                                        <label class="star star-5" for="star-5"></label>
-                                                        <label class="star star-4" for="star-4"></label>
-                                                        <label class="star star-3" for="star-3"></label>
-                                                        <label class="star star-2" for="star-2"></label>
-                                                        <label class="star star-1" for="star-1"></label>
-                                                        @elseif($show_rating->rating === 4)
-                                                        <input class="star star-4" checked="checked" type="radio">
-                                                        <label class="star star-4" for="star-4"></label>
-                                                        <label class="star star-3" for="star-3"></label>
-                                                        <label class="star star-2" for="star-2"></label>
-                                                        <label class="star star-1" for="star-1"></label>
-                                                        @elseif($show_rating->rating === 3)
-                                                        <input class="star star-3" checked="checked" type="radio">
-                                                        <label class="star star-3" for="star-3"></label>
-                                                        <label class="star star-2" for="star-2"></label>
-                                                        <label class="star star-1" for="star-1"></label>
-                                                        @elseif($show_rating->rating === 2)
-                                                        <input class="star star-3" checked="checked" type="radio">
-                                                        <label class="star star-2" for="star-2"></label>
-                                                        <label class="star star-1" for="star-1"></label>
-                                                        @else
-                                                        <input class="star star-3" checked="checked" type="radio">
-                                                        <label class="star star-1" for="star-1"></label>
-                                                        @endif
-                                                    </div>
-                                                    <div class="h4 col-sm-12 text-left">
-                                                        {{$show_rating->rating}}&nbsp;Star
-                                                    </div>
-                                                    <!-- Variabel $n_choice_rate from controller C_Polling-->
-                                                    <div class="progress col-sm-12" style="height:20px;">
-                                                        <div class="progress-bar progress-bar-striped" style="width:{{$show_rating->total_rating}}%;height:20px;"> {{$show_rating->total_rating}}</div>
-                                                    </div>
-                                                    <br>
-                                                    @endforeach                 
-                                                <!--end views-->
-                                                @endif
-                                            </div>
+                                            @php
+                                            $i++;
+                                            @endphp
+                                            @if($i == 1)
+                                            <button class="tablinks" onclick="openPoll(event, '{{$poll_view->idPolling}}')"  id="defaultOpen">{{$poll_view->title_polling}}</button>
+                                            @else
+                                            <button class="tablinks" onclick="openPoll(event, '{{$poll_view->idPolling}}')">{{$poll_view->title_polling}}</button>
+                                            @endif
                                             @endforeach
                                         </div>
+
+                                        @foreach($summary_poll as $poll_view)
+                                        <div id="{{$poll_view->idPolling}}" class="tabcontent scroll">
+                                            <h3>{{$poll_view->title_polling}}</h3>
+                                            <hr>
+                                            @if($poll_view->type_polling === "Multiple")
+                                            @foreach($poll_view->MultipleModel as $show_multiple)
+                                            <div class="h4 col-sm-12 text-left">
+                                                {{$show_multiple->multiple_choice}}
+                                            </div> 
+                                            <!-- Variabel $n_choice_multi from controller C_Polling-->
+                                            <div class="progress col-sm-12" style="height:20px;">
+                                                <div class="progress-bar progress-bar-striped" 
+                                                     style="width:{{$show_multiple->total_multiple_choice}}%;height:20px;">{{$show_multiple->total_multiple_choice}}</div>
+                                            </div>
+                                            <br>
+                                            @endforeach
+                                            @else
+                                            @foreach($poll_view->RatingModel as $show_rating)
+                                            <div class="h4 col-sm-12 text-left">
+                                                @if($show_rating->rating === 5)
+                                                <input class="star star-4" checked="checked" type="radio">
+                                                <label class="star star-5" for="star-5"></label>
+                                                <label class="star star-4" for="star-4"></label>
+                                                <label class="star star-3" for="star-3"></label>
+                                                <label class="star star-2" for="star-2"></label>
+                                                <label class="star star-1" for="star-1"></label>
+                                                @elseif($show_rating->rating === 4)
+                                                <input class="star star-4" checked="checked" type="radio">
+                                                <label class="star star-4" for="star-4"></label>
+                                                <label class="star star-3" for="star-3"></label>
+                                                <label class="star star-2" for="star-2"></label>
+                                                <label class="star star-1" for="star-1"></label>
+                                                @elseif($show_rating->rating === 3)
+                                                <input class="star star-3" checked="checked" type="radio">
+                                                <label class="star star-3" for="star-3"></label>
+                                                <label class="star star-2" for="star-2"></label>
+                                                <label class="star star-1" for="star-1"></label>
+                                                @elseif($show_rating->rating === 2)
+                                                <input class="star star-3" checked="checked" type="radio">
+                                                <label class="star star-2" for="star-2"></label>
+                                                <label class="star star-1" for="star-1"></label>
+                                                @else
+                                                <input class="star star-3" checked="checked" type="radio">
+                                                <label class="star star-1" for="star-1"></label>
+                                                @endif
+                                            </div>
+                                            <div class="h4 col-sm-12 text-left">
+                                                {{$show_rating->rating}}&nbsp;Star
+                                            </div>
+                                            <!-- Variabel $n_choice_rate from controller C_Polling-->
+                                            <div class="progress col-sm-12" style="height:20px;">
+                                                <div class="progress-bar progress-bar-striped" style="width:{{$show_rating->total_rating}}%;height:20px;"> {{$show_rating->total_rating}}</div>
+                                            </div>
+                                            <br>
+                                            @endforeach                 
+                                            <!--end views-->
+                                            @endif
+                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
                         </div>
-                 </div>
+                    </div>
+                </div>
             </div> 
         </div>
-    
         <!-- Modal panes -->
         <div clas="container">
             <div class="modal" id="update" style="padding-top: 0px;" >
@@ -701,9 +690,7 @@
                                         </div>
                                         @endif
                                     </div>
-
                                 </div>
-
                                 <!--form location event-->
                                 <div class="form-group">
                                     <label> Place </label>
@@ -741,12 +728,10 @@
                                     <button type="submit" class="btn btn-primary">Update</button>
                                 </div>
                             </form>
-
                         </div>
                     </div>
                 </div>
             </div>
-            
             @foreach($question_approve as $a)
             <div id="edit{{$a->idQuestion}}" class="modal">
                 <div class="modal-content col-md-6">
@@ -760,7 +745,6 @@
                             <h3>Edit Answer</h3>
                         </div>
                         @endif
-                        
                         <div class="col-md-3">
                             <button type="button" class="btn close-modal float-sm-right" data-dismiss="modal">&times;</button>
                         </div>
@@ -770,9 +754,9 @@
                     <div class="modal-body">
                         <div class="col-md-12">
                             <div class="text-muted text-center font-italic">Question</div>
-                             <hr style="width: 50%;">
+                            <hr style="width: 50%;">
                             <h5 class="text-sm-center "><strong>{{$a->question}}</strong></h5>
-                             <hr style="width: 50%;">
+                            <hr style="width: 50%;">
                         </div>
                         <div class="col-md-12">
                             <form action="{{route('question.update',$a->idQuestion)}}" method="POST">
@@ -803,8 +787,7 @@
                     </div>
                 </div>
             </div>
-            @endforeach
-            
+            @endforeach            
             <div id="polling" class="modal">
                 <div class="modal-content col-md-6" >
                     <div class="modal-header">
@@ -832,26 +815,26 @@
                         </div>
                         <br>
                         <div id="form-no">
-                        <!--as none-->    
+                            <!--as none-->    
                         </div>
                         <div id="form-Rating" style="display:none">
                             <form class="form-group" method="POST" action="{{route('polling.store')}}">
                                 {{ csrf_field() }}
-                                 <input type="hidden" name="type" value="Rating">
-                                 <input class="form-control" name ="title" type="text" placeholder="What would you give to rate today?" required="required">
+                                <input type="hidden" name="type" value="Rating">
+                                <input class="form-control" name ="title" type="text" placeholder="What would you give to rate today?" required="required">
                                 <div class="padding-card">
                                     <h5> Maximal 5 Stars </h5>
                                     <div class="stars">
-                                            <input class="star star-5" checked="checked" id="star-5" type="radio" name="star5"/>
-                                            <label class="star star-5" for="star-5"></label>
-                                            <input class="star star-4" id="star-4" type="radio" name="star"/>
-                                            <label class="star star-4" for="star-4"></label>
-                                            <input class="star star-3" id="star-3" type="radio" name="star"/>
-                                            <label class="star star-3" for="star-3"></label>
-                                            <input class="star star-2" id="star-2" type="radio" name="star"/>
-                                            <label class="star star-2" for="star-2"></label>
-                                            <input class="star star-1" id="star-1" type="radio" name="star"/>
-                                            <label class="star star-1" for="star-1"></label>
+                                        <input class="star star-5" checked="checked" id="star-5" type="radio" name="star5"/>
+                                        <label class="star star-5" for="star-5"></label>
+                                        <input class="star star-4" id="star-4" type="radio" name="star"/>
+                                        <label class="star star-4" for="star-4"></label>
+                                        <input class="star star-3" id="star-3" type="radio" name="star"/>
+                                        <label class="star star-3" for="star-3"></label>
+                                        <input class="star star-2" id="star-2" type="radio" name="star"/>
+                                        <label class="star star-2" for="star-2"></label>
+                                        <input class="star star-1" id="star-1" type="radio" name="star"/>
+                                        <label class="star star-1" for="star-1"></label>
                                     </div>
                                 </div>
                                 <br>
@@ -883,122 +866,109 @@
                                 <div class="form-group col-sm-8">
                                 </div>
                                 <div class="form-group col-sm-4">
-                                <button class="btn btn-primary float-sm-right" type="submit">Create choice</button>
+                                    <button class="btn btn-primary float-sm-right" type="submit">Create choice</button>
                                 </div>
                             </form>
-                        </div>
                         </div>
                     </div>
                 </div>
             </div>
-        
+        </div>       
     </body>
     <script>
+        // ====== javascript Tabs Foot ====== \\
         $('a[data-toggle="tab"]').click(function (e) {
-            e.preventDefault();
-               $(this).tab('show');
+        e.preventDefault();
+        $(this).tab('show');
         });
-
         $('a[data-toggle="tab"]').on("shown.bs.tab", function (e) {
-                var id = $(e.target).attr("href");
-                localStorage.setItem('Sheet', id)
+        var id = $(e.target).attr("href");
+        localStorage.setItem('Sheet', id)
         });
-
         var selectedTab = localStorage.getItem('Sheet');
         if (selectedTab != null) {
-            $('a[data-toggle="tab"][href="' + selectedTab + '"]').tab('show');
+        $('a[data-toggle="tab"][href="' + selectedTab + '"]').tab('show');
         }
-        
+        // ====== javascript Tab Content Summary ====== \\
         function openPoll(evt, Pollid) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-              tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-              tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(Pollid).style.display = "block";
-            evt.currentTarget.className += " active";
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
         }
-        // Get the element with id="defaultOpen" and click on it
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(Pollid).style.display = "block";
+        evt.currentTarget.className += " active";
+        }
+        // For Summary Polling (default by Error)
         document.getElementById("defaultOpen").click();
-      
-      
-        
-        
+        // ====== javascript Modal Create Polling ====== \\
         function showDiv(id){
-            var idv = "form-"+id;
-            document.getElementById('form-no').style.display = 'none';
-            document.getElementById('form-Rating').style.display = 'none';
-            document.getElementById('form-Multiple').style.display = 'none';
-            document.getElementById(idv).style.display = 'block';
+        var idv = "form-" + id;
+        document.getElementById('form-no').style.display = 'none';
+        document.getElementById('form-Rating').style.display = 'none';
+        document.getElementById('form-Multiple').style.display = 'none';
+        document.getElementById(idv).style.display = 'block';
         }
-        /* When the user clicks on the button, 
-         toggle between hiding and showing the dropdown content */
+        // ====== javascript Dropdown ====== \\
         function myFunction() {
-            document.getElementById("myDropdown").classList.toggle("show");
+        document.getElementById("myDropdown").classList.toggle("show");
         }
-// Close the dropdown menu if the user clicks outside of it
         window.onclick = function (event) {
-            if (!event.target.matches('.dropbtn')) {
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                var i;
-                for (i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
-                }
-            }
+        if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+        }
+        }
+        }
         };
+        // ====== javascript Nav Create Speaker ====== \\
         function openNav() {
-            document.getElementById("mySidenav").style.width = "350px";
-            document.getElementById("main").style.marginLeft = "350px";
+        document.getElementById("mySidenav").style.width = "350px";
+        document.getElementById("main").style.marginLeft = "350px";
         }
-
         function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-            document.getElementById("main").style.marginLeft = "0";
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
         }
-        
-        
-// Click on a close button to hide the current list item
         var close = document.getElementsByClassName("close");
         var i;
         for (i = 0; i < close.length; i++) {
-            close[i].onclick = function () {
-                var div = this.parentElement;
-                div.style.display = "none";
-            };
+        close[i].onclick = function () {
+        var div = this.parentElement;
+        div.style.display = "none";
+        };
         }
-// Create a new list item when clicking on the "Add" button
+        // ====== javascript Add Admin in Edit Event ====== \\
         function newElement() {
-            var li = document.createElement("li");
-            var inputValue = document.getElementById("myInput").value;
-            var t = document.createTextNode(inputValue);
-            li.appendChild(t);
-            if (inputValue === '') {
-                alert("You must write something!");
-            } else {
-                document.getElementById("myUL").appendChild(li);
-            }
-            document.getElementById("myInput").value = "";
-
-            var span = document.createElement("SPAN");
-            var txt = document.createTextNode("\u00D7");
-            span.className = "close";
-            span.appendChild(txt);
-            li.appendChild(span);
-
-            for (i = 0; i < close.length; i++) {
-                close[i].onclick = function () {
-                    var div = this.parentElement;
-                    div.style.display = "none";
-                };
-            }
+        var li = document.createElement("li");
+        var inputValue = document.getElementById("myInput").value;
+        var t = document.createTextNode(inputValue);
+        li.appendChild(t);
+        if (inputValue === '') {
+        alert("You must write something!");
+        } else {
+        document.getElementById("myUL").appendChild(li);
         }
-        
+        document.getElementById("myInput").value = "";
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        span.appendChild(txt);
+        li.appendChild(span);
+        for (i = 0; i < close.length; i++) {
+        close[i].onclick = function () {
+        var div = this.parentElement;
+        div.style.display = "none";
+        };
+        }
+        }
     </script>
 </html>

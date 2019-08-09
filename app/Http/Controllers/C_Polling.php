@@ -8,20 +8,15 @@ use App\PollingModel;
 use App\RatingModel;
 use App\MultipleModel;
 
+class C_Polling extends Controller {
 
-
-
-class C_Polling extends Controller
-{
-    public function index()
-    {
+    public function index() {
         //Not Use
     }
-    public function create()
-    {
+
+    public function create() {
         //Not Use
     }
-    
 
     public function store(Request $request) { //store polling 
         $admin = $request->session()->get('admin');
@@ -58,21 +53,22 @@ class C_Polling extends Controller
             case 'Multiple':
                 //Get data n input User multiple choise
                 $choice = array($request->A, $request->B, $request->C, $request->D);
-                
+
                 for ($i = 0; $i < 4; $i++) {
-                    if($choice[$i] != null){
-                    MultipleModel::create([
-                        'polling_idPolling' => $idPoll,
-                        'multiple_choice' => $choice[$i]
-                    ]);
-                    }else{
-                    $i = 4;
+                    if ($choice[$i] != null) {
+                        MultipleModel::create([
+                            'polling_idPolling' => $idPoll,
+                            'multiple_choice' => $choice[$i]
+                        ]);
+                    } else {
+                        $i = 4;
                     }
                 }
                 return redirect()->back()->with(['success' => 'Created Multiple Success!']);
                 break;
         }
-    }   
+    }
+
     public function show($id) {//show polling active right from admin (javascript auto update)
         $n_choice_multi = null;
         $n_choice_rate = null;
@@ -93,7 +89,7 @@ class C_Polling extends Controller
                     break;
             }
         }
-        return view('Extended.polling_result', compact('polling_result','n_choice_multi','n_choice_rate'));
+        return view('Extended.polling_result', compact('polling_result', 'n_choice_multi', 'n_choice_rate'));
     }
 
     public function show_user($id) {//show polling active right from admin (javascript auto update)
@@ -102,74 +98,73 @@ class C_Polling extends Controller
                 ->get();
         return view('Extended.polling_show', compact('polling_show'));
     }
-    
-    public function approve_polling(Request $request,$id){
+
+    public function approve_polling(Request $request, $id) {
         $event = $request->session()->get('event');
-        $poll = PollingModel::where('Event_idEvent',$event)
-                ->where('status_polling',1)
+        $poll = PollingModel::where('Event_idEvent', $event)
+                ->where('status_polling', 1)
                 ->count();
-        if($poll == 0){
+        if ($poll == 0) {
             $show = PollingModel::find($id);
             $show->status_polling = 1;
             $show->save();
             return redirect()->back();
-            }else{
-             return redirect()->back()->with(['warning' => 'Failed! You have active Polling!']);
-            }
+        } else {
+            return redirect()->back()->with(['warning' => 'Failed! You have active Polling!']);
+        }
     }
-    
-    public function delete_polling($id){
+
+    public function delete_polling($id) {
         $type = null;
-        $polling = PollingModel::where('idPolling',$id)->get();
+        $polling = PollingModel::where('idPolling', $id)->get();
         foreach ($polling as $p) {
             $type = $p->type_polling;
         }
         $polling = PollingModel::find($id);
         $polling->delete();
-        
+
         switch ($type) {
             case 'Rating':
-                RatingModel::where('Polling_idPolling',$id)->delete();
+                RatingModel::where('Polling_idPolling', $id)->delete();
                 return redirect()->back()->with(['success' => 'Delete rating Success!']);
                 break;
             case 'Multiple':
-                MultipleModel::where('Polling_idPolling',$id)->delete();
+                MultipleModel::where('Polling_idPolling', $id)->delete();
                 return redirect()->back()->with(['success' => 'Delete Multiple Success!']);
                 break;
         }
         return redirect()->back();
     }
-    
-    public function stop_polling($id){
+
+    public function stop_polling($id) {
         $polling = PollingModel::find($id);
         $polling->status_polling = 11;
         $polling->save();
         return redirect()->back();
     }
-    
-    public function submitPolling(Request $request, $id){
+
+    public function submitPolling(Request $request, $id) {
         $type = null;
-        $polling = PollingModel::where('idPolling',$id)->get();
+        $polling = PollingModel::where('idPolling', $id)->get();
         foreach ($polling as $p) {
             $type = $p->type_polling;
         }
-        $pollstats = PollingModel::where('idPolling',$id)
-                ->where('status_polling',1)
+        $pollstats = PollingModel::where('idPolling', $id)
+                ->where('status_polling', 1)
                 ->count();
-        if($pollstats > 0){
+        if ($pollstats > 0) {
             switch ($type) {
                 case 'Rating':
-                        RatingModel::where('polling_idPolling',$id)
-                        ->where('rating',$request->star)->increment('total_rating');
+                    RatingModel::where('polling_idPolling', $id)
+                            ->where('rating', $request->star)->increment('total_rating');
                     break;
                 case 'Multiple':
-                        MultipleModel::where('id_multiple_choice',$request->choice)->increment('total_multiple_choice');
+                    MultipleModel::where('id_multiple_choice', $request->choice)->increment('total_multiple_choice');
                     break;
             }
             return redirect()->back()->with(['success' => 'Polling Succes!']);
-        }else{
+        } else {
             return redirect()->back()->with(['warning' => 'Polling Closed!']);
         }
-        
-        } 
+    }
 }

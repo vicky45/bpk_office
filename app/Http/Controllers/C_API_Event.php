@@ -59,5 +59,4 @@ class C_API_Event extends Controller {
         $EventModel->save();
         return "Success";
     }
-
 }

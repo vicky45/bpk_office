@@ -3,14 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/laravel/sitanya/resources/views/Extended/polling_show.blade.php</file>
             <file>file:/C:/xampp/htdocs/laravel/sitanya/routes/web.php</file>
-            <file>file:/C:/xampp/htdocs/laravel/sitanya/app/Http/Controllers/C_Question.php</file>
-            <file>file:/C:/xampp/htdocs/laravel/sitanya/resources/views/Extended/question_approve.blade.php</file>
-            <file>file:/C:/xampp/htdocs/laravel/sitanya/resources/views/homeuser.blade.php</file>
             <file>file:/C:/xampp/htdocs/laravel/sitanya/resources/views/homeadmin.blade.php</file>
-            <file>file:/C:/xampp/htdocs/laravel/sitanya/resources/views/Extended/summary.blade.php</file>
-            <file>file:/C:/xampp/htdocs/laravel/sitanya/app/Http/Controllers/C_Polling.php</file>
         </group>
     </open-files>
 </project-private>

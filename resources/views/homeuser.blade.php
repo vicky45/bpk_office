@@ -20,18 +20,17 @@
         <script src="{{ asset('asset/js/popper.min.js') }}"></script>
         <script src="{{ asset('asset/js/bootstrap.min.js') }}"></script>
         <script type="text/javascript">
-        var auto_refresh = setInterval(
+//            For Show Approve Question
+var auto_refresh = setInterval(
         function () {
-            $('#show_question').load('{{route('question.show',session()->get('event'))}}').fadeIn("slow");
+        $('#show_question').load('{{route('question.show',session()->get('event'))}}').fadeIn("slow");
         }, 1000);
-        
-        var auto_refresh = setInterval(
+//        For Show Polling Active
+var auto_refresh = setInterval(
         function () {
-            $('#polling').load('/showpoll/{{session()->get('event')}}').fadeIn("slow");
+        $('#polling').load('/showpoll/{{session()->get('event')}}').fadeIn("slow");
         }, 30000);
-        
         </script>
-
     </head>
     <body class="bg-color"> 
         <nav class="navbar navbar-dark navbar-expand-md bg-info justify-content-between">
@@ -43,9 +42,9 @@
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <div class="row text-white">
-                              <div class="navbar-header ">
+                                <div class="navbar-header ">
                                     <img src="asset/img/Logo/Tanya-icon.png" style="height: 3.0rem;">
-                              </div>  
+                                </div>  
                                 <h1><strong>&nbsp;TANYA</strong></h1>
                             </div>
                         </li>
@@ -83,7 +82,6 @@
                     </ul>
                 </div>
                 <div class="navbar collapse  dual-nav col-sm-12">
-
                     <button type="button" class="btn btn-secondary btn-block">
                         <a href="/out" style="color: white;">
                             <i class="fa fa-toggle-off"></i>&nbsp;Switch Event
@@ -108,7 +106,7 @@
                     <div class="card padding-card" style="background-color:#fbfbfb;">
                         <div class="col-sm-12">
                             <div class="row">
-                                
+
                                 <h5><i class="fa fa-commenting-o fa-2x"></i>&nbsp;<strong>Your Question</strong></h5>
                                 <div class="col-sm-12">
                                     <button type="button" id="myBtn" class="btn btn-info float-right">
@@ -117,7 +115,6 @@
                             </div>
                             <br>
                         </div>
-
                         <div class="card col-sm-12 scroll">
                             <div class="col-sm-12 text-center">
                                 <hr style="width: 50%">
@@ -151,7 +148,6 @@
                     </div>
                 </div>
             </div>
-
             <div id="poll" class=" tab-pane fade"><br>
                 <div class="col-sm-12" align="center">
                     <div id="polling" class="card padding-card scroll">
@@ -160,36 +156,34 @@
                         <div class="card padding-card" align="left">
                             <strong>{{$poll->title_polling}}</strong>
                             <hr>
-                            
                             <form class="form-group" action="/submit/{{$poll->idPolling}}">
                                 {{ method_field('PATCH') }}
                                 {{ csrf_field() }}
                                 @if($poll->type_polling === "Multiple")
-                                    @foreach($poll->MultipleModel as $multi)
-                                    <label class="container">
-                                        <div class="radio">
-                                            <input type="radio" name="choice" value="{{$multi->id_multiple_choice}}">&nbsp;{{$multi->multiple_choice}}
-                                        </div>
-                                    </label>
-                                    @endforeach
-                                @elseif($poll->type_polling === "Rating")
-                                    <div class="stars">
-                                        <input class="star" id="star-5" type="radio" value ="5" name="star" required/>
-                                        <label class="star" for="star-5"></label>
-                                        <input class="star" id="star-4" type="radio" value ="4" name="star"/>
-                                        <label class="star" for="star-4"></label>
-                                        <input class="star" id="star-3" type="radio" value ="3" name="star"/>
-                                        <label class="star" for="star-3"></label>
-                                        <input class="star" id="star-2" type="radio" value ="2" name="star"/>
-                                        <label class="star" for="star-2"></label>
-                                        <input class="star" id="star-1" type="radio" value ="1" name="star"/>
-                                        <label class="star" for="star-1"></label>
+                                @foreach($poll->MultipleModel as $multi)
+                                <label class="container">
+                                    <div class="radio">
+                                        <input type="radio" name="choice" value="{{$multi->id_multiple_choice}}">&nbsp;{{$multi->multiple_choice}}
                                     </div>
+                                </label>
+                                @endforeach
+                                @elseif($poll->type_polling === "Rating")
+                                <div class="stars">
+                                    <input class="star" id="star-5" type="radio" value ="5" name="star" required/>
+                                    <label class="star" for="star-5"></label>
+                                    <input class="star" id="star-4" type="radio" value ="4" name="star"/>
+                                    <label class="star" for="star-4"></label>
+                                    <input class="star" id="star-3" type="radio" value ="3" name="star"/>
+                                    <label class="star" for="star-3"></label>
+                                    <input class="star" id="star-2" type="radio" value ="2" name="star"/>
+                                    <label class="star" for="star-2"></label>
+                                    <input class="star" id="star-1" type="radio" value ="1" name="star"/>
+                                    <label class="star" for="star-1"></label>
+                                </div>
                                 @endif
                                 <div class="col-sm-12">
-                                   <button type="submit" class="btn btn-warning float-sm-right">Send</button> 
+                                    <button type="submit" class="btn btn-warning float-sm-right">Send</button> 
                                 </div>
-                                 
                             </form>
                         </div>
                         <br>
@@ -205,94 +199,89 @@
                 </div>
             </div>
         </div>
-           
-    <!-- Tab panes -->
-    <div clas="container">
-        <div class="modal" id="myModal" style="padding-top: 0px;" >
-            <div class="modal-dialog modal-dialog-scrollable modal-lg">
-                <div class="modal-content">
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                        <h4 class="modal-title">Ask the Speaker</h4>
-                        <button type="button" class="btn close-modal" data-dismiss="modal">&times;</button>
-                    </div>
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                        <form class="form-group" method="POST" action="{{ route('question.store')}}">
-                            {{ csrf_field() }}
-                            <input type="text" class="form-control" name="ask" placeholder="What would you ask?" required="required"></input>
-                            <br>
-                            <select class="form-control" name="speak">
-                                <option>--Select Speaker--</option>
-                                @foreach ($ev->SpeakerModel as $speak)
-                                <option>{{$speak->name_speaker}}</option>
-                                @endforeach
-                            </select>
-                            <hr>
-                            <button type="submit" class="btn btn-info"><i class="fa fa-paper-plane-o"></i>&nbsp;Send</button>
-                        </form>
+        <!-- Tab panes -->
+        <div clas="container">
+            <div class="modal" id="myModal" style="padding-top: 0px;" >
+                <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Ask the Speaker</h4>
+                            <button type="button" class="btn close-modal" data-dismiss="modal">&times;</button>
+                        </div>
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <form class="form-group" method="POST" action="{{ route('question.store')}}">
+                                {{ csrf_field() }}
+                                <input type="text" class="form-control" name="ask" placeholder="What would you ask?" required="required"></input>
+                                <br>
+                                <select class="form-control" name="speak">
+                                    <option>--Select Speaker--</option>
+                                    @foreach ($ev->SpeakerModel as $speak)
+                                    <option>{{$speak->name_speaker}}</option>
+                                    @endforeach
+                                </select>
+                                <hr>
+                                <button type="submit" class="btn btn-info"><i class="fa fa-paper-plane-o"></i>&nbsp;Send</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</body>
-<script>
-    $('a[data-toggle="tab"]').click(function (e) {
-         e.preventDefault();
-            $(this).tab('show');
+    </body>
+    <script>
+    // ====== javascript Tabs Show when Refresh page ====== \\
+        $('a[data-toggle="tab"]').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
         });
-
         $('a[data-toggle="tab"]').on("shown.bs.tab", function (e) {
-            var id = $(e.target).attr("href");
-            localStorage.setItem('Sheet', id)
+        var id = $(e.target).attr("href");
+        localStorage.setItem('Sheet', id)
         });
-
         var selectedTab = localStorage.getItem('Sheet');
         if (selectedTab != null) {
-            $('a[data-toggle="tab"][href="' + selectedTab + '"]').tab('show');
+        $('a[data-toggle="tab"][href="' + selectedTab + '"]').tab('show');
         }
-    
-    function myFunction() {
+    // ====== javascript Dropbtn for header ====== \\
+        function myFunction() {
         document.getElementById("myDropdown").classList.toggle("show");
-    }
-    window.onclick = function (event) {
+        }
+        window.onclick = function (event) {
         if (!event.target.matches('.dropbtn')) {
-            var dropdowns = document.getElementsByClassName("dropdown-content");
-            var i;
-            for (i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
-                if (openDropdown.classList.contains('show')) {
-                    openDropdown.classList.remove('show');
-                }
-            }
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
         }
-    }
-    var modal = document.getElementById("myModal");
-    var btn = document.getElementById("myBtn");
-    var span = document.getElementsByClassName("close-modal")[0];
-    btn.onclick = function () {
+        }
+        }
+        }
+        // ====== javascript Modal ====== \\
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("myBtn");
+        var span = document.getElementsByClassName("close-modal")[0];
+        btn.onclick = function () {
         modal.style.display = "block";
-    }
-    span.onclick = function () {
+        }
+        span.onclick = function () {
         modal.style.display = "none";
-    }
-    window.onclick = function (event) {
+        }
+        window.onclick = function (event) {
         if (event.target == modal) {
-            modal.style.display = "none";
+        modal.style.display = "none";
         }
-    }
-    var close = document.getElementsByClassName("close");
-    var i;
-    for (i = 0; i < close.length; i++) {
+        }
+        var close = document.getElementsByClassName("close");
+        var i;
+        for (i = 0; i < close.length; i++) {
         close[i].onclick = function () {
-            var div = this.parentElement;
-            div.style.display = "none";
+        var div = this.parentElement;
+        div.style.display = "none";
         }
-    }
-
-
-
-
-</script>
+        }
+    </script>
 </html>

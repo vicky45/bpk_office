@@ -1,5 +1,4 @@
 <?php
-
 /*
   |--------------------------------------------------------------------------
   | Web Routes TANJA | Badan Pemeriksa Keuangan
@@ -36,7 +35,6 @@ Route::get('/approveall/{id}', 'C_Question@Approve_all');
 Route::get('/like/{id}', 'C_Question@like');
 Route::get('/dislike/{id}', 'C_Question@dislike');
 
-
 //resource Polling
 Route::resource('polling', 'C_Polling', [
     'only' => ['store', 'show']
@@ -47,7 +45,7 @@ Route::get('/delete/{id}', 'C_Polling@delete_polling');
 Route::get('/stop/{id}', 'C_Polling@stop_polling');
 Route::get('/submit/{id}', 'C_Polling@submitPolling');
 
-//Route Summary Download
+//Route Summary Download (Comming Soon)
 Route::get('/download/{id}', 'C_Event@Downloadsummary');
 
 

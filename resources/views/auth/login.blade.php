@@ -47,8 +47,6 @@
             </form>
         </div>
     </div>                         
-    <a  href="{{ route('register') }}">Belum punya? Jadi Pegawai Dahulu..</a>
+    <a  href="{{ route('register') }}">Register for Account TANYA</a>
 </div>
-
-
 @endsection

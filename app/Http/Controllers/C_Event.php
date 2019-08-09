@@ -25,13 +25,11 @@ class C_Event extends Controller {
         return view('tanjahome');
     }
 
-    
-    
-    public function destroy($id) {//hapus
+    public function destroy($id) {
         //Not Use
     }
 
-    public function edit($id) {//update data berdasar
+    public function edit($id) {
         //Not Use
     }
 
@@ -39,15 +37,15 @@ class C_Event extends Controller {
         $event_active = EventModel::where('status_event', 1)->get();
         return view('Extended.show_active', compact('event_active'));
     }
-    
+
     public function show(Request $request, $id) {//show summary
-        $question = QuestionModel::where('Event_idEvent',$id)->get();
-        $polling = PollingModel::where('Event_idEvent',$id)
-                                ->where('status_polling',11)
-                                ->get();
-        return view('Extended.summary',compact('question','polling'));
+        $question = QuestionModel::where('Event_idEvent', $id)->get();
+        $polling = PollingModel::where('Event_idEvent', $id)
+                ->where('status_polling', 11)
+                ->get();
+        return view('Extended.summary', compact('question', 'polling'));
     }
-    
+
     public function store(Request $request) {//store data code admin or user
         $usernip = Auth::user()->NIP;
         $code = $request->join;
@@ -57,7 +55,7 @@ class C_Event extends Controller {
         $status = 0;
         $session_admin = null;
         $session_event = null;
-       
+
         // Join event by Create Event
         if ($code === null) {
             $code = Str::random(6);
@@ -95,7 +93,7 @@ class C_Event extends Controller {
                 foreach ($Admin as $admin) {
                     $session_admin = $admin->idAdmin;
                 }
-                session(['event' => $session_event , 'admin' => $session_admin]);
+                session(['event' => $session_event, 'admin' => $session_admin]);
                 return redirect('/homeadmin');
             } else {
 
@@ -125,11 +123,11 @@ class C_Event extends Controller {
                     foreach ($Admin as $admin) {
                         $session_admin = $admin->idAdmin;
                     }
-                    session(['event' => $session_event , 'admin' => $session_admin]);
+                    session(['event' => $session_event, 'admin' => $session_admin]);
                     return redirect('/homeadmin');
                 } else {
                     if ($status == 1) {
-                        session(['event' => $session_event , 'user' => $usernip]);
+                        session(['event' => $session_event, 'user' => $usernip]);
                         return redirect('/homeuser');
                     } else {
                         return redirect()->back()->with(['warning' => 'Event Not Active!']);
@@ -170,9 +168,9 @@ class C_Event extends Controller {
                         'Event_idEvent' => $session,
                         'User_NIP' => $usernip,
                     ]);
-                    return view('homeuser', compact('event', 'questme','polling_result'));
+                    return view('homeuser', compact('event', 'questme', 'polling_result'));
                 } else {
-                    return view('homeuser', compact('event', 'questme','polling_result'));
+                    return view('homeuser', compact('event', 'questme', 'polling_result'));
                 }
             }
         } else {
@@ -199,7 +197,7 @@ class C_Event extends Controller {
             $summary_poll = PollingModel::where('Event_idEvent', $session)
                     ->where('status_polling', 11)
                     ->get();
-            return view('homeadmin', compact('event','used','question_approve','polling_ready','polling_result','summary_poll'));
+            return view('homeadmin', compact('event', 'used', 'question_approve', 'polling_ready', 'polling_result', 'summary_poll'));
         } else {
             $request->session()->forget('event');
             $request->session()->forget('admin');
@@ -253,10 +251,11 @@ class C_Event extends Controller {
             return redirect()->action('C_Event@home');
         }
     }
+
     //For Download Summary
-    public function Downloadsummary($id){
+    public function Downloadsummary($id) {
         $EventModel = EventModel::find($id);
-        $DOMPDF = PDF::loadview('summarypdf',['EventModel'=>$EventModel]);
-    	return $DOMPDF->download('summary-pdf');
+        $DOMPDF = PDF::loadview('summarypdf', ['EventModel' => $EventModel]);
+        return $DOMPDF->download('summary-pdf');
     }
 }
