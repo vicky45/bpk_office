@@ -3,7 +3,7 @@
     <div class="card padding-card" align="left">
         <strong>{{$poll->title_polling}}</strong>
         <hr>
-        <form class="form-group" method="POST" action="/submit/{{$poll->idPolling}}">
+        <form class="form-group" action="/submit/{{$poll->idPolling}}">
             {{ method_field('PATCH') }}
             {{ csrf_field() }}
                 @if($poll->type_polling === "Multiple")
