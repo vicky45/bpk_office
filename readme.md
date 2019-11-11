@@ -1,5 +1,6 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"> 
+<p align="center">
 <img alt="BPK insignia" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/BPK_insignia.svg/256px-BPK_insignia.svg.png">
+</p>
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
@@ -13,6 +14,7 @@
 Sistem ini digunakan untuk menyampaikan pertanyaan dan jawaban dalam instansi yang dilaksanakan oleh Ananda Putra Alfa Robby, Sistem ini akan digunakan untuk proses praktikum mata kuliah MKPL di Fakultas Ilmu Komputer, Universitas Brawijaya
 
 ## Laravel
+<img src="https://laravel.com/assets/img/components/logo-laravel.svg">
 - SiTANYA on Based
 - Private Team
 - [Simple, fast routing engine](https://laravel.com/docs/routing).
