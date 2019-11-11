@@ -22,29 +22,34 @@ class C_Question extends Controller {
     }
 
     public function store(Request $request) {//store question
-        $event = $request->session()->get('event');
-        $user = $request->session()->get('user');
-        $Question = QuestionModel :: where('User_NIP', $user)
-                ->where('Event_idEvent', $event)
-                ->get();
-        if ($request->speak === "--Select Speaker--") {
-            QuestionModel::create([
-                'User_NIP' => $user,
-                'Event_idEvent' => $event,
-                'question' => $request->ask
-            ]);
-            return redirect()->back();
-        } else {
-            $speak = SpeakerModel :: where('name_speaker', '=', $request->speak)->get();
-            foreach ($speak as $ec) {
-                $idSpeak = $ec->idSpeaker;
+        $form = $request->ask;
+        if($form != null) {
+            $event = $request->session()->get('event');
+            $user = $request->session()->get('user');
+            $Question = QuestionModel :: where('User_NIP', $user)
+                    ->where('Event_idEvent', $event)
+                    ->get();
+            if ($request->speak === "--Select Speaker--") {
+                QuestionModel::create([
+                    'User_NIP' => $user,
+                    'Event_idEvent' => $event,
+                    'question' => $request->ask
+                ]);
+                return redirect()->back();
+            } else {
+                $speak = SpeakerModel :: where('name_speaker', '=', $request->speak)->get();
+                foreach ($speak as $ec) {
+                    $idSpeak = $ec->idSpeaker;
+                }
+                QuestionModel::create([
+                    'Event_idEvent' => $event,
+                    'User_NIP' => $user,
+                    'Speaker_idSpeaker' => $idSpeak,
+                    'question' => $request->ask,
+                ]);
+                return redirect()->back();
             }
-            QuestionModel::create([
-                'Event_idEvent' => $event,
-                'User_NIP' => $user,
-                'Speaker_idSpeaker' => $idSpeak,
-                'question' => $request->ask,
-            ]);
+        } else {
             return redirect()->back();
         }
     }
@@ -69,12 +74,17 @@ class C_Question extends Controller {
     }
 
     public function update(Request $request, $id) {//update answer by admin
-        $admin = $request->session()->get('admin');
-        $answer = QuestionModel::find($id);
-        $answer->Admin_idAdmin = $admin;
-        $answer->answer = $request->answer;
-        $answer->save();
-        return redirect()->back()->with(['success' => 'Answer Completed!']);
+        $form = $request->answer;
+        if ($form != null) {
+            $admin = $request->session()->get('admin');
+            $answer = QuestionModel::find($id);
+            $answer->Admin_idAdmin = $admin;
+            $answer->answer = $request->answer;
+            $answer->save();
+            return redirect()->back()->with(['success' => 'Answer Completed!']);
+        } else {
+            return redirect()->back()->with(['warning' => 'Answer Failed!']);
+        }
     }
 
     public function Show_validate(Request $request, $id) {//for view admin to validate question

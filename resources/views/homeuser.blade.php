@@ -65,7 +65,7 @@ var auto_refresh = setInterval(
                             <div class="dropdown">
                                 <button onclick="myFunction()" class="dropbtnhdr">
                                     <div class="containeruser">
-                                        <img src="asset/img/Logo/user.jpg" alt="Avatar" class="imageuser">
+                                        <img src="asset/img/default_user.png" alt="Avatar" class="imageuser">
                                         <div class="overlay">User</div>
                                     </div>
                                 </button>
@@ -206,7 +206,7 @@ var auto_refresh = setInterval(
                     <div class="modal-content">
                         <!-- Modal Header -->
                         <div class="modal-header">
-                            <h4 class="modal-title">Ask the Speaker</h4>
+                            <h4 class="modal-title">Ask</h4>
                             <button type="button" class="btn close-modal" data-dismiss="modal">&times;</button>
                         </div>
                         <!-- Modal body -->

@@ -26,7 +26,7 @@ var auto_refresh = setInterval(
         }, 3000);
         </script>
     </head>
-    <body class="bg-color">
+    <body class="bg-dark">
         <div class="hero-image">
             <!--Tab Menu-->        
             <header>
@@ -54,7 +54,8 @@ var auto_refresh = setInterval(
             <div class="containerimg">
                 <img src="asset/img/Bg_Sitanar/Bg_1.jpg" style="width:100%;">
             </div>
-            <div class="hero-text h-75">
+            <!--h-75 for respons smartphone-->
+            <div class="hero-text">
                 <h1 style="font-size:450%;">TANYA</h1>
                 <p style="font-size:120%;">Sistem Informasi Penyampaian Pertanyaan dan Jawaban<br>Badan Pemeriksa Keuangan Republik Indonesia</p>
                 <div class="row">
@@ -111,44 +112,60 @@ var auto_refresh = setInterval(
                     <div class="modal-body">
                         <form class="form-horizontal" method="POST" action="{{ route('event.store') }}">
                             {{ csrf_field() }}
-                            <div class="form-group">
-                                <!--form name event-->
-                                <input type="text" class="form-control" id="event" name="event" placeholder="Name Event" required="required">
-                                @if($errors->has('event'))
-                                <div class="text-danger">
-                                    {{ $errors->first('event')}}
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label> Event Name </label>
+                                    <!--form name event-->
+                                    <input type="text" class="form-control" id="event" name="event" placeholder="Name" required="required">
+                                    @if($errors->has('event'))
+                                    <div class="text-danger">
+                                        {{ $errors->first('event')}}
+                                    </div>
+                                    @endif
                                 </div>
-                                @endif
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label> Date </label>
+                                </div>
+                                <div class="col-md-5" style="padding-right: 50px;">
+                                    <label> Time </label>
+                                </div>
+                                <!--form name date-->
+                                <div class="col-md-6">
+                                    <input type="date" class="form-control" id="date" name="date" required="required" >
+                                    @if($errors->has('date'))
+                                    <div class="text-danger">
+                                        {{ $errors->first('date')}}
+                                    </div>
+                                    @endif
+                                </div>
+                                <!--form name time-->
+                                <div class="col-md-5" style="padding-right: 50px;">
+                                    <input type="time" class="form-control" name="time" required="required">
+                                    @if($errors->has('location'))
+                                    <div class="text-danger">
+                                        {{ $errors->first('location')}}
+                                    </div>
+                                    @endif
+                                </div>
                             </div>
                             <!--form name location-->
-                            <div class="form-group">
-                                <input type="location" class="form-control" id="location" name="location" placeholder="Place" required="required">
-                                @if($errors->has('location'))
-                                <div class="text-danger">
-                                    {{ $errors->first('location')}}
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label> Place </label>
+                                    <input type="location" class="form-control" id="location" name="location" placeholder="Place" required="required">
+                                    @if($errors->has('location'))
+                                    <div class="text-danger">
+                                        {{ $errors->first('location')}}
+                                    </div>
+                                    @endif
                                 </div>
-                                @endif
                             </div>
-                            <!--form name date-->
-                            <div class="form-group">
-                                <input type="date" class="form-control" id="date" name="date" required="required">
-                                @if($errors->has('date'))
-                                <div class="text-danger">
-                                    {{ $errors->first('date')}}
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary float-sm-right">Submit</button>
                                 </div>
-                                @endif
-                            </div>
-                            <!--form name time-->
-                            <div class="form-group">
-                                <input type="time" class="form-control" id="time" name="time" required="required">
-                                @if($errors->has('time'))
-                                <div class="text-danger">
-                                    {{ $errors->first('time')}}
-                                </div>
-                                @endif
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </form>
                     </div>

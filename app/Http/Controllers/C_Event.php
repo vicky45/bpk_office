@@ -221,11 +221,16 @@ class C_Event extends Controller {
 
     //    =====================Speaker Function==========================
     public function speaker_add(Request $request) {
-        SpeakerModel::create([
-            'Event_idEvent' => $request->session()->get('event'),
-            'name_speaker' => $request->speaker
-        ]);
-        return redirect()->back()->with(['success' => 'Speaker Succes Added!']);
+        $form = $request->speaker;
+        if ($form != null) {
+            SpeakerModel::create([
+                'Event_idEvent' => $request->session()->get('event'),
+                'name_speaker' => $form
+            ]);
+            return redirect()->back()->with(['success' => 'Speaker Succes Added!']);
+        } else {
+            return redirect()->back()->with(['Warning' => 'Speaker Failed Added!']);
+        }
     }
 
     public function speaker_delete($id) {

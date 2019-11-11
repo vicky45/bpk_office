@@ -4,7 +4,7 @@
     <div class="card-header-answer">
         <div class="row">
             <div class="col-md-7">
-                <img src="asset/img/Logo/user.jpg" alt="Avatar" class="avatar">
+                <img src="asset/img/default_user.png" alt="Avatar" class="avatar">
                 <b>{{$v->user->name}}</b>
             </div>
             <!--aprove-->
@@ -37,8 +37,8 @@
         @else
         <small class="text-muted"><b>{{$v->SpeakerModel->name_speaker}} </b></small>
         @endif
-        <a class="float-sm-right" href="#" style="color:red;"><i class="fa fa-thumbs-o-down"></i><span> <b>{{($v->reaction_dislike)}}&emsp;</b> </span></a>
-        <a class="float-sm-right" href="#" style="color:green;" ><i class="fa fa-thumbs-o-up"></i><span> <b>{{($v->reaction_like)}}&emsp;</b> </span></a>
+        <a class="float-sm-right" style="color:red;"><i class="fa fa-thumbs-o-down"></i><span> <b>{{($v->reaction_dislike)}}&emsp;</b> </span></a>
+        <a class="float-sm-right" style="color:green;" ><i class="fa fa-thumbs-o-up"></i><span> <b>{{($v->reaction_like)}}&emsp;</b> </span></a>
     </div>
 </div>
 <br>

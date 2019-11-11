@@ -164,16 +164,11 @@ $(".se-pre-con").fadeOut("slow");
                                 <div class="col-md-5">
                                     <h2>Question List</h2>
                                 </div>
-                                <div class="col-md-4">
-                                    <a href="">
-                                        <button class="btn btn-warning float-sm-right">
-                                            Need Approve
-                                        </button>
-                                    </a>
+                                <div class="col-md-2">
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-5">
                                     <a href="/approveall/{{session()->get('event')}}">
-                                        <button class="btn btn-success">
+                                        <button class="btn btn-success float-sm-right">
                                             Approve All
                                         </button>
                                     </a>
@@ -194,7 +189,7 @@ $(".se-pre-con").fadeOut("slow");
                                 @foreach($question_approve as $a)
                                 <div class="card" id="question">
                                     <div class="card-header-answer">
-                                        <img src="asset/img/Logo/user.jpg" alt="Avatar" class="avatar">
+                                        <img src="asset/img/default_user.png" alt="Avatar" class="avatar">
                                         <b>{{$a->user->name}}</b>
                                     </div>
                                     <div class="text-center" >
