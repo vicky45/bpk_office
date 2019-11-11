@@ -1,5 +1,5 @@
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"> 
-<alt="BPK insignia" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/BPK_insignia.svg/256px-BPK_insignia.svg.png">
+<img alt="BPK insignia" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/BPK_insignia.svg/256px-BPK_insignia.svg.png">
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
