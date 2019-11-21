@@ -10,8 +10,9 @@
 </p>
 
 ## About SiTANYA and Laravel
-
 Sistem ini digunakan untuk menyampaikan pertanyaan dan jawaban dalam instansi yang dilaksanakan oleh Ananda Putra Alfa Robby, Sistem ini akan digunakan untuk proses praktikum mata kuliah MKPL di Fakultas Ilmu Komputer, Universitas Brawijaya
+
+Sistem ini berfungsi untuk menampung pertanyaan-pertanyaan dalam seminar secara online dan membantu mengelompokkan pertanyaan-pertanyaan tersebut berdasarkan kategori yang telah disediakan. Adapun kategori yang dimaksud adalah berdasarkan nama pembicara, sehingga peserta seminar dapat mengajukan pertanyaan kepada pembicara yang spesifik dengan mudah. Sistem ini akan dikembangkan dalam basis web yang dapat diakses melalui berbagai perangkat seperti PC, laptop, dan smartphone. Manfaat yang dihasilkan dari sistem ini adalah terciptanya seminar yang lebih efektif dan efisien, dimana suasana dapat lebih kondusif serta waktu lebih singkat. Sistem ini diharapkan mampu menjawab permasalahan dimana sesi pertanyaan masih dilakukan secara manual dan pencatatan masih bersifat manual.
 
 ## Laravel
 <img src="https://laravel.com/assets/img/components/logo-laravel.svg">
