@@ -35,7 +35,7 @@ var auto_refresh = setInterval(
                         <a class="active">
                             <div class="row text-white">
                                 <img src="asset/img/Logo/Tanya-icon.png" style="height: 1.5rem;">
-                                <h5><strong>&nbsp;TANYA</strong></h5>
+                                <h5><strong>&nbsp;SiTANYA</strong></h5>
                             </div>
                         </a>
                         <a href="{{ route('logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();">

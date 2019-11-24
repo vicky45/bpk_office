@@ -95,7 +95,6 @@ var auto_refresh = setInterval(
             <li class="nav-item">
                 <a class="a-shet nav-link active" data-toggle="tab" href="#quest">&nbsp;<strong> QUESTION</strong></a>
             </li>
-            
         </ul>
         <!-- Tab panes -->
         <div class="tab-content sheet-color">
