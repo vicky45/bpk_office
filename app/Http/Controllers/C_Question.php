@@ -33,7 +33,8 @@ class C_Question extends Controller {
                 QuestionModel::create([
                     'User_NIP' => $user,
                     'Event_idEvent' => $event,
-                    'question' => $request->ask
+                    'question' => $request->ask,
+                    'status' => 1
                 ]);
                 return redirect()->back();
             } else {
@@ -46,6 +47,7 @@ class C_Question extends Controller {
                     'User_NIP' => $user,
                     'Speaker_idSpeaker' => $idSpeak,
                     'question' => $request->ask,
+                    'status' => 1
                 ]);
                 return redirect()->back();
             }

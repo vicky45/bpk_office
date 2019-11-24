@@ -40,7 +40,7 @@
             </div>
             <div class="hero-text">
                 <h1 style="font-size:450%;">SiTANYA</h1>
-                <p style="font-size:120%;">Sistem Informasi Penyampaian Pertanyaan<br>Badan Pemeriksa Keuangan Republik Indonesia</p>
+                <p style="font-size:120%;">Sistem Informasi Penyampaian Pertanyaan dan Jawaban<br>Badan Pemeriksa Keuangan Republik Indonesia</p>
             </div>
         </div>
         <script>
