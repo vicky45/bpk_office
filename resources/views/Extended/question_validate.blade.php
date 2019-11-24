@@ -37,8 +37,6 @@
         @else
         <small class="text-muted"><b>{{$v->SpeakerModel->name_speaker}} </b></small>
         @endif
-        <a class="float-sm-right" style="color:red;"><i class="fa fa-thumbs-o-down"></i><span> <b>{{($v->reaction_dislike)}}&emsp;</b> </span></a>
-        <a class="float-sm-right" style="color:green;" ><i class="fa fa-thumbs-o-up"></i><span> <b>{{($v->reaction_like)}}&emsp;</b> </span></a>
     </div>
 </div>
 <br>

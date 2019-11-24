@@ -10,7 +10,7 @@
         <meta name="author" content="Ananda Putra Alfa Robby, Cheni Irnandha Sebayang, Apriani Ingin Marito Tampubolon, Bella Nemesias Prasetiyani">
         <!-- Icon tab browser -->
         <link rel="shortcut icon" href="asset/img/Logo/Image-x.png" type="image/x-icon">
-        <title>TANYA | Badan Pemeriksa Keuangan Republik Indonesia</title>
+        <title>SiTANYA | Badan Pemeriksa Keuangan Republik Indonesia</title>
         <!-- Equipment -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/font.css') }}">
@@ -39,8 +39,8 @@
                 <img src="asset/img/Bg_Sitanar/Bg_1.jpg" style="width:100%;">
             </div>
             <div class="hero-text">
-                <h1 style="font-size:450%;">TANYA</h1>
-                <p style="font-size:120%;">Sistem Informasi Penyampaian Pertanyaan<br>Badan Pemeriksa Keuangan Republik Indonesia</p>
+                <h1 style="font-size:450%;">SiTANYA</h1>
+                <p style="font-size:120%;">Sistem Informasi Penyampaian Pertanyaan dan Jawaban<br>Badan Pemeriksa Keuangan Republik Indonesia</p>
             </div>
         </div>
         <script>

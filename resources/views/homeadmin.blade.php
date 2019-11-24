@@ -10,7 +10,7 @@
         <meta name="author" content="Ananda Putra Alfa Robby, Cheni Irnandha Sebayang, Apriani Ingin Marito Tampubolon, Bella Nemesias Prasetiyani">
         <!-- Icon tab sinar browser -->
         <link rel="shortcut icon" href="asset/img/Logo/Tanya-icon.png" type="image/x-icon">
-        <title>TANYA | Badan Pemeriksa Keuangan Republik Indonesia</title>
+        <title>SiTANYA | Badan Pemeriksa Keuangan Republik Indonesia</title>
         <!-- Equipment -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/font.css') }}">
@@ -45,7 +45,7 @@ $(".se-pre-con").fadeOut("slow");
                                 <div class="navbar-header ">
                                     <img src="asset/img/Logo/Tanya-icon.png" style="height: 3.0rem;">
                                 </div>  
-                                <h1><strong>TANYA</strong></h1>
+                                <h1><strong>SiTANYA</strong></h1>
                             </div>
                         </li>
                     </ul>
@@ -86,13 +86,6 @@ $(".se-pre-con").fadeOut("slow");
         <ul class="nav nav-tabs" id="Sheet" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active"  data-toggle="tab" href="#quest"><strong> QUESTION</strong></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"  data-toggle="tab" href="#poll"><strong>POLLING</strong></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"  data-toggle="tab" href="#sum"><STRONG>SUMMARY</strong></a>
-            </li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
@@ -166,13 +159,6 @@ $(".se-pre-con").fadeOut("slow");
                                 </div>
                                 <div class="col-md-2">
                                 </div>
-                                <div class="col-md-5">
-                                    <a href="/approveall/{{session()->get('event')}}">
-                                        <button class="btn btn-success float-sm-right">
-                                            Approve All
-                                        </button>
-                                    </a>
-                                </div>
                             </div>
                             <br>
                             <div id="show_question" class="card padding-manual scroll">
@@ -206,13 +192,6 @@ $(".se-pre-con").fadeOut("slow");
                                     </div>
                                     <div class="card-footer ">
                                         @if($a->answer === "Not Answered")
-                                        <div class="col-md-12">
-                                            <a href="#">
-                                                <button data-toggle="modal" data-target="#edit{{$a->idQuestion}}" type="button" class="btn btn-success float-sm-right">
-                                                    <i class="fa fa-comment"></i> Answer
-                                                </button>
-                                            </a>
-                                        </div>
                                         @else
                                         <div class="row">
                                             <div class="col-md-12">
@@ -221,18 +200,8 @@ $(".se-pre-con").fadeOut("slow");
                                             <div class="col-md-6">
                                             </div>
                                             <div class="col-md-5">
-                                                <a href="#">
-                                                    <button data-toggle="modal" data-target="#edit{{$a->idQuestion}}" type="button" class="btn btn-info float-sm-right">
-                                                        <i class="fa fa-check"></i> Edit Answer
-                                                    </button>
-                                                </a>
                                             </div>
                                             <div class="col-md-1">
-                                                <a href="/remove_ans/{{$a->idQuestion}}">
-                                                    <button class="btn btn-danger float-sm-right">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </a>
                                             </div>
                                         </div>
                                         @endif
@@ -416,13 +385,13 @@ $(".se-pre-con").fadeOut("slow");
                                 @endphp
                                 @foreach($ev->AdminModel as $count_admin)
                                 @php
-                                $countall += count($count_admin->Name_Admin);
+                                $countall += is_countable($count_admin->Name_Admin);
                                 @endphp
                                 @endforeach
 
                                 @foreach($ev->User_has_EventModel as $count_user)
                                 @php
-                                $countall += count($count_user->User_NIP);
+                                $countall += is_countable($count_user->User_NIP);
                                 @endphp
                                 @endforeach
                                 <div class="row head">

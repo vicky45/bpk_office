@@ -47,5 +47,3 @@ Route::get('/submit/{id}', 'C_Polling@submitPolling');
 
 //Route Summary Download (Comming Soon)
 Route::get('/download/{id}', 'C_Event@Downloadsummary');
-
-
