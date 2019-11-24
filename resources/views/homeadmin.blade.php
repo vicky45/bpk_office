@@ -192,6 +192,13 @@ $(".se-pre-con").fadeOut("slow");
                                     </div>
                                     <div class="card-footer ">
                                         @if($a->answer === "Not Answered")
+                                        <div class="col-md-12">
+                                            <a href="#">
+                                                <button data-toggle="modal" data-target="#edit{{$a->idQuestion}}" type="button" class="btn btn-success float-sm-right">
+                                                    <i class="fa fa-comment"></i> Answer
+                                                </button>
+                                            </a>
+                                        </div>
                                         @else
                                         <div class="row">
                                             <div class="col-md-12">
@@ -200,8 +207,18 @@ $(".se-pre-con").fadeOut("slow");
                                             <div class="col-md-6">
                                             </div>
                                             <div class="col-md-5">
+                                                <a href="#">
+                                                    <button data-toggle="modal" data-target="#edit{{$a->idQuestion}}" type="button" class="btn btn-info float-sm-right">
+                                                        <i class="fa fa-check"></i> Edit Answer
+                                                    </button>
+                                                </a>
                                             </div>
                                             <div class="col-md-1">
+                                                <a href="/remove_ans/{{$a->idQuestion}}">
+                                                    <button class="btn btn-danger float-sm-right">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </a>
                                             </div>
                                         </div>
                                         @endif
@@ -217,7 +234,6 @@ $(".se-pre-con").fadeOut("slow");
                                 </div>
                                 @endif
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>
