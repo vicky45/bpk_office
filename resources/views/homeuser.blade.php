@@ -10,7 +10,7 @@
         <meta name="author" content="Ananda Putra Alfa Robby, Cheni Irnandha Sebayang, Apriani Ingin Marito Tampubolon, Bella Nemesias Prasetiyani">
         <!-- Icon tab sinar browser -->
         <link rel="shortcut icon" href="asset/img/Logo/Image-x.png" type="image/x-icon">
-        <title>TANYA | Badan Pemeriksa Keuangan Republik Indonesia</title>
+        <title>SiTANYA | Badan Pemeriksa Keuangan Republik Indonesia</title>
         <!-- Equipment -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/font.css') }}">
@@ -45,7 +45,7 @@ var auto_refresh = setInterval(
                                 <div class="navbar-header ">
                                     <img src="asset/img/Logo/Tanya-icon.png" style="height: 3.0rem;">
                                 </div>  
-                                <h1><strong>&nbsp;TANYA</strong></h1>
+                                <h1><strong>&nbsp;SiTANYA</strong></h1>
                             </div>
                         </li>
                     </ul>
@@ -94,9 +94,6 @@ var auto_refresh = setInterval(
         <ul class="nav nav-tabs justify-content-center" id="Sheet" role="tablist">
             <li class="nav-item">
                 <a class="a-shet nav-link active" data-toggle="tab" href="#quest">&nbsp;<strong> QUESTION</strong></a>
-            </li>
-            <li class="nav-item">
-                <a class=" a-shet nav-link" data-toggle="tab" href="#poll">&nbsp;<strong>POLLING</strong></a>
             </li>
         </ul>
         <!-- Tab panes -->

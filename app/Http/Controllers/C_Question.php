@@ -33,7 +33,7 @@ class C_Question extends Controller {
                 QuestionModel::create([
                     'User_NIP' => $user,
                     'Event_idEvent' => $event,
-                    'question' => $request->ask
+                    'question' => $request->ask,
                 ]);
                 return redirect()->back();
             } else {
