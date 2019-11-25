@@ -10,7 +10,7 @@ $votes_per_poll = 0;
 <!--Count for Question-->
 @foreach($question as $q)
 @php
-$count_question += count($q->question);
+$count_question += is_countable($q->question);
 @endphp
 @endforeach
 <!--Count for Like, Dislike-->
@@ -23,7 +23,7 @@ $count_dislike += $count->reaction_dislike;
 <!---Polling Count---->
 @foreach($polling as $count_poll)
 @php
-$poll_was_held += count($count_poll->idPolling);
+$poll_was_held += is_countable($count_poll->idPolling);
 @endphp 
 @endforeach
 

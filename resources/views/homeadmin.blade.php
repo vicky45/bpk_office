@@ -177,6 +177,8 @@ $(".se-pre-con").fadeOut("slow");
                                     <div class="card-header-answer">
                                         <img src="asset/img/default_user.png" alt="Avatar" class="avatar">
                                         <b>{{$a->user->name}}</b>
+                                        <a class="float-sm-right text-muted"><i class="fa fa-thumbs-o-down"></i><span> <b>{{($a->reaction_dislike)}}&emsp;</b> </span></a>
+                                        <a class="float-sm-right text-muted"><i class="fa fa-thumbs-o-up"></i><span> <b>{{($a->reaction_like)}}&emsp;</b> </span></a>
                                     </div>
                                     <div class="text-center" >
                                         <hr class="hr-fit">
